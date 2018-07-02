@@ -1,189 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>看飞机列表</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <title>看、天上有飞机</title>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <!-- 引入资源文件 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="js/jquery.form.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/highcharts-4.1.min.js"></script>
     <script type="text/javascript" src="js/oc.min.js"></script>
     <link rel="icon" type="image/png" href="i/ico.png" sizes="16x16">
-    
+
+
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
-   <!--  <script src="http://cache.amap.com/lbs/static/es5.min.js"></script> -->
-    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     <script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.6&key=82f9e75505b649be9ab81a45ae34aa14'></script>
-    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link href="css/common.css" rel="stylesheet" type="text/css">
+    <style>
+    </style>
 </head>
 <body>
 	<#include "common/header.html" />
       <#include "./nav.html" />
    <div class="content">
-     
-        <div id="container">
-        </div>
-        <div id="panel">
-            <div id="intro">
-                <h3>无人机列表</h3>
+        <div id="outer-box">
+            <div id="container">
             </div>
-            <ul id="my-list"></ul>
+            <div id="panel">
+                <div id="intro">
+                    <h3>&nbsp;无人机列表</h3>
+                </div>
+
+                <div id="planeSelect">
+                    <label class="checkbox-inline opt"><input type="checkbox" name="optionsRadiosinline" id="optionsRadios0" value="0"  onclick="showplane(0)"><span style="color: #2114F4">飞行中</span></label><br>
+                    <label class="checkbox-inline opt"><input type="checkbox" name="optionsRadiosinline" id="optionsRadios1" value="1"  onclick="showplane(1)" ><span style="color: #8e44ad">已入库</span></label><br>
+                    <label class="checkbox-inline opt"><input type="checkbox" name="optionsRadiosinline" id="optionsRadios2" value="2"  onclick="showplane(2)"><span style="color: #27ae60">待放飞</span></label><br>
+                    <label class="checkbox-inline opt"><input type="checkbox" name="optionsRadiosinline" id="optionsRadios3" value="3"  onclick="showplane(3)"><span style="color: #e74c3c">故障中</span></label>
+                </div>
+                <ul id="my-list"></ul>
+                <div id="pageIndex">
+                    <ul class="pagination">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
+        <!-- UI组件库 1.0 -->
+        <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+        <script type="text/javascript">
+           
+            /* var data = [{
+                planeId: '1',
+                flongda: [116.020764, 39.904989],
+                status: '0',
+                dec: '这不知道是啥',
+                updateTime: '2018-4-4 12:23:12'
+            }, {
+                planeId: '2',
+                flongda: [116.789806, 29.904989],
+                status: '1',
+                dec: '其实是挖掘机',
+                updateTime: '2018-4-4 12:23:12'
+            }, {
+                planeId: '3',
+                flongda: [126.789806, 39.904989],
+                status: '2',
+                dec: '挖掘绝技',
+                updateTime: '2018-4-4 12:23:12'
+            }, {
+                planeId: '4',
+                flongda: [116.789806, 36.904989],
+                status: '3',
+                dec: '看飞机啊',
+                updateTime: '2018-4-4 12:23:12'
+            }, {
+                planeId: '5',
+                flongda: [115.789806, 39.904989],
+                status: '2',
+                dec: '无人机啊',
+                updateTime: '2018-4-4 12:23:12'
+            }]; */
+
+            //var PlaneInitFlag = false;
+			data = ${planelist};
+            //创建地图
+            var map = new AMap.Map('container', {
+                zoom: 9,
+                center: [116.397428, 39.90923], //中心点坐标
+            });
+
+            AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
+                //缩放控件，显示Zoom值
+                map.addControl(new BasicControl.Zoom({
+                    position: 'lt',
+                    showZoomNum: true,
+                }));
+            });
+            var infoWindow = new AMap.InfoWindow({
+                isCustom: true,
+                offset: new AMap.Pixel(20, -25)
+            });
+
+            var statuscode = ['0', '1', '2', '3'];
+            var Statusdec = ['飞行中', '已入库', '待放飞', '故障'];
+            var Imgsrc = ['fly-32.png', 'store-32.png', 'wait-32.png', 'warn-32.png'];
+            var markersize = data.length;
+            var markerlist = {};
+            for (var m = 0; m < 4; m++) {
+                markerlist[statuscode[m]] = new Array();
+            }
+
+            for (var i = 0; i < markersize; i++) {
+                var statusDec = Statusdec[Number(data[i].status)];
+                var imgsrc = 'i/' + Imgsrc[Number(data[i].status)];
+
+
+                var markeritem = new AMap.Marker({
+                    //map: map,
+                    position: data[i].flongda,
+                    icon: new AMap.Icon({
+                        size: new AMap.Size(32, 32), //图标大小
+                        image: imgsrc,
+                        offset: new AMap.Pixel(-16, -16) // 相对于基点的偏移位置
+                    }),
+
+                });
+
+                //实例化信息窗体
+                var title = '无人机编号:<span>' + data[i].planeId + '</span>';
+                var content = [];
+                content.push("状态：" + statusDec);
+                content.push("描述：" + data[i].dec);
+                content.push("更新时间：" + data[i].updateTime);
+
+                markeritem.content = createInfoWindow(title, content.join("<br/>"));
+                markeritem.on('click', markerClick);
+                //markeritem.emit('click', {target: markeritem});
+
+
+                markerlist[data[i].status].push(markeritem);
+            }
+
+            function markerClick(e) {
+                infoWindow.setContent(e.target.content);
+                infoWindow.open(map, e.target.getPosition());
+            }
+
+
+            //选中无人机类型进行显示,并且展示相关列表
+            function showplane(index) {
+                var disRouteCheckbox = document.getElementById("optionsRadios" + index);
+                if (disRouteCheckbox.checked == true) {
+                    map.add(markerlist[statuscode[index]]);
+
+
+                } else {
+                    map.remove(markerlist[statuscode[index]]);
+                }
+                document.getElementById("my-list").innerHTML = "";
+                var flaglist = [];
+                var innHTML = "";
+                for (var i = 0; i < 4; i++) {
+                    var checkfg = document.getElementById("optionsRadios" + i);
+                    if (checkfg.checked == true) {
+                        flaglist.push(i + '');
+                    }
+                }
+
+                for (var j = 0; j < data.length; j++) {
+
+                    if (flaglist.indexOf(data[j].status) >= 0) {
+                        var str = '<li class="poibox" onclick="showPlan(' + 'this,' + data[j].flongda + ')">无人机编号：' + data[j].planeId + '&nbsp;&nbsp;状态：' + Statusdec[data[j].status] + '<br>更新时间：' + data[j].updateTime + '<br>描述：' + data[j].dec +
+                            '</li>';
+                        innHTML = innHTML + str;
+                    }
+                }
+
+                document.getElementById("my-list").innerHTML = innHTML;
+            }
+
+
+            function showPlan(e, positionX, positionY) {
+                var posi = [positionX, positionY];
+                //e.className +=' selected';
+                //console.log(e);
+                map.panTo(posi);
+
+            }
+
+          
+            //构建自定义信息窗体
+            function createInfoWindow(title, content) {
+                var info = document.createElement("div");
+                info.className = "info";
+
+                //可以通过下面的方式修改自定义窗体的宽高
+                info.style.width = "240px";
+                // 定义顶部标题
+                var top = document.createElement("div");
+                var titleD = document.createElement("div");
+                var closeX = document.createElement("img");
+                top.className = "info-top";
+                titleD.innerHTML = title;
+                closeX.src = "res/i/close2.gif";
+                closeX.onclick = closeInfoWindow;
+
+                top.appendChild(titleD);
+                top.appendChild(closeX);
+                info.appendChild(top);
+
+                // 定义中部内容
+                var middle = document.createElement("div");
+                middle.className = "info-middle";
+                middle.style.backgroundColor = 'white';
+                middle.innerHTML = content;
+                info.appendChild(middle);
+                return info;
+            }
+
+            //关闭信息窗体
+            function closeInfoWindow() {
+                map.clearInfoWindow();
+            }
+
+            //function disPlane() {
+            //通过ajax加载数据
+            //                if (PlaneInit == false) {
+            //                    if (window.XMLHttpRequest) 
+            //                    {
+            //                        var oAjax = new XMLHttpRequest(); //创建ajax对象
+            //                    } else //如果没有XMLHttpRequest，那就是IE6浏览器
+            //                    {
+            //                        var oAjax = new ActiveXObject("Microsoft.XMLHTTP"); //IE6浏览器创建ajax对象
+            //                    }
+            //                    oAjax.open("POST", "${s.base}/routeList.action?t='+new Date().getTime()", true); //加上t='+new Date().getTime()"的目的是为了消除缓存，每次的t的值不一样。
+            //                    oAjax.send();
+            //                    oAjax.onreadystatechange = function() {
+            //                    if (oAjax.readyState == 4) {
+            //                        if (oAjax.status == 200) //判断是否成功,如果是200，就代表成功
+            //                            {
+            //                                PlaneInit = true;
+            //                                alert("成功" + oAjax.responseText); 
+            //                            } else {
+            //                                alert("无人机数据查询失败");
+            //                            }
+            //                        }
+            //                    };
+            //                }
+            //在这里显示路由
+            //                var ListPlane = document.getElementById("panel");
+            //                var disPlanecheckbox = document.getElementById("disPlane");
+            //                if (disPlanecheckbox.checked == false) {
+            //
+            //                    ListPlane.style.display = "none";
+            //                    undisMarker();
+            //
+            //                } else {
+            //                    ListPlane.style.display = "";
+            //                    disMark();
+            //                }
+            //                }
+            //
+            //            function disRoute() {
+            //                //在这里显示无人机
+            //                var disRouteCheckbox = document.getElementById("disRoute");
+            //                if (disRouteCheckbox.checked == true) {
+            //                    //alert('选中');
+            //                } else {
+            //                    // alert('未选中');
+            //                }
+            //            }
+        </script>
     
  </div>
  
-    <!-- UI组件库 1.0 -->
-    <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
-    <script type="text/javascript">
-        //创建地图
-        
-           var map = new AMap.Map('container', {
-             zoom: 9
-           });
-        AMapUI.loadUI(['misc/MarkerList'], function(MarkerList) {
-
-            var markerList = new MarkerList({
-                //关联的map对象
-                map: map,
-
-                //列表的dom容器的id
-                listContainer: 'my-list',
-
-                //选中状态（通过点击列表或者marker）时在Marker和列表节点上添加的class，可以借此编写css控制选中时的展示效果
-                selectedClassNames: 'selected',
-
-                //返回数据项的Id
-                getDataId: function(dataItem, index) {
-                    //index表示该数据项在数组中的索引位置，从0开始，如果确实没有id，可以返回index代替
-                    return dataItem.id;
-                },
-                //返回数据项的位置信息，需要是AMap.LngLat实例，或者是经纬度数组，比如[116.789806, 39.904989]
-                getPosition: function(dataItem) {
-                    return dataItem.position;
-                },
-                //返回数据项对应的Marker
-                getMarker: function(dataItem, context, recycledMarker) {
-
-                    //marker的标注内容
-                    var content = dataItem.markerLabel;
-
-                    var label = {
-                        offset: new AMap.Pixel(16, 18), //修改label相对于marker的位置
-                        content: content
-                    };
-
-                    //存在可回收利用的marker
-                    if (recycledMarker) {
-                        //直接更新内容返回
-                        recycledMarker.setLabel(label);
-                        return recycledMarker;
-                    }
-
-                    //返回一个新的Marker
-                    return new AMap.Marker({
-                        map: map,
-                        label: label,
-                        icon: new AMap.Icon({
-                                size: new AMap.Size(45, 45), //图标大小
-                                image: "i/place3.png",
-                        }),
-           
-                    });
-                },
-                //返回数据项对应的infoWindow
-                getInfoWindow: function(dataItem, context, recycledInfoWindow) {
-
-                    var tpl = '<p>编号：<%- dataItem.id %>&nbsp;&nbsp;状态：<%- dataItem.infoWinContent %><br><span>描述：该无人机正常</span><p>';
-
-                    //MarkerList.utils.template支持underscore语法的模板
-                    var content = MarkerList.utils.template(tpl, {
-                        dataItem: dataItem,
-                        dataIndex: context.index
-                    });
-
-                    if (recycledInfoWindow) {
-                        //存在可回收利用的infoWindow, 直接更新内容返回
-                        recycledInfoWindow.setContent(content);
-                        return recycledInfoWindow;
-                    }
-
-                    //返回一个新的InfoWindow
-                    return new AMap.InfoWindow({
-                        offset: new AMap.Pixel(0, -23),
-                        content: content
-                    });
-                },
-                //返回数据项对应的列表节点
-                getListElement: function(dataItem, context, recycledListElement) {
-
-                    var tpl = '<p>编号：<%- dataItem.id %>&nbsp;&nbsp;状态：<%- dataItem.infoWinContent %><br><span>描述：该无人机正常</span><p>';
-
-                    var content = MarkerList.utils.template(tpl, {
-                        dataItem: dataItem,
-                        dataIndex: context.index
-                    });
-
-                    if (recycledListElement) {
-                        //存在可回收利用的listElement, 直接更新内容返回
-                        recycledListElement.innerHTML = content;
-                        return recycledListElement;
-                    }
-
-                    //返回一段html，MarkerList将利用此html构建一个新的dom节点
-                    return '<li>' + content + '</li>';
-                }
-
-            });
-
-            //监听选中改变
-            markerList.on('selectedChanged', function(event, info) {
-                //console.log(event, info);
-            });
-
-            //监听Marker和ListElement上的点击
-            markerList.on('markerClick listElementClick', function(event, record) {
-                //console.log(event, record);
-            });
-			
-            var planelist=${planeListInfo};
-            var pointlist=${planepoints};
-            var data=[];
-            for(i=0;i<planelist.length;i++){
-            	data[i]={
-            			id:planelist[i].planeId,
-            			position:pointlist[i],
-            			infoWinContent:planelist[i].status,
-            			listDesc:"2333"
-            	}     	
-            };
-            
-           
-            //构建一个数据项数组，数据项本身没有格式要求，但需要支持getDataId和getPosition
-            /* var data = [{
-                id: '1',
-                position: [116.020764, 39.904989],
-                //markerLabel: '无人机1',
-                infoWinContent: '状态：飞行中',
-                listDesc: '无人机1'
-            }, {
-                id: '2',
-                position: [116.405285, 39.904989],
-                //markerLabel: '无人机2',
-                infoWinContent: '状态：停止中',
-                listDesc: '无人机2'
-            }, {
-                id: '3',
-                position: [116.789806, 39.904989],
-                //markerLabel: 'X_C',
-                infoWinContent: '状态：维修中',
-                listDesc: '店铺 C'
-            }]; */
-
-            //展示该数据
-            markerList.render(data);
-        });
-    </script>
 	</body>
 </html>

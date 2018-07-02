@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import hust.plane.mapper.mapper.RouteMapper;
@@ -15,12 +16,17 @@ import hust.plane.utils.pojo.RouteExcel;
 @Service
 public class FileServiceImpl implements FileService {
 	
+	@Value("ROOT_FILE")
+	private String ROOT_FILE;
+	
 	@Autowired
 	private RouteMapper routeMapper;
 	//插入路由数据
 	@Override
 	public void insertRoute(String path,Route route) {
-		List<RouteExcel> readExcel = ExcelUtil.readExcel(path);
+		//修改
+		String filepath = ROOT_FILE + path;
+		List<RouteExcel> readExcel = ExcelUtil.readExcel(filepath);
 		route.setRouteId("5");
 		route.setDescripte("这是一条测试数据");
 		route.setType("1");
