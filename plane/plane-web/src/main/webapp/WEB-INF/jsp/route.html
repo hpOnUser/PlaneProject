@@ -36,7 +36,7 @@
 		                        center: [116.397428, 39.90923],
 		                        zoom: 13
 		                    });
-		                    
+
 		                    var marker = new AMap.Marker({
 		                        map: map,
 		                        position: [116.398258, 39.9046],
@@ -48,7 +48,7 @@
 		                        }),
 		                        draggable: true //点标记可拖拽
 		                    });
-		                    
+
 		                    var marker2 = new AMap.Marker({
 		                        map: map,
 		                        position: [116.382122,39.901176],
@@ -60,7 +60,7 @@
 		                        }),
 		                        draggable: true //点标记可拖拽
 		                    });
-                            
+
 
 		                    AMapUI.loadUI(['overlay/SimpleInfoWindow'], function(SimpleInfoWindow) {
 		                        var infoWindow = new SimpleInfoWindow({
@@ -91,12 +91,12 @@
 		                        AMap.event.addListener(marker, 'click', function() {
 		                            openInfoWin();
 		                        });
-                                
+
 		                        AMap.event.addListener(marker2, 'click', function() {
 		                            openInfoWin();
 		                        });
 		                    });
-		                    
+
 		                    var lineArr = ${path};
 		                    var polyline = new AMap.Polyline({
 		                        path: lineArr,          //设置线覆盖物路径
@@ -107,8 +107,8 @@
 		                        strokeDasharray: [10, 5] //补充线样式
 		                    });
 		                    polyline.setMap(map);
-		                    
-		                    
+
+
                    	</script>
             	      </div>
 				 </div>
