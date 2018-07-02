@@ -31,6 +31,5 @@ public interface TaskMapper {
 
     int updateByPrimaryKey(Task record);
     
-    //分页方法
-	List<Task> queryPage(Task Task, TailPage<TaskPojo> page);
+    List<Task> queryPage(Task task, TailPage<TaskPojo> page);
 }
