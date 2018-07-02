@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hust.phone.mapper.mapper.TaskMapper" >
+  <resultMap id="BaseResultMap" type="hust.phone.mapper.pojo.Task" >
+    <id column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="userAid" property="useraid" jdbcType="VARCHAR" />
+    <result column="userBid" property="userbid" jdbcType="VARCHAR" />
+    <result column="userCid" property="usercid" jdbcType="VARCHAR" />
+    <result column="planepathid" property="planepathid" jdbcType="VARCHAR" />
+    <result column="planeid" property="planeid" jdbcType="VARCHAR" />
+    <result column="plantime" property="plantime" jdbcType="TIMESTAMP" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="realtime" property="realtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="finishstatus" property="finishstatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    taskid, userAid, userBid, userCid, planepathid, planeid, plantime, createtime, realtime, 
+    status, updatetime, finishstatus
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hust.phone.mapper.pojo.TaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where taskid = #{taskid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from task
+    where taskid = #{taskid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="hust.phone.mapper.pojo.TaskExample" >
+    delete from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="hust.phone.mapper.pojo.Task" >
+    insert into task (taskid, userAid, userBid, 
+      userCid, planepathid, planeid, 
+      plantime, createtime, realtime, 
+      status, updatetime, finishstatus
+      )
+    values (#{taskid,jdbcType=VARCHAR}, #{useraid,jdbcType=VARCHAR}, #{userbid,jdbcType=VARCHAR}, 
+      #{usercid,jdbcType=VARCHAR}, #{planepathid,jdbcType=VARCHAR}, #{planeid,jdbcType=VARCHAR}, 
+      #{plantime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, #{realtime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{finishstatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="hust.phone.mapper.pojo.Task" >
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskid != null" >
+        taskid,
+      </if>
+      <if test="useraid != null" >
+        userAid,
+      </if>
+      <if test="userbid != null" >
+        userBid,
+      </if>
+      <if test="usercid != null" >
+        userCid,
+      </if>
+      <if test="planepathid != null" >
+        planepathid,
+      </if>
+      <if test="planeid != null" >
+        planeid,
+      </if>
+      <if test="plantime != null" >
+        plantime,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="realtime != null" >
+        realtime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="finishstatus != null" >
+        finishstatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="useraid != null" >
+        #{useraid,jdbcType=VARCHAR},
+      </if>
+      <if test="userbid != null" >
+        #{userbid,jdbcType=VARCHAR},
+      </if>
+      <if test="usercid != null" >
+        #{usercid,jdbcType=VARCHAR},
+      </if>
+      <if test="planepathid != null" >
+        #{planepathid,jdbcType=VARCHAR},
+      </if>
+      <if test="planeid != null" >
+        #{planeid,jdbcType=VARCHAR},
+      </if>
+      <if test="plantime != null" >
+        #{plantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realtime != null" >
+        #{realtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishstatus != null" >
+        #{finishstatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="hust.phone.mapper.pojo.TaskExample" resultType="java.lang.Integer" >
+    select count(*) from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update task
+    <set >
+      <if test="record.taskid != null" >
+        taskid = #{record.taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useraid != null" >
+        userAid = #{record.useraid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userbid != null" >
+        userBid = #{record.userbid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usercid != null" >
+        userCid = #{record.usercid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planepathid != null" >
+        planepathid = #{record.planepathid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planeid != null" >
+        planeid = #{record.planeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plantime != null" >
+        plantime = #{record.plantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.realtime != null" >
+        realtime = #{record.realtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishstatus != null" >
+        finishstatus = #{record.finishstatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update task
+    set taskid = #{record.taskid,jdbcType=VARCHAR},
+      userAid = #{record.useraid,jdbcType=VARCHAR},
+      userBid = #{record.userbid,jdbcType=VARCHAR},
+      userCid = #{record.usercid,jdbcType=VARCHAR},
+      planepathid = #{record.planepathid,jdbcType=VARCHAR},
+      planeid = #{record.planeid,jdbcType=VARCHAR},
+      plantime = #{record.plantime,jdbcType=TIMESTAMP},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      realtime = #{record.realtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      finishstatus = #{record.finishstatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="hust.phone.mapper.pojo.Task" >
+    update task
+    <set >
+      <if test="useraid != null" >
+        userAid = #{useraid,jdbcType=VARCHAR},
+      </if>
+      <if test="userbid != null" >
+        userBid = #{userbid,jdbcType=VARCHAR},
+      </if>
+      <if test="usercid != null" >
+        userCid = #{usercid,jdbcType=VARCHAR},
+      </if>
+      <if test="planepathid != null" >
+        planepathid = #{planepathid,jdbcType=VARCHAR},
+      </if>
+      <if test="planeid != null" >
+        planeid = #{planeid,jdbcType=VARCHAR},
+      </if>
+      <if test="plantime != null" >
+        plantime = #{plantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realtime != null" >
+        realtime = #{realtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishstatus != null" >
+        finishstatus = #{finishstatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where taskid = #{taskid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hust.phone.mapper.pojo.Task" >
+    update task
+    set userAid = #{useraid,jdbcType=VARCHAR},
+      userBid = #{userbid,jdbcType=VARCHAR},
+      userCid = #{usercid,jdbcType=VARCHAR},
+      planepathid = #{planepathid,jdbcType=VARCHAR},
+      planeid = #{planeid,jdbcType=VARCHAR},
+      plantime = #{plantime,jdbcType=TIMESTAMP},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      realtime = #{realtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      finishstatus = #{finishstatus,jdbcType=VARCHAR}
+    where taskid = #{taskid,jdbcType=VARCHAR}
+  </update>
+</mapper>

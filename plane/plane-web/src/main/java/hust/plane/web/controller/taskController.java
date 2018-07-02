@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import hust.plane.mapper.mapper.TaskMapper;
 import hust.plane.mapper.pojo.Task;
+import hust.plane.mapper.pojo.User;
 import hust.plane.service.interFace.TaskService;
 import hust.plane.utils.page.TailPage;
 import hust.plane.utils.page.TaskPojo;
@@ -45,6 +46,8 @@ public class taskController {
 	@RequestMapping("/taskCreate")
 	public String createTask(Task task)
 	{
+		//初始状态为0受理中
+		task.setStatus("0");
 		taskServiceImpl.saveTask(task);
 		return "redirect:/taskPageList";
 	}

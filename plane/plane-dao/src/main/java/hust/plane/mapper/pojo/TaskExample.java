@@ -385,73 +385,73 @@ public class TaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andRouteidIsNull() {
-            addCriterion("routeid is null");
+        public Criteria andPlanepathidIsNull() {
+            addCriterion("planepathid is null");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidIsNotNull() {
-            addCriterion("routeid is not null");
+        public Criteria andPlanepathidIsNotNull() {
+            addCriterion("planepathid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidEqualTo(String value) {
-            addCriterion("routeid =", value, "routeid");
+        public Criteria andPlanepathidEqualTo(String value) {
+            addCriterion("planepathid =", value, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidNotEqualTo(String value) {
-            addCriterion("routeid <>", value, "routeid");
+        public Criteria andPlanepathidNotEqualTo(String value) {
+            addCriterion("planepathid <>", value, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidGreaterThan(String value) {
-            addCriterion("routeid >", value, "routeid");
+        public Criteria andPlanepathidGreaterThan(String value) {
+            addCriterion("planepathid >", value, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidGreaterThanOrEqualTo(String value) {
-            addCriterion("routeid >=", value, "routeid");
+        public Criteria andPlanepathidGreaterThanOrEqualTo(String value) {
+            addCriterion("planepathid >=", value, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidLessThan(String value) {
-            addCriterion("routeid <", value, "routeid");
+        public Criteria andPlanepathidLessThan(String value) {
+            addCriterion("planepathid <", value, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidLessThanOrEqualTo(String value) {
-            addCriterion("routeid <=", value, "routeid");
+        public Criteria andPlanepathidLessThanOrEqualTo(String value) {
+            addCriterion("planepathid <=", value, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidLike(String value) {
-            addCriterion("routeid like", value, "routeid");
+        public Criteria andPlanepathidLike(String value) {
+            addCriterion("planepathid like", value, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidNotLike(String value) {
-            addCriterion("routeid not like", value, "routeid");
+        public Criteria andPlanepathidNotLike(String value) {
+            addCriterion("planepathid not like", value, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidIn(List<String> values) {
-            addCriterion("routeid in", values, "routeid");
+        public Criteria andPlanepathidIn(List<String> values) {
+            addCriterion("planepathid in", values, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidNotIn(List<String> values) {
-            addCriterion("routeid not in", values, "routeid");
+        public Criteria andPlanepathidNotIn(List<String> values) {
+            addCriterion("planepathid not in", values, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidBetween(String value1, String value2) {
-            addCriterion("routeid between", value1, value2, "routeid");
+        public Criteria andPlanepathidBetween(String value1, String value2) {
+            addCriterion("planepathid between", value1, value2, "planepathid");
             return (Criteria) this;
         }
 
-        public Criteria andRouteidNotBetween(String value1, String value2) {
-            addCriterion("routeid not between", value1, value2, "routeid");
+        public Criteria andPlanepathidNotBetween(String value1, String value2) {
+            addCriterion("planepathid not between", value1, value2, "planepathid");
             return (Criteria) this;
         }
 
@@ -832,6 +832,76 @@ public class TaskExample {
 
         public Criteria andUpdatetimeNotBetween(Date value1, Date value2) {
             addCriterion("updatetime not between", value1, value2, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusIsNull() {
+            addCriterion("finishstatus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusIsNotNull() {
+            addCriterion("finishstatus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusEqualTo(String value) {
+            addCriterion("finishstatus =", value, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusNotEqualTo(String value) {
+            addCriterion("finishstatus <>", value, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusGreaterThan(String value) {
+            addCriterion("finishstatus >", value, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusGreaterThanOrEqualTo(String value) {
+            addCriterion("finishstatus >=", value, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusLessThan(String value) {
+            addCriterion("finishstatus <", value, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusLessThanOrEqualTo(String value) {
+            addCriterion("finishstatus <=", value, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusLike(String value) {
+            addCriterion("finishstatus like", value, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusNotLike(String value) {
+            addCriterion("finishstatus not like", value, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusIn(List<String> values) {
+            addCriterion("finishstatus in", values, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusNotIn(List<String> values) {
+            addCriterion("finishstatus not in", values, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusBetween(String value1, String value2) {
+            addCriterion("finishstatus between", value1, value2, "finishstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishstatusNotBetween(String value1, String value2) {
+            addCriterion("finishstatus not between", value1, value2, "finishstatus");
             return (Criteria) this;
         }
     }

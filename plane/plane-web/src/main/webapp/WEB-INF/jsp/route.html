@@ -99,9 +99,13 @@
                             position: [116.368904, 39.913423]
                         });
 
+
+
                         startPoint = startPoint2;
                         dangerPoint = dangerPoint1;
                     }
+
+
 
                     var infoData = ${infoData};
                     AMapUI.loadUI(['overlay/SimpleInfoWindow'], function (SimpleInfoWindow) {
@@ -147,6 +151,7 @@
                         function openInfoWin() {
                             infoWindow.open(map, startPoint.getPosition());
                         }
+
 
                         //marker 点击时打开
                         AMap.event.addListener(startPoint, 'click', function () {

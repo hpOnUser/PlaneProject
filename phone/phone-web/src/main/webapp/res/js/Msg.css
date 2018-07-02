@@ -1,0 +1,137 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+}
+.Msgdet {
+
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 100px;
+   
+}
+/*****MsgIndex*******/
+#worktalkbg{
+	width:100%;
+	height:200px;
+
+}
+.title{
+	margin-bottom:18px;
+}
+table {
+    width: 80%;
+}
+a{
+    color: black;
+}
+.context a:link {
+    text-decoration: none;
+    color: black;
+}
+
+.context a:visited {
+    text-decoration: none;
+    color: chocolate;
+}
+
+.context a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.context a:active {
+    text-decoration: none;
+    color: black;
+}
+
+.user_name {
+    float: left;
+
+}
+
+.create_time {
+    float: right;
+    padding-right: 5px;
+}
+
+.user_name {
+    font-weight: bold;
+}
+
+.context {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 30px;
+    width: 780px;
+    float: left;
+}
+
+.formore {
+    float: right;
+    width: 20px;
+}
+
+/*****MsgDetail*******/
+
+
+#labels {
+    padding-left: 6px;
+    padding-top: 6px;
+    margin-bottom: 10px;
+    text-align: left;
+
+}
+
+#resp {
+    padding: 10px;
+}
+
+#resp_num {
+
+    font-weight: bold;
+    float: right;
+    padding-right: 16px;
+}
+
+#repList {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+.commentOpt{
+	display:inline-block;
+}
+.userName{
+    font-weight: bold;
+}
+#AddbtnDiv{
+    padding: 0;
+    margin-bottom: 8px;
+    padding-left: 10px;
+    float: left;
+}
+.allcomment{
+    width: 70%;
+    margin-top: 8px;
+    margin-left: 50px;
+   
+}
+.commentUserName{
+    float: left;
+}
+.commentTime{
+    float: right;
+}
+#commentIn{
+    padding: 3px;  
+}
+.fold{
+    float: right;
+    margin-top: 5px;
+}

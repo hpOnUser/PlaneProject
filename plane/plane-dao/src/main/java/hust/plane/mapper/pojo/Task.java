@@ -13,7 +13,7 @@ public class Task {
 
     private String usercid;
 
-    private String routeid;
+    private String planepathid;
 
     private String planeid;
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -26,6 +26,8 @@ public class Task {
     private String status;
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatetime;
+
+    private String finishstatus;
 
     public String getTaskid() {
         return taskid;
@@ -59,12 +61,12 @@ public class Task {
         this.usercid = usercid == null ? null : usercid.trim();
     }
 
-    public String getRouteid() {
-        return routeid;
+    public String getPlanepathid() {
+        return planepathid;
     }
 
-    public void setRouteid(String routeid) {
-        this.routeid = routeid == null ? null : routeid.trim();
+    public void setPlanepathid(String planepathid) {
+        this.planepathid = planepathid == null ? null : planepathid.trim();
     }
 
     public String getPlaneid() {
@@ -113,5 +115,13 @@ public class Task {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public String getFinishstatus() {
+        return finishstatus;
+    }
+
+    public void setFinishstatus(String finishstatus) {
+        this.finishstatus = finishstatus == null ? null : finishstatus.trim();
     }
 }
