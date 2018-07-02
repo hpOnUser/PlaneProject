@@ -33,18 +33,20 @@ public class PlaneController {
 	}
 
 	@RequestMapping("/planeList")
-	@ResponseBody
+	//@ResponseBody
 	//获取飞机列表信息
 	//实例解决经纬度路径
-	public String getPlaneList()
+	public String getPlaneList(Model model)
 	{
 		List<Plane> allPlane = planeServiceimpl.getAllPlane();
 		List<PlaneVo> planeList = new ArrayList<PlaneVo>(); 	
 		for(int i=0;i<allPlane.size();i++) {
 			PlaneVo planevo = new PlaneVo(allPlane.get(i)) ;
 			planeList.add(planevo);	
-		}	
+		}
+		model.addAttribute("planelist",JsonUtils.objectToJson(planeList));
 		//System.out.println(planeList.size());
-		return JsonUtils.objectToJson(planeList);
+		//return JsonUtils.objectToJson(planeList);
+		return "planeList";
 	}
 }

@@ -39,11 +39,45 @@ public class LineUtil {
 		s.append(")");
 		return s.toString();
 	}
-	public static void main(String[] args) {
-		String s="LineString(1 1,2 2)";
-		String sub=s.substring(11, s.length()-1);
-		String slist[]=sub.split(",");
-		System.out.println(slist[0].split(" ")[0]);
-	}
+	   /**
+	    * @author rfYang  
+	    * @date 2018/6/29 11:06  
+	    * @param [path]  
+	    * @return java.lang.String  
+	    */  
+	    public static String getFirstPoint(String path) {
+	        path = path.substring(1, path.length() - 1);
+	        String firstPoint = path.substring(0, path.indexOf(']')+1);
+	        return firstPoint;
+	    }
+	   /**
+	    * @author rfYang  
+	    * @date 2018/6/29 11:18
+	    * @param [path]
+	    * @return java.util.List<java.lang.String>  
+	    */  
+	    public static List<String> pathToArray(String path){
+	        List<String> pathArray = new ArrayList<>();
+	        pathArray.add(getFirstPoint(path));
+	        String[] result = path.split("\\]");
+	        for(int i=1;i<result.length;i++){
+	            pathArray.add(result[i].substring(1)+"]");
+	        }
+	        return pathArray;
+	    }
+
+	    public static void main(String[] args) {
+	        String s = "LineString(1 1,2 2)";
+	        String sub = s.substring(11, s.length() - 1);
+	        String slist[] = sub.split(",");
+	        System.out.println(slist[0].split(" ")[0]);
+	    }
+
+//	public static void main(String[] args) {
+//		String s="LineString(1 1,2 2)";
+//		String sub=s.substring(11, s.length()-1);
+//		String slist[]=sub.split(",");
+//		System.out.println(slist[0].split(" ")[0]);
+//	}
 
 }

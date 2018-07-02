@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="http://webapi.amap.com/maps?v=1.4.6&key=83092f3b5a3c3e6dfde3677d5366a633"></script>
-    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+ 
     <link rel="stylesheet" type="text/css" href="//webapi.amap.com/ui/1.0/ui/misc/MarkerList/examples/index.css">
     <link href="res/css/common.css" rel="stylesheet" type="text/css">
 </head>
@@ -82,7 +82,13 @@
             var map = new AMap.Map('container', {
                 zoom: 9
             });
-
+            AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
+                //缩放控件，显示Zoom值
+                map.addControl(new BasicControl.Zoom({
+                    position: 'lt',
+                    showZoomNum: true,
+                }));
+            });
 
             function disMark() {
 
