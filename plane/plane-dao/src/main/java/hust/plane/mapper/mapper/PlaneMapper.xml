@@ -3,6 +3,10 @@
 <mapper namespace="hust.plane.mapper.mapper.PlaneMapper" >
  <resultMap id="BaseResultMap" type="hust.plane.mapper.pojo.Plane" >
     <id column="planeid" property="planeId" jdbcType="VARCHAR" />
+    <result column="planename" property="planename" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+     <result column="height" property="height" jdbcType="VARCHAR" />
+    <result column="flongda" property="flongda" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="flongda" property="flongda" jdbcType="VARCHAR" />
     <result column="dec" property="dec" jdbcType="VARCHAR" />
