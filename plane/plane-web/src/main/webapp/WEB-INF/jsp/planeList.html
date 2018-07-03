@@ -16,15 +16,15 @@
     <script type="text/javascript" src="js/oc.min.js"></script>
     <link rel="icon" type="image/png" href="i/ico.png" sizes="16x16">
 
-
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     <script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.6&key=82f9e75505b649be9ab81a45ae34aa14'></script>
     <link href="css/common.css" rel="stylesheet" type="text/css">
-    <style>
-    </style>
+   <script>
+  
+    </script>
 </head>
-<body>
+<body >
 	<#include "common/header.html" />
       <#include "./nav.html" />
    <div class="content">
@@ -49,50 +49,18 @@
                         <li><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
+                        <li><a href="#">4</a></li>0
                         <li><a href="#">5</a></li>
                         <li><a href="#">&raquo;</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+  
         <!-- UI组件库 1.0 -->
         <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
         <script type="text/javascript">
            
-            /* var data = [{
-                planeId: '1',
-                flongda: [116.020764, 39.904989],
-                status: '0',
-                dec: '这不知道是啥',
-                updateTime: '2018-4-4 12:23:12'
-            }, {
-                planeId: '2',
-                flongda: [116.789806, 29.904989],
-                status: '1',
-                dec: '其实是挖掘机',
-                updateTime: '2018-4-4 12:23:12'
-            }, {
-                planeId: '3',
-                flongda: [126.789806, 39.904989],
-                status: '2',
-                dec: '挖掘绝技',
-                updateTime: '2018-4-4 12:23:12'
-            }, {
-                planeId: '4',
-                flongda: [116.789806, 36.904989],
-                status: '3',
-                dec: '看飞机啊',
-                updateTime: '2018-4-4 12:23:12'
-            }, {
-                planeId: '5',
-                flongda: [115.789806, 39.904989],
-                status: '2',
-                dec: '无人机啊',
-                updateTime: '2018-4-4 12:23:12'
-            }]; */
-
-            //var PlaneInitFlag = false;
 			data = ${planelist};
             //创建地图
             var map = new AMap.Map('container', {
