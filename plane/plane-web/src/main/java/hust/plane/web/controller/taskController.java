@@ -34,12 +34,14 @@ public class taskController {
 	{
 		List<TaskPojo> allTask = taskServiceImpl.getALLTask();
 		model.addAttribute("taskList",allTask);
+		model.addAttribute("curNav", "taskAllList");
 		return "taskList";
 	}
 	//跳转新建任务
 	@RequestMapping("/toTaskCreate")
-	public String toTaskCrate()
+	public String toTaskCrate(Model model)
 	{
+		model.addAttribute("curNav", "createTask");
 		return "createTask";
 	}
 	//创建任务

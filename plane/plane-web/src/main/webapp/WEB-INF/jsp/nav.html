@@ -4,10 +4,13 @@
             <span style="font-weight: bold;font-size: 16px;">GIS路由</span>
         </a>
         <ul id="dashboard-menu" class="nav nav-list collapse in">
-        	<li class="active">
+        	<li <#if curNav?? && curNav =="home">class="active" </#if>>
+                <a href="${s.base}/index.action">主页</a>
+            </li>
+        	<li <#if curNav?? && curNav =="routeList"> class="active"</#if>>
                 <a href="${s.base}/routeList.action">路由分布</a>
             </li>
-         	<li class="">
+         	<li <#if curNav?? && curNav =="routeImport"> class="active" </#if>>
                 <a href="${s.base}/routeImport.action">导入路由</a>
             </li>
             <li>
@@ -19,9 +22,9 @@
         <a href="#accounts-menu2" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">无人机图层</span>
         </a>
-        <ul id="accounts-menu2" class="nav nav-list collapse ">
-            <li><a href="${s.base}/planeList.action">无人机显示</a></li>
-            <li><a href="#">过滤查询</a></li>
+        <ul id="accounts-menu2" class="nav nav-list collapse in ">
+            <li <#if curNav?? && curNav =="planeAllList"> class="active" </#if>><a href="${s.base}/planeList.action">无人机显示</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">过滤查询</a></li>
            
         </ul>
         
@@ -29,29 +32,29 @@
         <a href="#accounts-menu1" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">告警显示</span>
         </a>
-        <ul id="accounts-menu1" class="nav nav-list collapse">
-            <li><a >显示预警</a></li>
-            <li><a href="#">历史预警</a></li>
+        <ul id="accounts-menu1" class="nav nav-list collapse ">
+            <li <#if curNav?? && curNav =="routeImport" > class="active"</#if>><a >显示预警</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">历史预警</a></li>
         </ul>
         
         
         <a href="#accounts-menu3" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">无人机设定</span>
         </a>
-        <ul id="accounts-menu3" class="nav nav-list collapse">
-            <li><a href="#">设定飞行路径</a></li>
-            <li><a href="#">飞行路径导入</a></li>
-            <li><a href="#">导出飞行路径</a></li>
-            <li><a href="#">下发飞行路径</a></li> 
+        <ul id="accounts-menu3" class="nav nav-list collapse ">
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">设定飞行路径</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">飞行路径导入</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">导出飞行路径</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">下发飞行路径</a></li> 
         </ul>
         
         
         <a href="#accounts-menu4" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">飞行任务调度</span>
         </a>
-        <ul id="accounts-menu4" class="nav nav-list collapse ">
-            <li><a href="${s.base}/toTaskCreate.action">任务创建</a></li>
-            <li><a href="${s.base}/taskPageList.action">任务列表</a></li>
+        <ul id="accounts-menu4" class="nav nav-list collapse in">
+            <li <#if curNav?? && curNav =="createTask"> class="active" </#if>> <a href="${s.base}/toTaskCreate.action">任务创建</a></li>
+            <li <#if curNav?? && curNav =="taskAllList"> class="active" </#if>><a href="${s.base}/taskPageList.action">任务列表</a></li>
         </ul>
         
         
@@ -60,8 +63,8 @@
             <span style="font-weight: bold;font-size: 16px;">用户管理</span>
         </a>
         <ul id="accounts-menu5" class="nav nav-list collapse ">
-            <li><a href="#">用户增删改</a></li>
-             <li><a href="#">用户组绑定</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">用户增删改</a></li>
+             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">用户组绑定</a></li>
         </ul>
         
     
@@ -70,8 +73,8 @@
             <span style="font-weight: bold;font-size: 16px;">我的账号</span>
         </a>
         <ul id="accounts-menu6" class="nav nav-list collapse ">
-            <li><a href="#">修改个人信息</a></li>
-            <li><a href="#">退出</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">修改个人信息</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">退出</a></li>
         </ul>
        
     </div>
@@ -113,7 +116,6 @@
                 </div>
             </div>
         </div>
->>>>>>> branch 'master' of https://github.com/hpOnUser/PlaneProject.git
 	</div>
 	<!-- 查询路由章节弹出层 -end -->
 	

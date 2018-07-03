@@ -40,12 +40,14 @@ public class RouteController {
 		model.addAttribute("infoData",result);
 		model.addAttribute("position",position);
 		model.addAttribute("path",path);
+		model.addAttribute("curNav", "routeList");
 		return "route";
 	}
 	//跳转到路由路径
 	@RequestMapping("/routeImport")
-	public String toRouteImport()
+	public String toRouteImport(Model model)
 	{
+		model.addAttribute("curNav", "routeImport");
 		return "importRoute";
 	}
     /**

@@ -45,6 +45,7 @@ public class PlaneController {
 			planeList.add(planevo);	
 		}
 		model.addAttribute("planelist",JsonUtils.objectToJson(planeList));
+		model.addAttribute("curNav", "planeAllList");
 		//System.out.println(planeList.size());
 		//return JsonUtils.objectToJson(planeList);
 		return "planeList";

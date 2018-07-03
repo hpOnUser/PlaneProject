@@ -18,12 +18,9 @@ public class FileController {
 	@RequestMapping("/oneFileImport")
 	public String importOneFile(@RequestParam("routePathExcel") MultipartFile file,Route route)
 	{
-=======
 		String filename=file.getOriginalFilename();
->>>>>>> branch 'master' of https://github.com/hpOnUser/PlaneProject.git
+
 		//得到数据插入
-		
-		
 		//String filename="D:\\test2.xlsx";
 		FileServiceImpl.insertRoute(filename, route);
 		return "success";
