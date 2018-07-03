@@ -6,14 +6,23 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Plane {
 	private String planeId;
+	private String planename;
+	private String userid;
 	private String status;
 	private String flongda;
 	private String dec;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+	private String height;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createTime;
     @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updateTime;
 	
+    public String getHeight() {
+    	return height;
+    }
+    public void setHeight(String height) {
+    	this.height = height;
+    }
 	public String getPlaneId() {
 		return planeId;
 	}
@@ -21,6 +30,18 @@ public class Plane {
 		this.planeId = planeId;
 	}
 
+	public String getPlanename() {
+		return planename;
+	}
+	public void setPlanename(String planename) {
+		this.planename = planename;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 	public String getStatus() {
 		return status;
 	}

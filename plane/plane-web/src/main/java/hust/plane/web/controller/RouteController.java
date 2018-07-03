@@ -42,6 +42,12 @@ public class RouteController {
 		model.addAttribute("path",path);
 		return "route";
 	}
+	//跳转到路由路径
+	@RequestMapping("/routeImport")
+	public String toRouteImport()
+	{
+		return "importRoute";
+	}
     /**
      * @author rfYang  
      * @date 2018/6/29 14:12  
