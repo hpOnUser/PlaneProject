@@ -24,27 +24,28 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 登陆
+     *
      * @param username
      * @param password
      * @return
      */
     @Override
     public User login(String username, String password) {
-        if(StringUtils.isBlank(username)||StringUtils.isBlank(password)){
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             throw new TipException("用户名和密码不能为空");
         }
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andUsernameEqualTo(username);
         int count = userDao.countByExample(example);
-        if(count<1){
+        if (count < 1) {
             throw new TipException("没有该用户");
         }
-        String pwd = PlaneUtils.MD5encode(username+password);
+        String pwd = PlaneUtils.MD5encode(username + password);
         criteria.andPasswordEqualTo(pwd);
         criteria.andRoleEqualTo("0");
         List<User> userList = userDao.selectByExample(example);
-        if(userList.size()!=1){
+        if (userList.size() != 1) {
             throw new TipException("用户名或密码错误");
         }
         return userList.get(0);
@@ -52,27 +53,37 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 注册
+     *
      * @param username
      * @param password
      * @return
      */
     @Override
     public int register(String username, String password) {
-        if(StringUtils.isBlank(username)||StringUtils.isBlank(password)){
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             throw new TipException("用户名和密码不能为空");
         }
         int usernameCount = userDao.selectByUserName(username);
-        if(usernameCount==1){
+        if (usernameCount == 1) {
             throw new TipException("该用户名已经存在");
         }
         User user = new User();
         user.setUsername(username);
-        user.setPassword(PlaneUtils.MD5encode(username+password));
+        user.setPassword(PlaneUtils.MD5encode(username + password));
         user.setRole("0");
         user.setCreatetime(new Date());
         user.setDescripte("操作员");
         user.setUserid("4");
         int count = userDao.insertSelective(user);
         return count;
+    }
+
+    @Override
+    public User queryUserById(String uid) {
+        User user = null;
+        if (uid != null) {
+            user = userDao.selectByPrimaryKey(uid);
+        }
+        return user;
     }
 }
