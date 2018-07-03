@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         criteria.andRoleEqualTo("0");
         List<User> userList = userDao.selectByExample(example);
         if (userList.size() != 1) {
-            throw new TipException("用户名或密码错误");
+            throw new TipException("用户名密码错误或您没有操作权限");
         }
         return userList.get(0);
     }

@@ -137,4 +137,15 @@ public class IndexController {
         }
     }
 
+    /**
+     * 个人设置GET请求
+     * @param mv
+     * @return
+     */
+    @RequestMapping(value = "/profile")
+    public ModelAndView doEditPwd(ModelAndView mv){
+         mv.setViewName("profileEdit");
+         return mv;
+    }
+
 }
