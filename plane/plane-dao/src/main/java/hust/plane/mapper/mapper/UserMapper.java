@@ -27,6 +27,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-
+    //根据该用户名查出用户的数量
     int selectByUserName(String username);
 }

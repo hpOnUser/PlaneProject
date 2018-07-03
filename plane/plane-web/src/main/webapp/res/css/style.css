@@ -137,7 +137,7 @@ hr {
 }
 
 .navbar .nav>li>a {
-	color: #fff;
+	color: #7C5C99;
 	text-shadow: none;
 }
 
@@ -155,7 +155,7 @@ hr {
 }
 
 .navbar .nav li.dropdown.open>.dropdown-toggle {
-	background-color: #444;
+	background-color: #778899;
 	color: #fff;
 }
 

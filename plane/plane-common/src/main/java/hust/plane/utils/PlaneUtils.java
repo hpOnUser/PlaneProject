@@ -13,7 +13,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+/**
+ * 该web项目常用工具类
+ * @author rfYang
+ * @date 2018/7/3 18:18
+ * @param
+ * @return
+ */
 public class PlaneUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(PlaneUtils.class);
 

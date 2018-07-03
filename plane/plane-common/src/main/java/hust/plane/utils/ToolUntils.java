@@ -11,7 +11,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Random;
-
+/**
+ * 常用函数工具类
+ * @author rfYang
+ * @date 2018/7/3 18:20
+ * @param
+ * @return
+ */
 public class ToolUntils {
     private static final Random random = new Random();
 
