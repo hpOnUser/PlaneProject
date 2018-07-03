@@ -31,6 +31,11 @@ public class IndexController {
     private MapCache cache = MapCache.single();
     @Resource
     private UserService userService;
+
+    /**
+     * 登陆Get请求
+     * @return
+     */
     @RequestMapping(value ="/login" ,method = RequestMethod.GET)
     public String login(){return "login";}
 
@@ -50,7 +55,7 @@ public class IndexController {
         Integer error_count = cache.get("login_error_count");
         try {
             User user =userService.login(username,password);
-            request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY,user.getUserid());
+            request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY,user);
             if(StringUtils.isNotBlank(remeber_me)){
                 PlaneUtils.setCookie(response,user.getUserid());
             }

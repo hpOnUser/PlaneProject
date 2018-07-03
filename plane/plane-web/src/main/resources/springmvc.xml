@@ -60,4 +60,18 @@
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!--进行拦截的路径-->
+			<mvc:mapping path="/**"/>
+			<!--不进行拦截的路径-->
+			<mvc:exclude-mapping path="/res/js/**" />
+			<mvc:exclude-mapping path="/res/css/**" />
+			<mvc:exclude-mapping path="/res/i/**" />
+			<mvc:exclude-mapping path="/res/img/**" />
+			<mvc:exclude-mapping path="/js/**" />
+			<bean class="hust.plane.web.interceptor.BaseInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 </beans>

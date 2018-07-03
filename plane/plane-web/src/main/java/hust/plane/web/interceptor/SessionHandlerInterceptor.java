@@ -8,8 +8,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  * 系统登录验证
- * 
- * @author WJC
  */
 
 public class SessionHandlerInterceptor extends HandlerInterceptorAdapter {
@@ -26,7 +24,7 @@ public class SessionHandlerInterceptor extends HandlerInterceptorAdapter {
 			response.sendError(HttpStatus.UNAUTHORIZED.value(), "您已经太长时间没有操作,请刷新页面");
 			return false;
 		}
-		response.sendRedirect(request.getContextPath() + "/loginPage");
+		response.sendRedirect(request.getContextPath() + "/admin/login");
 		return false;
 	}
 
