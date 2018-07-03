@@ -40,6 +40,7 @@ public class LineUtil {
 		return s.toString();
 	}
 	   /**
+		* 获取路径的开始点
 	    * @author rfYang  
 	    * @date 2018/6/29 11:06  
 	    * @param [path]  
@@ -51,6 +52,7 @@ public class LineUtil {
 	        return firstPoint;
 	    }
 	   /**
+		* 路径转换为数组
 	    * @author rfYang  
 	    * @date 2018/6/29 11:18
 	    * @param [path]

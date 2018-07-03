@@ -78,6 +78,11 @@ public class UserServiceImpl implements UserService {
         return count;
     }
 
+    /**
+     * 根据用户id查询到用户
+     * @param uid
+     * @return
+     */
     @Override
     public User queryUserById(String uid) {
         User user = null;
