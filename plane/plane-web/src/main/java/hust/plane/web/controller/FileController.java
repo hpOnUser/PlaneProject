@@ -19,7 +19,6 @@ public class FileController {
 	public String importOneFile(@RequestParam("routePathExcel") MultipartFile file,Route route)
 	{
 		String filename=file.getOriginalFilename();
-		String name = file.getName();
 		//得到数据插入
 		
 		
