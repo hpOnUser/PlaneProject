@@ -27,33 +27,16 @@ public class FileServiceImpl implements FileService {
 		//修改
 		String filepath = ROOT_FILE + path;
 		List<RouteExcel> readExcel = ExcelUtil.readExcel(filepath);
-		route.setRouteId("5");
-		route.setDescripte("这是一条测试数据");
-		route.setType("1");
 		
-		Route r=new Route();
-		
-		//读取编号
-		if(route.getRouteId()!=null)
-		{
-			r.setRouteId(route.getRouteId());
-		}
 		//构成经纬度序列
 		String s=LineUtil.ListToString(readExcel);
-		r.setRoutePath(s);
-		//读取描述
-		r.setDescripte(route.getDescripte());
+		route.setRoutePath(s);
 		//设置创建时间
 		Date date=new Date();
-		r.setCreateTime(date);
-		r.setUpdateTime(date);
+		route.setCreateTime(date);
+		route.setUpdateTime(date);
 		
-		//设置路由类型
-		r.setType(route.getType());
-		//设置状态
-		r.setStatus("0");
-		
-		routeMapper.insert(r);
+		routeMapper.insert(route);
 		
 	}
 	public static void main(String[] args) {

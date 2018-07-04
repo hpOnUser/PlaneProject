@@ -54,23 +54,19 @@ public class PlaneController {
 		return "planeList";
 	}
 	
-	//使用user接收前台数据，userid接收负责人id，createtime接收起始时间，updatetime接收终止时间
+	//多条件查询无人机：根据负责人id查询 或者 登记起始时间到登记终止时间段内查询
 	@RequestMapping("doFindPlane")
-	public String doFindPlane(Model model,User user) {
-		//ModelAndView mv = new ModelAndView("planeList");
-		List<Plane> allPlane = planeServiceimpl.getAllPlane();
-		List<PlaneVo> planeList = new ArrayList<PlaneVo>(); 	
+	public String doFindPlane(Model model,@RequestParam("userid")String userid,@RequestParam("starttime")Date starttime,@RequestParam("endtime")Date endtime) {
+		
+		List<Plane> allPlane = planeServiceimpl.getPlaneByOption(userid,starttime,endtime);
+		List<PlaneVo> planeList = new ArrayList<PlaneVo>();	
 		for(int i=0;i<allPlane.size();i++) {
 			PlaneVo planevo = new PlaneVo(allPlane.get(i)) ;
 			planeList.add(planevo);	
 		}
 		model.addAttribute("planelist",JsonUtils.objectToJson(planeList));
-		//List<PlaneVo> planeList = 
-		//mv.addObject("planelist",JsonUtils.objectToJson(planeList));
-		model.addAttribute("curNav", "routeImport");
-		
-		return "planeList";
-		
+		model.addAttribute("curNav", "planFind");
+		return "planeList";	
 		
 	}
 	

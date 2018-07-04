@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hust.plane.mapper.mapper.AlarmMapper" >
+<resultMap id="BaseResultMap" type="hust.plane.mapper.pojo.Alarm" >
+    <id column="alarmid" property="alarmid" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="planeid" property="planeid" jdbcType="VARCHAR" />
+    <result column="descripte" property="descripte" jdbcType="VARCHAR" />
+    <result column="alongda" property="alongda" jdbcType="VARCHAR" />
+    <result column="createtime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+	<select id="selectALLPlane" resultMap="BaseResultMap">
+		select alarmid,image,planeid,AsText(alongda) as flongda,descripte,createtime,updatetime
+		from alarm 
+	</select>
+
+
+</mapper>
