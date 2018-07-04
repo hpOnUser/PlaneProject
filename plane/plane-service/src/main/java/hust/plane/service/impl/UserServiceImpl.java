@@ -4,6 +4,7 @@ import hust.plane.mapper.mapper.UserMapper;
 import hust.plane.mapper.pojo.User;
 import hust.plane.mapper.pojo.UserExample;
 import hust.plane.service.interFace.UserService;
+import hust.plane.utils.DateKit;
 import hust.plane.utils.PlaneUtils;
 import hust.plane.utils.pojo.TipException;
 import org.apache.commons.lang.StringUtils;
@@ -114,6 +115,7 @@ public class UserServiceImpl implements UserService {
             throw new TipException("新密码不能和原密码相同");
         }
         user.setPassword(password);
+        user.setUpdatetime(DateKit.getNow());
         userDao.updateByPrimaryKeySelective(user);
     }
 }
