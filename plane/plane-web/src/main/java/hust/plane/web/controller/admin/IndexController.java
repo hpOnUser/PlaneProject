@@ -148,4 +148,21 @@ public class IndexController {
          return mv;
     }
 
+    @RequestMapping(value = "/profile",produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @ResponseBody
+    public String doEditPwd(@RequestParam String oldpassword,@RequestParam String password,HttpServletRequest request){
+        try {
+            userService.modifyPwd(request,oldpassword,password);
+        }catch (Exception e){
+            String msg ="更改失败";
+            if(e instanceof TipException){
+                msg = e.getMessage();
+            }else{
+                LOGGER.error(msg, e);
+            }
+            return JsonView.render(1,msg);
+        }
+        return JsonView.render(0, "修改成功");
+    }
+
 }

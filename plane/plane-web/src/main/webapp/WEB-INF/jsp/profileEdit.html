@@ -5,13 +5,13 @@
     <title>用户设置</title>
     <link href="${s.base}/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="${s.base}/css/style.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="js/jquery.form.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/highcharts-4.1.min.js"></script>
-    <script type="text/javascript" src="js/oc.min.js"></script>
-    <script type="text/javascript" src="js/calendar.min.js"></script>
-    <link rel="icon" type="image/png" href="i/ico.png" sizes="16x16">
+    <script type="text/javascript" src="${s.base}/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="${s.base}/js/jquery.form.js"></script>
+    <script type="text/javascript" src="${s.base}/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${s.base}/js/highcharts-4.1.min.js"></script>
+    <script type="text/javascript" src="${s.base}/js/oc.min.js"></script>
+    <script type="text/javascript" src="${s.base}/js/calendar.min.js"></script>
+    <link rel="icon" type="image/png" href="${s.base}/i/ico.png" sizes="16x16">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <style>
@@ -201,11 +201,11 @@
 <div class="content">
     <div class="row">
         <div class="col-md-offset-3 col-md-4">
-            <form class="form-horizontal">
+            <form class="form-horizontal" method="post" id="profileForm">
                 <span class="heading">个人设置中心</span>
                 <fieldset disabled>
                     <div class="form-group ">
-                        <input type="text " class="form-control disabled" id="username" value=<#if Session["login_user"]?exists>
+                        <input type="text " class="form-control disabled" name="username" id="username" value=<#if Session["login_user"]?exists>
                         用户名：${Session["login_user"].username}
                     </#if>>
                         <i class="fa fa-user"></i>
@@ -216,12 +216,12 @@
                     </div>
                 </fieldset>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="oldpassword" placeholder="旧密码">
+                    <input type="password" class="form-control" name="oldpassword" id="oldpassword" placeholder="旧密码">
                     <i class="fa fa-lock"></i>
                     <a href="#" class="fa fa-question-circle"></a>
                 </div>
                 <div class="form-group help">
-                    <input type="password" class="form-control" id="newpassword" placeholder="新密码">
+                    <input type="password" class="form-control" id="newpassword" name="password" placeholder="新密码">
                     <i class="fa fa-lock"></i>
                     <a href="#" class="fa fa-question-circle"></a>
                 </div>
@@ -231,8 +231,8 @@
                     <a href="#" class="fa fa-question-circle"></a>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-default" id="modify" onclick="editPwd()">修改</button>
-                    <button type="reset" class="btn btn-default" id="restart" style="margin-right: 10px">重置</button>
+                    <button type="reset" class="btn btn-default" id="restart" >重置</button>
+                    <button type="button" class="btn btn-default" id="modify" style="margin-right: 10px">修改</button>
                 </div>
                 <div id="alertDiv">
                 </div>
@@ -242,11 +242,47 @@
     </div>
 </div>
 <script type="text/javascript">
+
+    $("#modify").click(function() {
+        var password = $("#newpassword").val();
+        var passwordensure = $("#newpasswordensure").val();
+        if (password != passwordensure) {
+            alert("1234");
+            showAlert('新密码和确认新密码不一致！');
+        } else {
+            $.ajax({
+                url: 'profile',
+                type: 'POST',
+                async: true,
+                data:$("#profileForm").serialize(),
+                timeout: 5000,
+                dataType: 'json',
+                success: function(result) {
+                    alert(JSON.stringify(result));
+                    if (result.errcode==0)
+                    {
+                        showAlert(result.message);
+                        window.location.href = "${s.base}/index";
+                    } else {
+                        showAlert(result.message);
+                    }
+                }
+            });
+        }
+    })
+
     $("#restart").click(function () {
         $("#oldpassword").val('');
         $("#newpassword").val('');
         $("#newpasswordensure").val('');
     })
+
+    function showAlert(message) {
+        var alertitem = document.getElementById("alertDiv");
+        var innHTMl = '<div class="alert alert-danger alert-dismissable" id="alerth"><button type="button" class="close" data-dismiss="alert" >&times;</button>' + message + '</div>';
+        alertitem.innerHTML = innHTMl;
+        alertitem.style.display = "block";
+    }
 </script>
 <div style="margin: 50px 0px 20px 10px;">
     <span>©&nbsp;2018&nbsp; 备案 </span>

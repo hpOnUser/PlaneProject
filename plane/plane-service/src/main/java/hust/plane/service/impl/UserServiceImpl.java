@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -90,5 +91,29 @@ public class UserServiceImpl implements UserService {
             user = userDao.selectByPrimaryKey(uid);
         }
         return user;
+    }
+
+    /**
+     * 修改用户名密码
+     * @param request
+     * @param oldpassword
+     * @param password
+     */
+    @Override
+    public void modifyPwd(HttpServletRequest request, String oldpassword, String password) {
+        if(StringUtils.isBlank(oldpassword)||StringUtils.isBlank(password)){
+            throw new TipException("旧密码和新密码不能为空");
+        }
+        User user = PlaneUtils.getLoginUser(request);
+        oldpassword = PlaneUtils.MD5encode(user.getUsername()+oldpassword);
+        if(!oldpassword.equals(user.getPassword())){
+            throw new TipException("输入的原密码不正确");
+        }
+        password = PlaneUtils.MD5encode(user.getUsername()+password);
+        if(oldpassword.equals(password)){
+            throw new TipException("新密码不能和原密码相同");
+        }
+        user.setPassword(password);
+        userDao.updateByPrimaryKeySelective(user);
     }
 }
