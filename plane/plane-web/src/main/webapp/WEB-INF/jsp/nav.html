@@ -24,7 +24,7 @@
         </a>
         <ul id="accounts-menu2" class="nav nav-list collapse in ">
             <li <#if curNav?? && curNav =="planeAllList"> class="active" </#if>><a href="${s.base}/planeList.action">无人机显示</a></li>
-            <li <#if curNav?? && curNav =="planFind"> class="active" </#if>><a onclick="findplane()">过滤查询</a></li>
+            <li <#if curNav?? && curNav =="planeFind"> class="active" </#if>><a onclick="findplane()">过滤查询</a></li>
            
         </ul>
         
@@ -131,7 +131,7 @@
                         <h4 class="modal-title">无人机过滤查询</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form" id="eee" method="post" action="${s.base}/doFindPlane.action">
+                        <form role="form" id="planeFind" method="post" action="${s.base}/doFindPlane.action">
                             <div class="form-group clearfix">
                                 <label class="control-label"  style="white-space:nowrap">责任人编号：</label>
                                 <div class="col-sm-8">
