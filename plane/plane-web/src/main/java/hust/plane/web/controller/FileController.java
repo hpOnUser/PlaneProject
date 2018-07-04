@@ -21,8 +21,6 @@ public class FileController {
 		
 		String filename=file.getOriginalFilename();
 
-		//得到数据插入
-		//String filename="D:\\test2.xlsx";
 		FileServiceImpl.insertRoute(filename, route);
 		return "success";
 	}

@@ -5,16 +5,30 @@
     <id column="planeid" property="planeId" jdbcType="VARCHAR" />
     <result column="planename" property="planename" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="VARCHAR" />
-     <result column="height" property="height" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="VARCHAR" />
     <result column="flongda" property="flongda" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="flongda" property="flongda" jdbcType="VARCHAR" />
-    <result column="dec" property="dec" jdbcType="VARCHAR" />
+    <result column="descripte" property="dec" jdbcType="VARCHAR" />
     <result column="createtime" property="createTime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
 	<select id="selectALLPlane" resultMap="BaseResultMap">
-		select planeId,status,AsText(flongda) as flongda
+		select planeId,planename,userid,AsText(flongda) as flongda,status,updateTime
 		from plane 
+	</select>
+	<select id="selectPlaneByOption" resultMap="BaseResultMap">
+		select distinct planeId,planename,userid,AsText(flongda) as flongda,status,updateTime
+		from plane
+		where
+		<if test="#{0}!=null and #{0}!=''">
+			 userid = #{0} or
+		</if>
+		<if test="#{1}!=null and #{1}!=''">
+           <![CDATA[  DATE_FORMAT(createtime, '%Y-%m-%d')>=  DATE_FORMAT(#{1}, '%Y-%m-%d')   ]]>
+        </if>
+        <if test="#{2}!=null and #{2}!=''">
+           <![CDATA[  and DATE_FORMAT(createtime, '%Y-%m-%d') <= DATE_FORMAT(#{2}, '%Y-%m-%d')    ]]>
+        </if>
+        
 	</select>
 </mapper>

@@ -1,5 +1,6 @@
 package hust.plane.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,14 @@ public class PlaneServiceImpl implements PlaneService{
 	public List<Plane> getAllPlane() {
 		
 		List<Plane> planeList = planeMapper.selectALLPlane();
+		return planeList;
+	}
+
+	@Override
+	public List<Plane> getPlaneByOption(String userid, Date starttime, Date endtime) {
+	
+		List<Plane> planeList = planeMapper.selectPlaneByOption(userid,starttime,endtime);
+		
 		return planeList;
 	}
 
