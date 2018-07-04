@@ -21,7 +21,7 @@ body {
     top: 1px;
     right: 0;
     width: 260px;
-    z-index: 999;
+    z-index: 990;
     opacity: 0.9;
 
     bottom: 0;
@@ -115,7 +115,6 @@ border-bottom:none;
 
 .info {
     border: solid 1px silver;
-    width:100px;
 }
 
 div.info-top {

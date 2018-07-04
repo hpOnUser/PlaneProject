@@ -33,8 +33,8 @@
             <span style="font-weight: bold;font-size: 16px;">告警显示</span>
         </a>
         <ul id="accounts-menu1" class="nav nav-list collapse ">
-            <li <#if curNav?? && curNav =="routeImport" > class="active"</#if>><a >显示预警</a></li>
-            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">历史预警</a></li>
+            <li <#if curNav?? && curNav =="alarmList" > class="active"</#if>><a href="${s.base}/alarmList.action">(别点开)显示告警</a></li>
+            <li <#if curNav?? && curNav =="alarmhistory"> class="active" </#if>><a href="#">历史高警</a></li>
         </ul>
         
         
