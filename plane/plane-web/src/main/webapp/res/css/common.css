@@ -5,6 +5,11 @@ body {
     margin: 0px;
 }
 
+.alarmImg{
+    width: 400px;
+    height: 300px;
+}
+
 #outer-box {
     height: 100%;
     padding-right: 280px;
