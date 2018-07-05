@@ -11,8 +11,8 @@
     <result column="updatetime" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
-	<select id="selectALLPlane" resultMap="BaseResultMap">
-		select alarmid,image,planeid,AsText(alongda) as flongda,descripte,createtime,updatetime
+	<select id="selectALLAlarm" resultMap="BaseResultMap">
+		select alarmid,image,planeid,AsText(alongda) as alongda,descripte,createtime,updatetime
 		from alarm 
 	</select>
 

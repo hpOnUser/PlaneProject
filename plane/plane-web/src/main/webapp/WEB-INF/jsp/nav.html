@@ -33,7 +33,7 @@
             <span style="font-weight: bold;font-size: 16px;">告警显示</span>
         </a>
         <ul id="accounts-menu1" class="nav nav-list collapse ">
-            <li <#if curNav?? && curNav =="alarmList" > class="active"</#if>><a href="${s.base}/alarmList.action">(别点开)显示告警</a></li>
+            <li <#if curNav?? && curNav =="alarmList" > class="active"</#if>><a href="${s.base}/alarmList.action">显示告警</a></li>
             <li <#if curNav?? && curNav =="alarmhistory"> class="active" </#if>><a href="#">历史高警</a></li>
         </ul>
         
@@ -42,7 +42,7 @@
             <span style="font-weight: bold;font-size: 16px;">无人机设定</span>
         </a>
         <ul id="accounts-menu3" class="nav nav-list collapse ">
-            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">设定飞行路径</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="${s.base}/setFlyPath.action">设定飞行路径</a></li>
             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">飞行路径导入</a></li>
             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">导出飞行路径</a></li>
             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">下发飞行路径</a></li> 
