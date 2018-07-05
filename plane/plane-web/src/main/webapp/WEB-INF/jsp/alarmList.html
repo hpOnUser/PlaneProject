@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>路由分布</title>
+    <title>告警显示</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
@@ -38,149 +38,9 @@
                         center: [116.397428, 39.90923],
                         zoom: 13
                     });
-                    var position = ${position};
-                   //自定义marker图示
-                    AMapUI.loadUI(['overlay/SimpleMarker'], function (SimpleMarker) {
-                        //启动页面
-                        initPage(SimpleMarker);
-                    });
-                    var startPoint = null;
-                    var dangerPoint = null;
-                    function initPage(SimpleMarker) {
-                        //创建危险点
-                        var dangerPoint1 = new SimpleMarker({
-                            //前景文字
-                            iconLabel: {
-                                innerHTML: '<i>危</i>', //设置文字内容
-                                style: {
-                                    color: 'white' //设置文字颜色
-                                }
-                            },
-                            //图标主题
-                            iconTheme: 'default',
-                            //背景图标样式
-                            iconStyle: 'red',
-                            //...其他Marker选项...，不包括content
-                            map: map,
-                            position: [116.382122, 39.901176]
-                        });
-                        //创建路由标识点1
-                        var startPoint1=new SimpleMarker({
-                            //前景文字
-                            iconLabel: {
-                                innerHTML: '<i>起</i>', //设置文字内容
-                                style: {
-                                    color: 'white' //设置文字颜色
-                                }
-                            },
-                            //图标主题
-                            iconTheme: 'fresh',
-                            //背景图标样式
-                            iconStyle: 'green',
-                            //...其他Marker选项...，不包括content
-                            map: map,
-                            position: [116.368904, 39.913423]
-                        });
-                        //创建路由标识点2
-                        var startPoint2=new SimpleMarker({
-                            //前景文字
-                            iconLabel: {
-                                innerHTML: '<i>起</i>', //设置文字内容
-                                style: {
-                                    color: 'white' //设置文字颜色
-                                }
-                            },
-                            //图标主题
-                            iconTheme: 'fresh',
-                            //背景图标样式
-                            iconStyle: 'darkblue',
-                            //...其他Marker选项...，不包括content
-                            map: map,
-                            position: [116.368904, 39.913423]
-                        });
 
-
-
-                        startPoint = startPoint2;
-                        dangerPoint = dangerPoint1;
-                    }
-
-
-
-                    var infoData = ${infoData};
-                    AMapUI.loadUI(['overlay/SimpleInfoWindow'], function (SimpleInfoWindow) {
-                        var infoWindow = new SimpleInfoWindow({
-                            //模板, underscore
-                            infoTitle: '<strong><%- title %></strong>',
-                            infoBody: '<p class="my-desc">' +
-                            //<%= 原值插入 ..
-                            '<%= img %>' +
-                            //<%- html编码后插入
-                            '<%- body %>' +
-                            '</p>',
-                            //模板数据
-                            infoTplData: {
-                                title: infoData.title,
-                                img: infoData.img,
-                                body: infoData.body
-                            },
-                            //基点指向marker的头部位置
-                            offset: new AMap.Pixel(0, 0)
-                        });
-
-
-                        var dangerInfo = new SimpleInfoWindow({
-                            //模板, underscore
-                            infoTitle: '<strong><%- title %></strong>',
-                            infoBody: '<p class="my-desc">' +
-                            //<%= 原值插入 ..
-                            '<%= img %>' +
-                            //<%- html编码后插入
-                            '<%- body %>' +
-                            '</p>',
-                            //模板数据
-                            infoTplData: {
-                                title: "挖掘机威胁",
-                                img: '<img src="http://img.smx.gov.cn/1shxian/201403/201403130744037_b.jpg" />',
-                                body: "只是一张对光缆有威胁的挖掘机点"
-                            },
-                            //基点指向marker的头部位置
-                            offset: new AMap.Pixel(0, 0)
-                        });
-
-                        function openInfoWin() {
-                            infoWindow.open(map, startPoint.getPosition());
-                        }
-
-
-                        //marker 点击时打开
-                        AMap.event.addListener(startPoint, 'click', function () {
-                            openInfoWin();
-                        });
-
-                        function dangerInfoWin() {
-                            dangerInfo.open(map,dangerPoint.getPosition());
-                        }
-
-                        AMap.event.addListener(dangerPoint, 'click', function () {
-                            dangerInfoWin();
-                        });
-
-                    });
-
-
-                    //画图
-                    var lineArr = ${path};
-                    var polyline = new AMap.Polyline({
-                        path: lineArr,          //设置线覆盖物路径
-                        strokeColor: "#73ffa2", //线颜色
-                        strokeOpacity: 1,       //线透明度
-                        strokeWeight: 5,        //线宽
-                        strokeStyle: "solid",   //线样式
-                        strokeDasharray: [10, 5] //补充线样式
-                    });
-                    polyline.setMap(map);
-
+                    alert(JSON.stringify(${alarmList}));
+                    alarmList =${alarmList};
 
                     //闪烁点
                     //just some colors
@@ -278,7 +138,9 @@
                         }, 500)
 
                         var data = new Array();
-                        data[0] = "116.382122,39.901176";
+                        for(var i=0;i<alarmList.length;i++){
+                            data[i] = alarmList[i].alongda;
+                        }
                         pointSimplifierIns.setData(data);
                         $('#loadingTip').remove();
                     });

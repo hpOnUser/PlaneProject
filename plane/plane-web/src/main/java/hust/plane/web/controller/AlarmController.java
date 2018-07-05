@@ -1,8 +1,10 @@
 package hust.plane.web.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import hust.plane.web.controller.vo.RouteVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,20 +22,28 @@ public class AlarmController {
 	
 	@Autowired
 	private AlarmService alarmService;
-	
+
+//	@RequestMapping(value = "/alarmList")
+//	public String alarmList(){
+//		return "alarmList";
+//	}
+
+
+
 	//返回所有的告警点
 	@RequestMapping("/alarmList")
 	public String alarmList(Model model) {
-		
 		List<Alarm> alarmAll = alarmService.getAllAlarm();
 		List<AlarmVo> alarmList = new ArrayList<AlarmVo>();
-		for(int i=0;i<alarmAll.size();i++) {
-			AlarmVo alarmVo = new AlarmVo(alarmAll.get(i));
-			alarmList.add(alarmVo);	
+		Iterator<Alarm> iterator =alarmAll.iterator();
+		while(iterator.hasNext()){
+			Alarm alarm=iterator.next();
+		    AlarmVo alarmVo = new AlarmVo(alarm);
+		    alarmList.add(alarmVo);
 		}
 		model.addAttribute("alarmList",JsonUtils.objectToJson(alarmList));
 		model.addAttribute("curNav", "alarmList");
-		return "alarmList";	
+		return "alarmList";
 	}
 	
 }

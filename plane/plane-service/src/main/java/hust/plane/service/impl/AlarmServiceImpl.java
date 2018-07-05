@@ -18,7 +18,7 @@ public class AlarmServiceImpl implements AlarmService {
 	@Override
 	public List<Alarm> getAllAlarm() {
 		
-		List<Alarm> alarmList = alarmMapper.getAllAlarm();
+		List<Alarm> alarmList = alarmMapper.selectALLAlarm();
 		return alarmList;
 	}
 

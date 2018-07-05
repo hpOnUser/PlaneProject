@@ -34,6 +34,16 @@ public class PointUtil {
 		list.add(y);
 		return list;
 	}
+    /**
+     * @author rfYang
+     * @date 2018/7/5 16:46
+     * @param [pointList]
+     * @return java.lang.String
+     */
+	public static String pointToString(List<Double> pointList){
+	    return String.valueOf(pointList.get(0))+","+String.valueOf(pointList.get(1));
+	}
+
 	public static void main(String[] args) {
 		String s="Point(1.9999 1.88888)";
 		Point stringToPoint = PointUtil.StringToPoint(s);
