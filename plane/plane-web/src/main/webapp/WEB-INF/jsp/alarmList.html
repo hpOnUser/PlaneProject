@@ -5,6 +5,7 @@
     <title>告警显示</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="css/common.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="js/jquery.form.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -39,8 +40,110 @@
                         zoom: 13
                     });
 
-                    alert(JSON.stringify(${alarmList}));
+
+                    //路由显示
+                    var colors = ['#1ef22a', '#260cff', '#eb0aff'];
+                    var routeStatusCode = ['一干路由', '二干路由', '混合路由'];
+                    routeList = ${routeList};
+                    function showrouteList(RouteList) {
+                        for (var i = 0; i < routeList.length; i++) {
+                            var polyline = new AMap.Polyline({
+                                map: map,
+                                path: RouteList[i].routePath, //设置线覆盖物路径
+                                strokeColor: colors[Number(RouteList[i].type)], //线颜色
+                                strokeOpacity: 1, //线透明度
+                                strokeWeight: 5, //线宽
+                                strokeStyle: "solid", //线样式
+                                strokeDasharray: [10, 5] //补充线样式
+                            });
+                        }
+                    }
+                    showrouteList(routeList);
+
+
+
+
+
+                    //标注点
                     alarmList =${alarmList};
+                    AMapUI.loadUI(['overlay/SimpleMarker'], function(SimpleMarker) {
+                        for (var i = 0; i < alarmList.length; i++) {
+                            //启动页面
+                            var dangerPoint = new SimpleMarker({
+                                //前景文字
+                                iconLabel: {
+                                    innerHTML: '<i>危</i>', //设置文字内容
+                                    style: {
+                                        color: 'white' //设置文字颜色
+                                    }
+                                },
+                                //图标主题
+                                iconTheme: 'default',
+                                //背景图标样式
+                                iconStyle: 'red',
+                                //...其他Marker选项...，不包括content
+                                map: map,
+                                position: alarmList[i].positionList
+                            });
+
+                            var title = '告警点编号：<span>' + alarmList[i].alarmid + '</span>';
+                            var content = [];
+                            content.push("<img src='"+alarmList[i].image+"' class='alarmImg'>");
+
+                            content.push("描述：" + alarmList[i].descripte);
+                            content.push("更新时间：" + alarmList[i].updateTime);
+
+
+                            dangerPoint.content = createInfoWindow(title, content.join("<br/>"));
+                            dangerPoint.on('click', markerClick);
+
+                        }
+                    });
+                    //自定义infoWindow
+                    var infoWindow = new AMap.InfoWindow({
+                        isCustom: true,
+                        offset: new AMap.Pixel(20, -35)
+                    });
+                    //构建自定义信息窗体
+                    function createInfoWindow(title, content) {
+                        var info = document.createElement("div");
+                        info.className = "info";
+
+                        //可以通过下面的方式修改自定义窗体的宽高
+                        //info.style.width = "400px";
+                        // 定义顶部标题
+                        var top = document.createElement("div");
+                        var titleD = document.createElement("div");
+                        var closeX = document.createElement("img");
+                        top.className = "info-top";
+                        titleD.innerHTML = title;
+                        closeX.src = "res/i/close2.gif";
+                        closeX.onclick = closeInfoWindow;
+
+                        top.appendChild(titleD);
+                        top.appendChild(closeX);
+                        info.appendChild(top);
+
+                        // 定义中部内容
+                        var middle = document.createElement("div");
+                        middle.className = "info-middle";
+                        middle.style.backgroundColor = 'white';
+                        middle.innerHTML = content;
+                        info.appendChild(middle);
+                        return info;
+                    }
+                    //打开信息窗体
+                    function markerClick(e) {
+                        infoWindow.setContent(e.target.content);
+                        infoWindow.open(map, e.target.getPosition());
+                    }
+                    //关闭信息窗体
+                    function closeInfoWindow() {
+                        map.clearInfoWindow();
+                    }
+
+
+
 
                     //闪烁点
                     //just some colors
