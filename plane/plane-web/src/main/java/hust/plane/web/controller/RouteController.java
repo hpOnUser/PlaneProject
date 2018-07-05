@@ -1,6 +1,7 @@
 package hust.plane.web.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import hust.plane.utils.pojo.InfoTplData;
@@ -30,6 +31,7 @@ public class RouteController {
 	@RequestMapping("/erouteList")
 	public String getAllRoute(Model model) {
 		List<Route> allRoute = routeServiceImpl.getAllRoute();
+
 		ArrayList<ArrayList<Double>> s = LineUtil.stringLineToList(allRoute.get(1).getRoutePath());
 		String path = JsonUtils.objectToJson(s);
 		List<String> listString = LineUtil.pathToArray(path);
@@ -55,7 +57,6 @@ public class RouteController {
 			RouteVo routeVo = new RouteVo(allRoute.get(i));
 			routeList.add(routeVo);
 		}
-
 		model.addAttribute("routeList", JsonUtils.objectToJson(routeList));
 		model.addAttribute("curNav", "routeList");
 		return "routeList";
