@@ -39,9 +39,33 @@
                         center: [116.397428, 39.90923],
                         zoom: 13
                     });
-                    alarmList =${alarmList};
+
+
+                    //路由显示
+                    var colors = ['#1ef22a', '#260cff', '#eb0aff'];
+                    var routeStatusCode = ['一干路由', '二干路由', '混合路由'];
+                    routeList = ${routeList};
+                    function showrouteList(RouteList) {
+                        for (var i = 0; i < routeList.length; i++) {
+                            var polyline = new AMap.Polyline({
+                                map: map,
+                                path: RouteList[i].routePath, //设置线覆盖物路径
+                                strokeColor: colors[Number(RouteList[i].type)], //线颜色
+                                strokeOpacity: 1, //线透明度
+                                strokeWeight: 5, //线宽
+                                strokeStyle: "solid", //线样式
+                                strokeDasharray: [10, 5] //补充线样式
+                            });
+                        }
+                    }
+                    showrouteList(routeList);
+
+
+
+
 
                     //标注点
+                    alarmList =${alarmList};
                     AMapUI.loadUI(['overlay/SimpleMarker'], function(SimpleMarker) {
                         for (var i = 0; i < alarmList.length; i++) {
                             //启动页面
