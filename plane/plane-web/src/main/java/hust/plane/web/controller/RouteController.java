@@ -18,7 +18,6 @@ import hust.plane.service.interFace.RouteService;
 import hust.plane.utils.JsonUtils;
 import hust.plane.utils.LineUtil;
 
-
 @Controller
 public class RouteController {
 
