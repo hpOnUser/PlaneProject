@@ -55,7 +55,6 @@ public class RouteController {
 			RouteVo routeVo = new RouteVo(allRoute.get(i));
 			routeList.add(routeVo);
 		}
-
 		model.addAttribute("routeList", JsonUtils.objectToJson(routeList));
 		model.addAttribute("curNav", "routeList");
 		return "routeList";
