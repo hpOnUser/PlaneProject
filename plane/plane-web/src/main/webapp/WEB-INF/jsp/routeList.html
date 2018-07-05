@@ -110,7 +110,7 @@
                                 var polyline = new AMap.Polyline({
                                     map: map,
                                     path: RouteList[i].routePath, //设置线覆盖物路径
-                                    strokeColor: colors[parseInt(5/2)], //线颜色
+                                    strokeColor: colors[Number(RouteList[i].type)], //线颜色
                                     strokeOpacity: 1, //线透明度
                                     strokeWeight: 5, //线宽
                                     strokeStyle: "solid", //线样式
