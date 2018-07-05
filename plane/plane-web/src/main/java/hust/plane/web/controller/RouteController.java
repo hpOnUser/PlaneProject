@@ -30,6 +30,7 @@ public class RouteController {
 	public String getAllRoute(Model model)
 	{
 		List<Route> allRoute = routeServiceImpl.getAllRoute();
+		
 		ArrayList<ArrayList<Double>> s=LineUtil.stringLineToList(allRoute.get(1).getRoutePath());
 		String path=JsonUtils.objectToJson(s);
 		List<String> listString = LineUtil.pathToArray(path);

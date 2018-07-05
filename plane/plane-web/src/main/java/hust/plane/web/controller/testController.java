@@ -32,6 +32,10 @@ public class testController {
 		
 		return s ;
 	}
+	public void set()
+	{
+		
+	}
 	
 	
 
