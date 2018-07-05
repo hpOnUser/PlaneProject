@@ -15,11 +15,19 @@
                    <div class="block span6">
 	                       <div id="container">
 	                       </div>
+	                        <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
 	                       <script>
 	                           var map = new AMap.Map('container', {
 	                               resizeEnable: true,
 	                               zoom: 11,
 	                               center: [116.397428, 39.90923]
+	                           });
+	                           AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
+	                               //缩放控件，显示Zoom值
+	                               map.addControl(new BasicControl.Zoom({
+	                                   position: 'lt',
+	                                   showZoomNum: true,
+	                               }));
 	                           });
 	                       </script>
             	      </div>
