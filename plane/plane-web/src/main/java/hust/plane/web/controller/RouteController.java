@@ -17,9 +17,7 @@ import hust.plane.mapper.pojo.Route;
 import hust.plane.service.interFace.RouteService;
 import hust.plane.utils.JsonUtils;
 import hust.plane.utils.LineUtil;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 public class RouteController {
