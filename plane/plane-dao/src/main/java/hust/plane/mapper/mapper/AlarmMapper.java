@@ -6,6 +6,6 @@ import hust.plane.mapper.pojo.Alarm;
 
 public interface AlarmMapper {
 
-	List<Alarm> getAllAlarm();
+	List<Alarm> selectALLAlarm();
 
 }

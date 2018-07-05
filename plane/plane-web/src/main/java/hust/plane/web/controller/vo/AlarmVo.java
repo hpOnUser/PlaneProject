@@ -14,8 +14,9 @@ public class AlarmVo {
 	private String descripte;
 	private String createTime;
 	private String updateTime;
-	private List<Double> alongda;
-	
+	private String alongda;
+	//private List<Double> positionList;
+
 	public AlarmVo(Alarm alarm) {
 		
 		this.alarmid = alarm.getAlarmid();
@@ -35,7 +36,7 @@ public class AlarmVo {
 			this.updateTime = alarm.getUpdateTime().toString();
 		}
 		if(alarm.getAlongda()!=null) {
-			this.alongda = PointUtil.StringPointToList(alarm.getAlongda());
+			this.alongda = PointUtil.pointToString(PointUtil.StringPointToList(alarm.getAlongda()));
 		}			
 	}
 	
@@ -75,17 +76,12 @@ public class AlarmVo {
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
-	public List<Double> getAlongda() {
+
+	public String getAlongda() {
 		return alongda;
 	}
-	public void setAlongda(List<Double> alongda) {
+
+	public void setAlongda(String alongda) {
 		this.alongda = alongda;
 	}
-	
-	
-	
-	
-	
-	
-	
 }
