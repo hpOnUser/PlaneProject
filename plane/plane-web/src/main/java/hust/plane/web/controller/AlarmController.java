@@ -70,7 +70,7 @@ public class AlarmController {
      */
     @RequestMapping(value = "alarmInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public String getAlarmInfo(@RequestParam(value = "alarmId") String id, HttpServletRequest request) {
+    public String getAlarmInfo(@RequestParam(value = "alarmId") String id) {
         Alarm alarm = alarmService.selectAlarmById(id);
         InfoTplData info = new InfoTplData();
         info.setImg(alarm.getImage());
