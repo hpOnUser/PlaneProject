@@ -1,7 +1,11 @@
 package hust.plane.service.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import hust.plane.utils.page.AlarmPojo;
+import hust.plane.utils.page.TailPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +26,18 @@ public class AlarmServiceImpl implements AlarmService {
 		return alarmList;
 	}
 
+	@Override
+	public TailPage<AlarmPojo> queryAlarmWithPage(Alarm alarm, TailPage<AlarmPojo> page) {
+		int count = alarmMapper.alarmCount();
+        page.setItemsTotalCount(count);
+		List<Alarm> alarmList = alarmMapper.queryAlarmPage(alarm,page);
+		List<AlarmPojo> alarmPojos =new ArrayList<>();
+		Iterator<Alarm> iterator =alarmList.iterator();
+		while (iterator.hasNext()){
+			alarm=iterator.next();
+			alarmPojos.add(new AlarmPojo(alarm));
+		}
+		page.setItems(alarmPojos);
+		return page;
+	}
 }
