@@ -69,6 +69,10 @@ public class PlaneController {
 		return "planeList";	
 		
 	}
-	
+	@RequestMapping("/setFlyPath")
+	public String setFlyPath(Model mdoel){
+		
+		return "setFlyPath";
+	}
 	
 }
