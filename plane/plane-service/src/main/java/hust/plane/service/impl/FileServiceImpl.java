@@ -17,7 +17,7 @@ import hust.plane.utils.pojo.RouteExcel;
 public class FileServiceImpl implements FileService {
 	
 	@Value("${ROOT_FILE}")
-	private String ROOT_FILE="D:\\";
+	private String ROOT_FILE;
 	
 	@Autowired
 	private RouteMapper routeMapper;
@@ -39,15 +39,15 @@ public class FileServiceImpl implements FileService {
 		routeMapper.insert(route);
 		
 	}
-	public static void main(String[] args) {
-		FileServiceImpl fileimpl=new FileServiceImpl();
-		String path="D:\\test2.xlsx";
-		Route route=new Route();
-		route.setRouteId("5");
-		route.setDescripte("这是一条测试数据");
-		route.setType("1");
-		fileimpl.insertRoute(path, route);
-		
-	}
+//	public static void main(String[] args) {
+//		FileServiceImpl fileimpl=new FileServiceImpl();
+//		String path="D:\\test2.xlsx";
+//		Route route=new Route();
+//		route.setRouteId("5");
+//		route.setDescripte("这是一条测试数据");
+//		route.setType("1");
+//		fileimpl.insertRoute(path, route);
+//		
+//	}
 
 }

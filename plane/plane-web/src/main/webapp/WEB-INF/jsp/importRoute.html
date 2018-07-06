@@ -102,8 +102,6 @@
 			var descripte = $("#descripte").val();
 			var routePathExcel = $("#routePathExcel").val();
 			
-			$('#ocAlertTip').css('display','block');
-			
 			if(!routeId){
 				
 				$('#al_info').html("请输入路由编号！");
@@ -114,11 +112,11 @@
 				$('#al_info').html("请输入路由描述！");
 				$('#ocAlertTip').css('display','block');
 				
-			}/* else if(!routePathExcel){
+			} else if(!routePathExcel){
 				
 				$('#al_info').html("请输入路由文件！");
-				$('#ocAlertTip').css('display','block'); }*/
-			else{
+				$('#ocAlertTip').css('display','block'); 
+				}  else{
 				
 					$('#importCourseSectionForm').ajaxSubmit({
 						type: 'POST',
