@@ -10,11 +10,39 @@
     <result column="createtime" property="createTime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+    <sql id="Base_Column_List" >
+    alarmid,image,planeid,AsText(alongda) as alongda,descripte,createtime,updatetime
+  </sql>
 
+    <sql id="Info_Column_List">
+        alarmid,image,descripte
+    </sql>
 	<select id="selectALLAlarm" resultMap="BaseResultMap">
 		select alarmid,image,planeid,AsText(alongda) as alongda,descripte,createtime,updatetime
 		from alarm 
 	</select>
 
+    <select id="selectAllAlarmByCreateTimeDesc" resultMap="BaseResultMap">
+        select alarmid,image,planeid,AsText(alongda) as alongda,descripte,createtime,updatetime
+		from alarm order by createtime DESC
+    </select>
 
+    <select id="alarmCount" resultType="java.lang.Integer">
+        select count(1) from alarm
+    </select>
+
+    <select id="queryAlarmPage" resultMap="BaseResultMap" parameterType="hust.plane.utils.page.TailPage">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM alarm
+        ORDER BY createtime DESC
+        LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER}
+    </select>
+
+    <select id="selectInfoById" resultType="hust.plane.mapper.pojo.Alarm" parameterType="java.lang.String">
+        select
+        <include refid="Info_Column_List" />
+        from alarm
+        where alarmid=#{id}
+    </select>
 </mapper>

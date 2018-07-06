@@ -18,7 +18,6 @@
             </li>
            
         </ul>
-
         <a href="#accounts-menu2" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">无人机图层</span>
         </a>
@@ -33,16 +32,15 @@
             <span style="font-weight: bold;font-size: 16px;">告警显示</span>
         </a>
         <ul id="accounts-menu1" class="nav nav-list collapse ">
-            <li <#if curNav?? && curNav =="alarmList" > class="active"</#if>><a href="${s.base}/alarmList.action">显示告警</a></li>
-
-            <li <#if curNav?? && curNav =="alarmhistory"> class="active" </#if>><a href="#">历史高警</a></li>
+            <li <#if curNav?? && curNav =="alarmList" > class="active"</#if>><a href="${s.base}/alarmList.action">告警显示</a></li>
+            <li <#if curNav?? && curNav =="alarmhistory"> class="active" </#if>><a href="${s.base}/alarmHistory.action">历史高警</a></li>
         </ul>
         
         
         <a href="#accounts-menu3" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">无人机设定</span>
         </a>
-        <ul id="accounts-menu3" class="nav nav-list collapse ">
+          <ul id="accounts-menu3" class="nav nav-list collapse ">
             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="${s.base}/setFlyPath.action">设定飞行路径</a></li>
             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">飞行路径导入</a></li>
             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="${s.base}/toImportPlanePath.action">导出飞行路径</a></li>
@@ -183,7 +181,5 @@
      }
     
 	</script>
-    
-    
-   
+
  

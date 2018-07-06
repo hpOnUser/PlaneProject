@@ -18,49 +18,25 @@
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">×</span>
 								</button>
-								<h4 class="modal-title" >导入路由</h4>
+								<h4 class="modal-title" >导出飞行路径</h4>
 							</div>
 							
 							<div class="modal-body">
-								<form role="form" id="importCourseSectionForm" method="post" action="${s.base}/oneFileImport.action"  enctype="multipart/form-data">
+								<form role="form" id="importPlanePathForm" method="post" action="${s.base}/importPlanePath.action"  enctype="multipart/form-data">
 									 <div class="form-group clearfix">
-                               			 <label class="control-label"  style="white-space:nowrap" >路由编号：</label>
+                               			 <label class="control-label"  style="white-space:nowrap" >飞行路径编号：</label>
                                 			<div class="col-sm-8">
-                                    		<input type="text" class="form-control" name="routeId" id="routeId" placeholder="请输入路由编号" required="required">
+                                    		<input type="text" class="form-control" name="planepathid" id="planepathid" placeholder="请输入飞行路径编号" required="required">
                                 			</div>
                             			</div>
-									 <div class="form-group clearfix">
-                                		<label class="control-label"  style="white-space:nowrap">路由描述：</label>
-                                			<div class="col-sm-8">
-                                    		<input type="text clearfix" class="form-control" name="descripte" id="descripte" placeholder="请输入路由描述" >
-                                			</div>
-                            		</div>
-									<div class="form-group clearfix">
-                                		<label class="control-label"  style="white-space:nowrap" >路由类型：</label>
-                                			<div class="col-sm-8">
-                                    		<select id="status" name="status" class="form-control" type="select" >
-												<option value="2">混合路由</option>
-												<option value="0">一级路由</option>
-												<option value="1">二级路由</option>	
-											</select>
-                                			</div>
-                            		</div>
-									<div class="form-group clearfix"> 
-										<label class="control-label" style="width:120px;white-space:nowrap;" >路由文件(.xls/.xls)： <span id="imgErrSpan" style="color:red;font-weight:normal;"></span> </label> 
-										<div class="col-sm-6 ">
-												<input type="file" id="routePathExcel" name="routePathExcel">
-										</div>
-									</div>
-									
 								</form>
-								<!-- tip提示-start -->
+							<!-- tip提示-start -->
 								<div id="ocAlertTip" class="alert alert-success f-16" style="display:none;"><span id="al_info">请选择 .xlsx或.xls 格式的文件</span>
 								<button type="button" class="close"  onclick="closeAlert()">
 									<span aria-hidden="true">×</span>
 								</button></div>
 								<!-- tip提示-end -->
 							</div>
-							
 							<div class="modal-footer">
 								<button type="button" class="btn btn-primary" onclick="doSave();">导入</button>
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -69,7 +45,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- 查询路由章节弹出层 -end -->
+			<!-- 导出飞行路径弹出层 -end -->
         </div>
      </div>
        <!-- 弹出层 alert 信息 -->
@@ -98,40 +74,25 @@
       	}
 		function doSave(){
 			
-			var routeId = $('#routeId').val();
-			var descripte = $("#descripte").val();
-			var routePathExcel = $("#routePathExcel").val();
-			
+			var planepathid = $('#planepathid').val();
 			$('#ocAlertTip').css('display','block');
 			
 			if(!routeId){
-				
-				$('#al_info').html("请输入路由编号！");
+				$('#al_info').html("请输入飞行路径编号！");
 				$('#ocAlertTip').css('display','');
 				
-			}else if(!descripte){
-				
-				$('#al_info').html("请输入路由描述！");
-				$('#ocAlertTip').css('display','block');
-				
-			}/* else if(!routePathExcel){
-				
-				$('#al_info').html("请输入路由文件！");
-				$('#ocAlertTip').css('display','block'); }*/
-			else{
-				
-					$('#importCourseSectionForm').ajaxSubmit({
+			}else{
+					$('#importPlanePathForm').ajaxSubmit({
 						type: 'POST',
 						datatype : 'json',
 						success : function(resp) {
-							window.location.href="${s.base}/routeList.action";
-							/* var resp = $.parseJSON(resp);
+							var resp = $.parseJSON(resp);
 							if (resp.errcode == 0) {
 								$('#myModal').modal('hide');
 								window.location.reload();//刷新
 							} else {
 								Modal.tipFailure(resp.message);//失败提示 
-							} */
+							}
 						},
 						error: function(){
 							Modal.tipFailure('保存失败');
