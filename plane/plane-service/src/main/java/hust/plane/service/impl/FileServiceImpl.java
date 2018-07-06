@@ -16,8 +16,8 @@ import hust.plane.utils.pojo.RouteExcel;
 @Service
 public class FileServiceImpl implements FileService {
 	
-	@Value("ROOT_FILE")
-	private String ROOT_FILE;
+	@Value("${ROOT_FILE}")
+	private String ROOT_FILE="D:\\";
 	
 	@Autowired
 	private RouteMapper routeMapper;

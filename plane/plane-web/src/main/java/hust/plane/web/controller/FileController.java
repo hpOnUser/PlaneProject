@@ -22,7 +22,7 @@ public class FileController {
 		String filename=file.getOriginalFilename();
 
 		FileServiceImpl.insertRoute(filename, route);
-		return "success";
+		return "redirect:/taskPageList";
 	}
 
 }

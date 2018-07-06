@@ -105,7 +105,7 @@
 			$('#ocAlertTip').css('display','block');
 			
 			if(!routeId){
-				alert(2);
+				
 				$('#al_info').html("请输入路由编号！");
 				$('#ocAlertTip').css('display','');
 				
@@ -114,23 +114,24 @@
 				$('#al_info').html("请输入路由描述！");
 				$('#ocAlertTip').css('display','block');
 				
-			}else if(!routePathExcel){
+			}/* else if(!routePathExcel){
 				
 				$('#al_info').html("请输入路由文件！");
-				$('#ocAlertTip').css('display','block');
-			}else{
-				alert(5);
+				$('#ocAlertTip').css('display','block'); }*/
+			else{
+				
 					$('#importCourseSectionForm').ajaxSubmit({
 						type: 'POST',
 						datatype : 'json',
 						success : function(resp) {
-							var resp = $.parseJSON(resp);
+							window.location.href="${s.base}/routeList.action";
+							/* var resp = $.parseJSON(resp);
 							if (resp.errcode == 0) {
 								$('#myModal').modal('hide');
 								window.location.reload();//刷新
 							} else {
 								Modal.tipFailure(resp.message);//失败提示 
-							}
+							} */
 						},
 						error: function(){
 							Modal.tipFailure('保存失败');
