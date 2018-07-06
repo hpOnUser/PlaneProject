@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
+import hust.plane.utils.pojo.PlanePathVo;
 import hust.plane.utils.pojo.RouteExcel;
 
 public class test {
@@ -82,6 +83,25 @@ public class test {
 		s.deleteCharAt(s.length()-1);
 		s.append(")");
 		System.out.println(s);
+	}
+	//测试kml文件
+	@Test
+	public void test2()
+	{
+		String path="E:\\hello.kml";
+		List<PlanePathVo> plist = new ArrayList<PlanePathVo>();
+		PlanePathVo vo= new PlanePathVo();
+		vo.setLongitude(1.22222);
+		vo.setLatitude(3.1111);
+		vo.setHeight(1.2222);
+		PlanePathVo vo1= new PlanePathVo();
+		vo1.setLongitude(4.22222);
+		vo1.setLatitude(6.1111);
+		vo1.setHeight(5.2222);
+		plist.add(vo);
+		plist.add(vo1);
+		KMLUtil.importKML(path, plist);
+		
 	}
 
 }
