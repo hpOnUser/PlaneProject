@@ -9,110 +9,132 @@
     <meta name="description" content="">
     <!-- 引入资源文件 -->
     <#include "common/res.html" />
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <#include "common/header.html" />
-    <#include "./nav.html" />
+<#include "common/header.html" />
+<#include "./nav.html" />
 
 
-    <!-- 历史告警弹出层 -start -->
-    <div class="modal" id="alarmHistoryModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal_wapper">
-            <div class="modal-dialog w-8">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <h4 class="modal-title">告警点详细信息</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group" style="width:100%">
-                            告警点描述：<span id="descripte">这有个大飞机这有个大飞机这有个有个大飞机这有个大飞机个大飞机这有个有个大飞机这
-                                </span>
-                        </div>
-                        <img src="res/i/bing.png" style="width:100%;">
-
-                    </div>
-                    <!--
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                        </div>
-                    -->
+<!-- 历史告警弹出层 -start -->
+<div class="modal" id="alarmHistoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal_wapper">
+        <div class="modal-dialog w-8">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">告警点详细信息</h4>
                 </div>
+                <div class="modal-body">
+                    <div class="form-group" style="width:100%">
+                        告警点描述：<span id="descripte"></span>
+                    </div>
+                    <img id="infoImg" src="" style="width:100%;">
+
+                </div>
+                <!--
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    </div>
+                -->
             </div>
         </div>
     </div>
-    <!-- 查询路由弹出层 -end -->
-    <div class="content">
-        <div class="container-fluid">
-            <form id="queryPageForm" class="mt-15">
-                <div class="block span6">
-                    <a class="block-heading f-14" data-toggle="collapse">历史告警</a>
-                    <!--
-                                        <div class="block-body collapse in">
-                                            <p>
-                                                    <select  name="status" class="search-select">
-                                                        <option value="-1">全部</option>
-                                                        <option value="0" >过期告警</option>
-                                                        <option value="1" >未处理告警</option>
-                                                    </select>
-                                                </p>
-                                            <p>
-                                                <input name="taskid" type="text" value="" class="search-text" value="" placeholder="请输入告警编号">
+</div>
+<!-- 查询路由弹出层 -end -->
+<div class="content">
+    <div class="container-fluid">
+        <form id="queryPageForm" class="mt-15">
+            <div class="block span6">
+                <a class="block-heading f-14" data-toggle="collapse">历史告警</a>
+                <!--
+                                    <div class="block-body collapse in">
+                                        <p>
+                                                <select  name="status" class="search-select">
+                                                    <option value="-1">全部</option>
+                                                    <option value="0" >过期告警</option>
+                                                    <option value="1" >未处理告警</option>
+                                                </select>
                                             </p>
-                                            <p>
-                                                <input type="submit" class="search-btn" value="搜索">
-                                            </p>
-                                        </div>
-                    -->
-                </div>
+                                        <p>
+                                            <input name="taskid" type="text" value="" class="search-text" value="" placeholder="请输入告警编号">
+                                        </p>
+                                        <p>
+                                            <input type="submit" class="search-btn" value="搜索">
+                                        </p>
+                                    </div>
+                -->
+            </div>
 
-                <div class="row-fluid">
-                    <div class="block span6">
-                        <div id="tablewidget" class="block-body collapse in">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>告警编号</th>
-                                    <th>无人机编号</th>
-                                    <th>告警坐标</th>
-                                    <th>告警创建时间</th>
-                                    <th>更新时间</th>
-                                    <th>状态</th>
-                                    <th>告警详情</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <#if (page.items)??>
-                                <#list page.items as alarm>
-                                    <td>${alarm.alarmid}</td>
-                                    <td>${alarm.planeid}</td>
-                                    <td>${alarm.alongda}</td>
-                                    <td>${alarm.createTime}</td>
-                                    <td>${alarm.updateTime}</td>
-                                    <td>待完成</td>
-                                    <td><a onclick="showDetail('12345')">详细信息</a></td>
-                                    <td>待定</td>
-                                </#list>
-                            </#if>
-                            </tbody>
-                            </table>
-                            <p><#include "common/tailPage.html"/></p>
-                        </div>
+            <div class="row-fluid">
+                <div class="block span6">
+                    <div id="tablewidget" class="block-body collapse in">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>告警编号</th>
+                                <th>无人机编号</th>
+                                <th>告警坐标</th>
+                                <th>告警创建时间</th>
+                                <th>更新时间</th>
+                                <th>状态</th>
+                                <th>告警详情</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <#if (page.items)??>
+                            <#list page.items as alarm>
+                            <td>${alarm.alarmid}</td>
+                            <td>${alarm.planeid}</td>
+                            <td>${alarm.alongda}</td>
+                            <td>${alarm.createTime}</td>
+                            <td>${alarm.updateTime}</td>
+                            <td>待完成</td>
+                            <td><a class="pointer" onclick="showDetail(${alarm.alarmid})">详细信息</a></td>
+                            <td>待定</td>
+                            </#list>
+                        </#if>
+                        </tbody>
+                        </table>
+                        <p><#include "common/tailPage.html"/></p>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-    <script>
-        function showDetail(id){
-            //发送ajax请求
-            Modal.show('alarmHistoryModal');
+</div>
+<script>
+    function showDetail(id) {
+        //发送ajax请求
+        var alarmId = id;
+        $.ajax({
+            type: 'POST',
+            url: 'alarmInfo',
+            data: {
+                alarmId: alarmId
+            },
+            async: true,
+            success: function (result) {
+                if (result.errcode == 0 && result.message == "SUCCESS") {
+                    $("#descripte").html(result.data.body);
+                    var img = "res/" + result.data.img;
+                    $("#infoImg").attr("src", img);
+                    Modal.show('alarmHistoryModal');
+                } else {
+                    showAlert(result.message);
+                }
+            }
+        });
 
-        }
+    }
 
-    </script>
+</script>
 </body>
 </html>

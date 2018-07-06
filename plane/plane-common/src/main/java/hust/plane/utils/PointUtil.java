@@ -17,13 +17,13 @@ public class PointUtil {
 		p.setLongitude(y);
 		return p;
 	}
-	//解析经纬度，构成经纬度数据类。输入字符串Point(x,y),拼接成[x,y]形式
 	public static String StringPointToString(String s)
 	{
 		String sub=s.substring(6, s.length()-1);
 		String newString =sub.split(" ")[0]+","+sub.split(" ")[1];
 		return newString;
 	}
+	//解析经纬度，构成经纬度数据类。输入字符串Point(x,y),拼接成[x,y]形式
 	public static List<Double> StringPointToList(String s)
 	{
 		List<Double> list =new ArrayList<Double>();

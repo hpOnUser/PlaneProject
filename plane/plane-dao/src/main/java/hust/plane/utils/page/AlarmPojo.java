@@ -115,7 +115,13 @@ public class AlarmPojo  {
     public static String pointToString(List<Double> pointList){
         return String.valueOf(pointList.get(0))+","+String.valueOf(pointList.get(1));
     }
-
+    /**
+     * 时间转换
+     * @author rfYang
+     * @date 2018/7/6 13:51
+     * @param [date, dateFormat]
+     * @return java.lang.String
+     */
     public static String dateFormat(Date date, String dateFormat) {
         if(date != null) {
             SimpleDateFormat format = new SimpleDateFormat(dateFormat);

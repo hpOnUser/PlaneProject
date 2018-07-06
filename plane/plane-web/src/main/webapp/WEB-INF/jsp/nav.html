@@ -18,7 +18,6 @@
             </li>
            
         </ul>
-
         <a href="#accounts-menu2" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">无人机图层</span>
         </a>
@@ -41,11 +40,13 @@
         <a href="#accounts-menu3" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">无人机设定</span>
         </a>
-        <ul id="accounts-menu3" class="nav nav-list collapse ">
-            <li <#if curNav?? && curNav =="setFlyPath"> class="active" </#if>><a href="${s.base}/setFlyPath.action">设定飞行路径</a></li>
-            <li <#if curNav?? && curNav =="importFlyPath"> class="active" </#if>><a href="#">飞行路径导入</a></li>
-            <li <#if curNav?? && curNav =="exportFlyPath"> class="active" </#if>><a href="#">导出飞行路径</a></li>
-            <li <#if curNav?? && curNav =="sendFlyPath"> class="active" </#if>><a href="#">下发飞行路径</a></li> 
+
+          <ul id="accounts-menu3" class="nav nav-list collapse ">
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="${s.base}/setFlyPath.action">设定飞行路径</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">飞行路径导入</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="${s.base}/toImportPlanePath.action">导出飞行路径</a></li>
+            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">下发飞行路径</a></li> 
+
         </ul>
         
         
@@ -182,7 +183,5 @@
      }
     
 	</script>
-    
-    
-   
+
  

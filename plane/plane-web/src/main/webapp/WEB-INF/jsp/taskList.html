@@ -73,7 +73,9 @@
                                 	<td>${taskpojo.task.routeid!}</td>
                                 	<td>${(taskpojo.task.plantime?date)!}</td>
                                 	<td>${taskpojo.task.status!}</td>
-                                	<td>查看详情</td>
+                                	<td>
+                                		 <a href="javascript:void(0)" onclick="toEdit();">生成飞行报告</a>
+                                	</td>
                                 </#list>
                              </#if>   	                         
 	                           </tbody>
