@@ -12,7 +12,8 @@ public interface AlarmMapper {
 
 	List<Alarm> selectALLAlarm();
 	List<Alarm> selectAllAlarmByCreateTimeDesc();
-	int alarmCount();
+	int alarmCount(Alarm alarm);
 	List<Alarm> queryAlarmPage(Alarm alarm, TailPage<AlarmPojo> page);
     Alarm selectInfoById(String id);
+	void updateByAlarmId(String alarmid);
 }

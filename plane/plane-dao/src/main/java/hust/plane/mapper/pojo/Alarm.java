@@ -11,11 +11,19 @@ public class Alarm {
 	private String planeid;
 	private String alongda;
 	private String descripte;
+	private String status;
+
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createTime;
     @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updateTime;
-      
+    
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}  
 	public String getAlarmid() {
 		return alarmid;
 	}

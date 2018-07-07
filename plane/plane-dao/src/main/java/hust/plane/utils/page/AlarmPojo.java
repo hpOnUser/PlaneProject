@@ -16,7 +16,7 @@ public class AlarmPojo  {
     private String updateTime;
     private String alongda;
     private List<Double> positionList;
-
+    private String status;
 
     public AlarmPojo(Alarm alarm) {
 
@@ -41,9 +41,21 @@ public class AlarmPojo  {
             this.positionList = StringPointToList(alarm.getAlongda());
             this.alongda = pointToString(StringPointToList(alarm.getAlongda()));
         }
+        if(alarm.getStatus()!=null)
+        {
+        	this.status=alarm.getStatus();
+        }
     }
 
-    public String getAlarmid() {
+    public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getAlarmid() {
         return alarmid;
     }
     public void setAlarmid(String alarmid) {

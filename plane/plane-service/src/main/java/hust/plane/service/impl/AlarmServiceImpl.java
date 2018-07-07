@@ -29,7 +29,8 @@ public class AlarmServiceImpl implements AlarmService {
 
     @Override
     public TailPage<AlarmPojo> queryAlarmWithPage(Alarm alarm, TailPage<AlarmPojo> page) {
-        int count = alarmMapper.alarmCount();
+    	
+        int count = alarmMapper.alarmCount(alarm);
         page.setItemsTotalCount(count);
         List<Alarm> alarmList = alarmMapper.queryAlarmPage(alarm, page);
         List<AlarmPojo> alarmPojos = new ArrayList<>();
@@ -49,4 +50,10 @@ public class AlarmServiceImpl implements AlarmService {
         }
         return null;
     }
+
+	@Override
+	public void updateAlarmStatus(String alarmid) {
+		alarmMapper.updateByAlarmId(alarmid);
+		
+	}
 }

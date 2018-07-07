@@ -13,4 +13,5 @@ public interface AlarmService {
 	List<Alarm> getAllAlarm();
 	TailPage<AlarmPojo> queryAlarmWithPage(Alarm alarm, TailPage<AlarmPojo> page);
     Alarm selectAlarmById(String id);
+	void updateAlarmStatus(String alarmid);
 }

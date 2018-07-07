@@ -7,11 +7,12 @@
     <result column="planeid" property="planeid" jdbcType="VARCHAR" />
     <result column="descripte" property="descripte" jdbcType="VARCHAR" />
     <result column="alongda" property="alongda" jdbcType="VARCHAR" />
+     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="createtime" property="createTime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
     <sql id="Base_Column_List" >
-    alarmid,image,planeid,AsText(alongda) as alongda,descripte,createtime,updatetime
+    alarmid,image,planeid,AsText(alongda) as alongda,descripte,status,createtime,updatetime
   </sql>
 
     <sql id="Info_Column_List">
@@ -19,22 +20,36 @@
     </sql>
 	<select id="selectALLAlarm" resultMap="BaseResultMap">
 		select alarmid,image,planeid,AsText(alongda) as alongda,descripte,createtime,updatetime
-		from alarm 
+		from alarm where status ="1"
 	</select>
 
     <select id="selectAllAlarmByCreateTimeDesc" resultMap="BaseResultMap">
-        select alarmid,image,planeid,AsText(alongda) as alongda,descripte,createtime,updatetime
+        select alarmid,image,planeid,AsText(alongda) as alongda,descripte,status,createtime,updatetime
 		from alarm order by createtime DESC
     </select>
 
-    <select id="alarmCount" resultType="java.lang.Integer">
-        select count(1) from alarm
+    <select id="alarmCount" resultType="java.lang.Integer" parameterType="hust.plane.mapper.pojo.Alarm">
+        select count(1) from alarm  
+        WHERE 1=1 
+		<if test="alarmid != null">
+		AND alarmid = #{alarmid}
+		</if>
+		<if test="status != null">
+		AND status = #{status}
+		</if>
     </select>
 
-    <select id="queryAlarmPage" resultMap="BaseResultMap" parameterType="hust.plane.utils.page.TailPage">
+    <select id="queryAlarmPage" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />
         FROM alarm
+        WHERE 1=1 
+		<if test="param1.alarmid != null">
+		AND alarmid = #{param1.alarmid}
+		</if>
+		<if test="param1.status != null">
+		AND status = #{param1.status }
+		</if>
         ORDER BY createtime DESC
         LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER}
     </select>
@@ -45,4 +60,8 @@
         from alarm
         where alarmid=#{id}
     </select>
+    
+    <update id="updateByAlarmId" parameterType="java.lang.String">
+    	update alarm set status="0" where alarmid=#{alarmid}
+    </update>
 </mapper>
