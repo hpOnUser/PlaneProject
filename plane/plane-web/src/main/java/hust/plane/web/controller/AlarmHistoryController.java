@@ -19,6 +19,7 @@ public class AlarmHistoryController {
     public String alarmHistoryQueryPage(Alarm alarm, TailPage<AlarmPojo> page, Model model) {
         page = alarmService.queryAlarmWithPage(alarm,page);
         model.addAttribute("page",page);
+        model.addAttribute("curNav", "alarmhistory");
         return "alarmHistory";
     }
 }

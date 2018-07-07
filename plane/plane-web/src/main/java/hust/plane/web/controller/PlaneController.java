@@ -70,8 +70,8 @@ public class PlaneController {
 		
 	}
 	@RequestMapping("/setFlyPath")
-	public String setFlyPath(Model mdoel){
-		
+	public String setFlyPath(Model model){
+		model.addAttribute("curNav", "setFlyPath");
 		return "setFlyPath";
 	}
 	

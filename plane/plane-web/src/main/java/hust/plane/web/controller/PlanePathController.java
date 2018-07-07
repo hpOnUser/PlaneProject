@@ -2,6 +2,7 @@ package hust.plane.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import hust.plane.mapper.pojo.PlanePath;
 import hust.plane.service.interFace.PlanePathService;
@@ -14,8 +15,9 @@ public class PlanePathController {
 	private PlanePathService planePathServiceImpl;
 
 	@RequestMapping("/toImportPlanePath")
-	public String toImportPlanePath()
+	public String toImportPlanePath(Model model)
 	{
+		model.addAttribute("curNav", "importPlanePath");
 		return "importPlanePath";
 	}
 	
