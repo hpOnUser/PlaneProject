@@ -15,13 +15,15 @@ public class FileController {
 	@Autowired
 	private FileService FileServiceImpl;
 	
+	
+	//导入路由功能
 	@RequestMapping("/oneFileImport")
 	public String importOneFile(@RequestParam("routePathExcel") MultipartFile file,Route route)
 	{
 		
 		String filename=file.getOriginalFilename();
 		FileServiceImpl.insertRoute(filename, route);
-		return "redirect:/taskPageList";
+		return "success";
 	}
 
 }

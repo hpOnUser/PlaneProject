@@ -40,11 +40,13 @@
         <a href="#accounts-menu3" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">无人机设定</span>
         </a>
+
           <ul id="accounts-menu3" class="nav nav-list collapse ">
             <li <#if curNav?? && curNav =="setFlyPath"> class="active" </#if>><a href="${s.base}/setFlyPath.action">设定飞行路径</a></li>
             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">飞行路径导入</a></li>
             <li <#if curNav?? && curNav =="importPlanePath"> class="active" </#if>><a href="${s.base}/toImportPlanePath.action">导出飞行路径</a></li>
             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">下发飞行路径</a></li> 
+
         </ul>
         
         
@@ -62,8 +64,8 @@
             <span style="font-weight: bold;font-size: 16px;">用户管理</span>
         </a>
         <ul id="accounts-menu5" class="nav nav-list collapse ">
-            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">用户增删改</a></li>
-             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">用户组绑定</a></li>
+            <li <#if curNav?? && curNav =="usersEdit"> class="active" </#if>><a href="#">用户增删改</a></li>
+             <li <#if curNav?? && curNav =="usersBind"> class="active" </#if>><a href="#">用户组绑定</a></li>
         </ul>
         
     
@@ -72,8 +74,8 @@
             <span style="font-weight: bold;font-size: 16px;">我的账号</span>
         </a>
         <ul id="accounts-menu6" class="nav nav-list collapse ">
-            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="${s.base}/admin/profile">修改个人信息</a></li>
-            <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="${s.base}/admin/logout">退出</a></li>
+            <li <#if curNav?? && curNav =="editInfo"> class="active" </#if>><a href="${s.base}/admin/profile">修改个人信息</a></li>
+            <li <#if curNav?? && curNav =="logout"> class="active" </#if>><a href="${s.base}/admin/logout">退出</a></li>
         </ul>
        
     </div>
