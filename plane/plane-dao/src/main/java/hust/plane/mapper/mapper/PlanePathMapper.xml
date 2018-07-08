@@ -6,8 +6,8 @@
     <result column="plongda" property="plongda" jdbcType="VARCHAR" />
     <result column="height" property="height" jdbcType="LONGVARCHAR" />
     <result column="descripte" property="descripte" jdbcType="VARCHAR" />
-    <result column="createtime" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="updatetime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_list">
   		planepathid,AsText(plongda),height,descripte,createtime,updatetime
@@ -25,7 +25,12 @@
 	
 	<insert id="insert" parameterType="hust.plane.mapper.pojo.PlanePath">
 		insert into planepath(planepathid,plongda,height,descripte,createtime,updatetime) values (#{planepathid,jdbcType=VARCHAR},GeomFromText(#{plongda,jdbcType=VARCHAR}), 
-      #{height,jdbcType=LONGVARCHAR},#{descripte,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
-
+      #{height,jdbcType=LONGVARCHAR},#{descripte,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
 	</insert>
+	
+	<insert id="insertPlanePath" parameterType="hust.plane.mapper.pojo.PlanePath">
+		insert into planepath(planepathid,plongda,height,descripte,createtime,updatetime) values (#{planepathid,jdbcType=VARCHAR},GeomFromText(#{plongda,jdbcType=VARCHAR}), 
+      #{height,jdbcType=LONGVARCHAR},#{descripte,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+	</insert>
+	
 </mapper>

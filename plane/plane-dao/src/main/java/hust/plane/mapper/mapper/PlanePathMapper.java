@@ -6,6 +6,10 @@ import hust.plane.mapper.pojo.PlanePath;
 
 public interface PlanePathMapper {
 	
-	public List<PlanePath> selectByPlanePathVo(PlanePath planepath);
+	 List<PlanePath> selectByPlanePathVo(PlanePath planepath);
+
+	 void insertPlanePath();
+
+	 void insertPlanePath(PlanePath planePath);
 
 }

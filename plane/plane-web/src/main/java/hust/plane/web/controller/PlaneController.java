@@ -69,10 +69,10 @@ public class PlaneController {
 		return "planeList";	
 		
 	}
-	@RequestMapping("/setFlyPath")
-	public String setFlyPath(Model model){
-		model.addAttribute("curNav", "setFlyPath");
-		return "setFlyPath";
-	}
+//	@RequestMapping("/setFlyPath")
+//	public String setFlyPath(Model model){
+//		model.addAttribute("curNav", "setFlyPath");
+//		return "setFlyPath";
+//	}
 	
 }

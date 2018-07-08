@@ -23,6 +23,7 @@ public class RouteVo {
 			 this.status= route.getStatus();
 		}
 		if ( route.getRoutePath()!= null) {
+			System.out.println(route.getRoutePath());
 			this.routePath = LineUtil.stringLineToList(route.getRoutePath());
 		}
 		if ( route.getDescripte()!= null) {

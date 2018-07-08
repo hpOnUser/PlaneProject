@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>路由分布</title>
+    <title>设定飞行路径</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
@@ -15,14 +15,20 @@
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="http://webapi.amap.com/maps?v=1.4.6&key=82f9e75505b649be9ab81a45ae34aa14"></script>
     <link href="css/common.css" rel="stylesheet" type="text/css">
-<style>
-    #selectbtns{
-        z-index: 20;
-        position: absolute;
-        margin-top: 31px;
-        margin-left: 325px; 
-    }
-</style>
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <style>
+        #selectbtns {
+            z-index: 20;
+            position: absolute;
+            margin-top: 15px;
+            margin-left: 325px;
+            margin-bottom: 5px;
+            display: inline;
+        }
+        #selectbtns .btns {
+            border-radius: 5px;
+        }
+    </style>
 
 </head>
 
@@ -30,13 +36,87 @@
 
    	<#include "common/header.html" />
     <#include "./nav.html" />
-    <div id="selectbtns">
-     <button type="button" class="btn btn-default " style="margin-right: 15px;">开始选择</button>
-      <button type="button" class="btn btn-default " >清除已选</button>
+     <div id="selectbtns">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <div class="input-group">
+                    <button type="button" class="btn btn-default btns" onclick="startSelect()" id="beginbtn">开始选择</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">已选路径</span>
+                    <input type="text" class="form-control" style="width: 620px;" id="flypath">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <button type="button" class="btn btn-default btns" onclick="showData()">显示结果</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <button type="button" class="btn btn-default btns" onclick="clearSelect()">清除已选</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <button type="button" class="btn btn-default btns" onclick="submitData()">提交结果</button>
+                </div>
+            </div>
+        </form>
     </div>
    
+      <!-- 设定飞行路径弹出层 -start -->
+    <div class="modal" id="setplanepathModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal_wapper">
+            <div class="modal-dialog w-8">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+                        <h4 class="modal-title">设定飞行路径</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" id="eee" method="post" action="#">
+                             <div class="form-group clearfix">
+                                <label class="control-label"  style="white-space:nowrap">飞行路径：</label>
+                                <div class="col-sm-8">
+                                    <input type="text clearfix" class="form-control" id="planepath" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <label class="control-label"  style="white-space:nowrap">飞行路径编号：</label>
+                                <div class="col-sm-8">
+                                    <input type="text clearfix" class="form-control" id="planepathid" onchange="" placeholder="请输入飞行路径编号">
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <label class="control-label"  style="white-space:nowrap">飞行路径描述：</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="descripte" placeholder="请输入飞行路径描述" />
+                                </div>
+                            </div>                       
+                        </form> 
+                        <!-- tip提示-start -->
+				        <div id="ocAlertTip" class="alert alert-success f-16" style="display:none;"><span id="al_info">请完整填写所有信息</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="dopostPlanepath();">提交</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- 设定飞行路径弹出层 -end -->
+    
+    
+    
     <div class="content">
-      
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="block span6">
@@ -44,90 +124,39 @@
                     <!-- UI组件库 1.0 -->
                     <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
                     <script type="text/javascript">
-                        //闪烁点
-                        //just some colors
                         var colors = ['#0cc2f2', '#4fd2b1', '#90e36f', '#ffe700', '#ff9e00', '#ff6700', '#ff1800', ];
                         var routeStatusCode = ['一干路由', '二干路由', '混合路由'];
-                        //var Imgsrc = ['start1-32.png', 'start2-32.png', 'start3-32.png'];
-                        var routeList = [{
-                            routeid: '2',
-                            status: '0',
-                            routepath: [
-                                [107.79962, 23.06691], // 2144  起飞点
-                                [107.79985, 23.06666], // 2143
-                                [107.80006, 23.06645], // 2142
-                                [107.80033, 23.06617], // 2141
-                                [107.80079, 23.06568], // 2140
-                                [107.80103, 23.06544], // 2139
-                                [107.80121, 23.06524], // 2138
-                                [107.80143, 23.06500], // 2137
-                                [107.80164, 23.06481], // 2136
-                                [107.80214, 23.06427], // 2135
-                                [107.80226, 23.06413], // 2134+2
-                                [107.80245, 23.06394], // 2134+1
-                                
-                            ],
-                            descripte: '这是一条一干路由,无人机路过',
-                            updatetime: '2018-8-1',
-                            type: '1',
-                        },{
-                            routeid: '1',
-                            status: '0',
-                            routepath: [
-                                [107.80338, 23.06280], // 2130
-                                [107.80345, 23.06262], // 2129
-                                [107.80349, 23.06253], // 2128
-                                [107.80363, 23.06209], // 2127
-                                [107.80367, 23.06200], // 2126
-                                [107.80370, 23.06188], // 2125
-                                [107.80373, 23.06178], // 2124
-                                [107.80386, 23.06140], // 2123
-                                [107.80396, 23.06104], // 2122
-                                [107.80402, 23.06079], // 2121
-                                [107.80412, 23.06069], // 2120
-                                [107.80436, 23.06050], // 2119
-                                [107.80465, 23.06029], // 2118
-                                [107.80486, 23.06015], // 2117
-                                [107.80520, 23.05990], // 2116
-                                [107.80543, 23.05976], // 2116+2
-                                [107.80568, 23.05958], // 2116+1
-                                [107.80607, 23.05926], // 2115
-                                [107.80645, 23.05895], // 2114
-                                [107.80674, 23.05875], // 2113
-                                [107.80708, 23.05849], // 2112
-                                [107.80736, 23.05829], // 2111
-                                [107.80767, 23.05807], // 2110 折返点
-                            ],
-                            descripte: '这是一条一干路由,歼20路过',
-                            updatetime: '2018-8-1',
-                            type: '2',
-                        }];
+                        var routeList = ${routeList};
+                       
+                        var targetRouteList = JSON.parse(JSON.stringify(routeList));                                       
                         //创建一个地图
                         var map = new AMap.Map('container', {
                             resizeEnable: true,
-                            center: routeList[0].routepath[0],
+                            center: targetRouteList[0].routePath[0],
                             zoom: 15
                         });
-                        AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
-                            //缩放控件，显示Zoom值
-                            map.addControl(new BasicControl.Zoom({
-                                position: 'lt',
-                                showZoomNum: true,
-                            }));
-                        });
-                        
-                        
+
                         var infoWindow = new AMap.InfoWindow({
                             isCustom: true,
                             offset: new AMap.Pixel(20, -35)
                         });
 
-                        function showrouteList(RouteList) {
-                            for (var i = 0; i < routeList.length; i++) {
+                        function showrouteList() {
+                            for (var i = 0; i < targetRouteList.length; i++) {
+
+                                var color;
+                                if (targetRouteList[i].type == '0') {
+                                    color = '#0cc2f2';
+                                } else if (targetRouteList[i].type == '1') {
+                                    color = '#90e36f';
+                                } else {
+                                    color = '#4fd2b1';
+                                }
+
                                 var polyline = new AMap.Polyline({
                                     map: map,
-                                    path: RouteList[i].routepath, //设置线覆盖物路径
-                                    strokeColor: colors[parseInt(5 / 2)], //线颜色
+                                    path: targetRouteList[i].routePath, //设置线覆盖物路径
+                                    strokeColor: color, //线颜色
                                     strokeOpacity: 1, //线透明度
                                     strokeWeight: 5, //线宽
                                     strokeStyle: "solid", //线样式
@@ -136,12 +165,169 @@
                             }
                         }
 
-                        showrouteList(routeList);
+                        showrouteList();
+
+                        //数据初始化
+                        //每个点的定义为：id：i：end/start  其中id是路由编号，i是序号，end/start是头尾标识
+                        var PointList = []; //选定的点列表数据
+                        var PointListStr = '' //显示的点列表字符串
+                        var PlanePath = []; //最终选定的路径坐标序列
+                        var PlanePathStr=''; //最终选定的路径坐标
+                        var startFlag = false; //设置标志位，确定是否可以开始选择点
+                        var lineSelected;
+
+                        //判断选定的路径是否合法
+                        function judge() {
+                            for (var i = 0; i < PointList.length; i = i + 2) {
+                                //如果一组点的id号相同，且头尾标志不同则认为正确
+                                if (PointList[i][0] == PointList[i + 1][0] && PointList[i][2] != PointList[i + 1][2])
+                                    continue;
+                                else
+                                    return false;
+
+                            }
+                            return true;
+                        }
+                        //数组转字符串
+                        function getString(objarr) {　　
+                            var typeNO = objarr.length;　
+                            var tree = "(";　　
+                            for (var i = 0; i < typeNO; i++) {　　　                          
+                                tree +=  objarr[i][0];　　　
+                                tree += " " + objarr[i][1];　　　                        
+                                if (i < typeNO - 1) {　　　　
+                                    tree += ",";　　　
+                                }　
+                            }　
+                            tree += ")";　
+                            return tree;
+                        }
+
+                        //增加一个路由点
+                        function addPoint(extData) {
+
+                            var point = extData.split(':');
+                            PointListStr = PointListStr + point[0] + ':' + point[2] + '->';
+                            document.getElementById('flypath').value = PointListStr;
+                            point[1] = Number(point[1]);
+                            PointList.push(point);
+
+                        }
+						//生成飞行路径
+                        function merge() {
+
+                            for (var i = 0; i < PointList.length; i = i + 2) {
+                                var index = PointList[i][1];
+                                if (PointList[i][2] == 'start') {
+
+                                    for (var j = 0; j < routeList[index].routePath.length; j++)
+                                        PlanePath.push(routeList[index].routePath[j]);
+                                } else {
+                                    for (var j = routeList[index].routePath.length - 1; j >= 0; j--)
+                                        PlanePath.push(routeList[index].routePath[j]);
+                                }
+                            }
+                            PlanePathStr = getString(PlanePath);
+                        }
+
+                        //显示选择结果
+                        function showData() {
+                            merge();
+                            console.log(PlanePathStr);
+                            if (startFlag == false) {
+                                if (judge() == true) {
+                                    lineSelected = new AMap.Polyline({
+                                        map: map,
+                                        path: PlanePath, //设置线覆盖物路径
+                                        strokeColor: '#ff6700', //线颜色
+                                        strokeOpacity: 1, //线透明度
+                                        strokeWeight: 7, //线宽
+                                        strokeStyle: "solid", //线样式
+                                        strokeDasharray: [10, 5] //补充线样式
+                                    });
+                                } else {
+                                    alert('您选择的路径不合规范，请清除并重选');
+                                }
+                            }
+
+                        }
+
+                        //开始选择按钮功能
+                        function startSelect() {
+                            //点击后更改样式
+                            if (startFlag == false) {
+                                document.getElementById('beginbtn').className = 'btn btn-primary btns';
+                                document.getElementById('beginbtn').innerHTML = '点击完成';
+                                startFlag = true;
+                            } else {
+                                startFlag = false;
+                                document.getElementById('beginbtn').className = 'btn btn-default btns';
+                                document.getElementById('beginbtn').innerHTML = '点击开始';
+                            }
+
+                        }
+                        //清除已选择的内容
+                        function clearSelect() {
+                            PointList.splice(0, PointList.length);
+                            PlanePath.splice(0, PlanePath.length);
+                            PointListStr = '';
+                            document.getElementById('flypath').value = '';
+                            document.getElementById('beginbtn').className = 'btn btn-default btns';
+                            document.getElementById('beginbtn').innerHTML = '点击开始';
+                            startFlag = false;
+                            map.remove(lineSelected);
+                        }
+
+                        //使用Ajax提交数据
+                        function submitData() {
+
+                            if (judge() == true) {
+                                if (PlanePath.length <= 0) {
+                                    merge();
+                                }
+                                Modal.show('setplanepathModal');
+                                $('#planepath').val(PointListStr);
+                                console.log(PlanePathStr);
+                                          
+                            } else {
+                                alert('您选择的路径不合规范，请清除并重选');
+                            }
+                        }
+
+                        //在模态框中提交飞行路径
+                        function dopostPlanepath(){
+                             var planepathid = $('#planepathid').val();
+			                 var descripte = $("#descripte").val();
+                            if(planepathid=='' || descripte==''){
+                                  $('#ocAlertTip').css('display','block');
+                            }else{
+                                $.ajax({
+                                        url: '${s.base}/doSetFlyPath.action',
+                                        type: 'POST', //GET
+                                        async: true, //或false,是否异步
+                                        data: {
+                                            'planepathid':planepathid,
+                                            'plongda':PlanePathStr,
+                                            'descripte':descripte,
+                                        },
+                                        timeout: 5000, //超时时间                                            
+                                        success: function(data) {
+                                               //console.log(data);
+                                              $('#setplanepathModal').modal('hide');
+                                              clearSelect();
+                                              alert("飞行路径设定成功!");
+                                        },
+                                        error: function(xhr, textStatus) {
+                                            console.log('发生错误')
+                                            console.log(xhr)
+                                            console.log(textStatus)
+                                        }
+                                    });
+                            }                      
+                        }
 
                         AMapUI.loadUI(['overlay/SimpleMarker'], function(SimpleMarker) {
-
-
-                            for (var i = 0; i < routeList.length; i++) {
+                            for (var i = 0; i < targetRouteList.length; i++) {
                                 //启动页面
                                 var start = new SimpleMarker({
                                     //前景文字
@@ -155,21 +341,21 @@
                                     iconTheme: 'fresh',
                                     //背景图标样式
                                     iconStyle: 'darkblue',
-                                    position: routeList[i].routepath[0],
-                                    animation:'AMAP_ANIMATION_DROP',
+                                    position: targetRouteList[i].routePath[0],
+                                    animation: 'AMAP_ANIMATION_DROP',
                                 });
                                 //实例化信息窗体
-                                start.setExtData(routeList[i].routeid);
-                                
-                                var title = '路由编号：<span>' + routeList[i].routeid + '</span>';
+                                start.setExtData(targetRouteList[i].routeId + ':' + i + ':start');
+
+                                var title = '路由编号：<span>' + targetRouteList[i].routeId + '</span>';
                                 var content = [];
-                                
-                                content.push("已选择编号为"+routeList[i].routeid+'的路由');                     
+
+                                content.push("已选择编号为" + targetRouteList[i].routeId + '的路由起点');
 
                                 start.content = createInfoWindow(title, content.join("<br/>"));
                                 start.on('click', markerClick);
-                                
-                                var pos = routeList[i].routepath.length - 1;
+
+                                var pos = targetRouteList[i].routePath.length - 1;
                                 var end = new SimpleMarker({
                                     //前景文字
                                     map: map,
@@ -182,10 +368,18 @@
                                     iconTheme: 'fresh',
                                     //背景图标样式
                                     iconStyle: 'orange',
-                                    position: routeList[i].routepath[pos],
-                                    animation:'AMAP_ANIMATION_DROP',
+                                    position: targetRouteList[i].routePath[pos],
+                                    animation: 'AMAP_ANIMATION_DROP',
                                 });
-                                
+                                //添加额外信息
+                                end.setExtData(targetRouteList[i].routeId + ':' + i + ':end');
+
+                                var title = '路由编号：<span>' + targetRouteList[i].routeId + '</span>';
+                                var content = [];
+                                content.push("已选择编号为" + targetRouteList[i].routeId + '的路由终点');
+                                end.content = createInfoWindow(title, content.join("<br/>"));
+                                end.on('click', markerClick);
+
                             }
                         });
 
@@ -202,7 +396,7 @@
                             var closeX = document.createElement("img");
                             top.className = "info-top";
                             titleD.innerHTML = title;
-                            closeX.src = "i/close2.gif";
+                            closeX.src = "res/i/close2.gif";
                             closeX.onclick = closeInfoWindow;
 
                             top.appendChild(titleD);
@@ -222,6 +416,7 @@
                             //alert(e.target.getExtData());
                             infoWindow.setContent(e.target.content);
                             infoWindow.open(map, e.target.getPosition());
+                            addPoint(e.target.getExtData());
                         }
                         //关闭信息窗体
                         function closeInfoWindow() {

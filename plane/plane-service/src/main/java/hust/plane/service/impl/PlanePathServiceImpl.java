@@ -1,5 +1,6 @@
 package hust.plane.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,20 @@ public class PlanePathServiceImpl implements PlanePathService{
 		List<PlanePathVo> plist = KMLUtil.textToList(planePathList.get(0).getPlongda(),planePathList.get(0).getHeight());
 		KMLUtil.importKML(filePath, plist);
 		
+	}
+
+	//插入一条飞行路径
+	@Override
+	public boolean insertPlanePath(PlanePath planePath) {
+		
+		planePath.setPlongda("LINESTRING" + planePath.getPlongda());
+		Date date=new Date();
+		planePath.setCreatetime(date);
+		planePath.setUpdatetime(date);
+		
+		//然后在下面进行插入数据
+		planePathMapper.insertPlanePath(planePath);
+		return true;
 	}
 
 }
