@@ -180,7 +180,7 @@
             url: "${s.base}/queryRoute",
             data: $("#routeQuery").serialize(),
             success: function (result) {
-                if (result.errcode == 0 && result.message == "success") {
+                if (result.errcode == 0 && result.message == "SUCCESS") {
                     window.location.href="${s.base}/queryRoute/"+result.data.routeid+"/"+result.data.type+"";
                 } else {
                     showAlert(result.message);

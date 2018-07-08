@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import hust.plane.constant.WebConst;
 import hust.plane.utils.pojo.InfoTplData;
 import hust.plane.utils.pojo.JsonView;
 import hust.plane.web.controller.vo.QueryRouteVo;
@@ -81,7 +82,7 @@ public class RouteController {
     @ResponseBody
     public String queryRoute(Model model, @RequestParam String routeId, @RequestParam String type) {
         QueryRouteVo queryRouteVo = new QueryRouteVo(routeId, type);
-        return JsonView.render(0, "success", queryRouteVo);
+        return JsonView.render(0, WebConst.SUCCESS_RESULT, queryRouteVo);
     }
 
     /**
