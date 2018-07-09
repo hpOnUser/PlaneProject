@@ -53,21 +53,21 @@
         <form id="queryPageForm" class="mt-15">
             <div class="block span6">
                 <a class="block-heading f-14" data-toggle="collapse">历史告警</a>
-                                    <div class="block-body collapse in">
-                                        <p>
-                                                <select  name="status" class="search-select">
-                                                    <option value="-1">全部</option>
-                                                    <option value="0" >已处理告警</option>
-                                                    <option value="1" >未处理告警</option>
-                                                </select>
-                                            </p>
-                                        <p>
-                                            <input name="alarmid" type="text" value="" class="search-text" value="" placeholder="请输入告警编号">
-                                        </p>
-                                        <p>
-                                            <input type="submit" class="search-btn" value="搜索">
-                                        </p>
-                                    </div>
+                <div class="block-body collapse in">
+                    <p>
+                        <select name="status" class="search-select">
+                            <option value="-1">全部</option>
+                            <option value="0">已处理告警</option>
+                            <option value="1">未处理告警</option>
+                        </select>
+                    </p>
+                    <p>
+                        <input name="alarmid" type="text" value="" class="search-text" value="" placeholder="请输入告警编号">
+                    </p>
+                    <p>
+                        <input type="submit" class="search-btn" value="搜索">
+                    </p>
+                </div>
             </div>
 
             <div class="row-fluid">
@@ -95,18 +95,20 @@
                             <td>${alarm.createTime}</td>
                             <td>${alarm.updateTime}</td>
                             <td>
-	                            <#if alarm.status =="0">
-	                            		已处理告警
-	                            <#else>
-	                           		 <button type="button" class="btn btn-info" onclick="dealsAlarm(${alarm.alarmid})" >
-							     		 未处理警告
-							       </button> 
-							      
-	                           	</#if>
+                                <#if alarm.status =="0">
+                                <span class="label label-success">
+                                    已处理告警
+                                </span>
+                                <#else>
+                                <button type="button" class="label label-danger" onclick="dealsAlarm(${alarm.alarmid})">
+                                    未处理告警
+                                </button>
+
+                            </#if>
                             </td>
                             <td><a class="pointer" onclick="showDetail(${alarm.alarmid})">详细信息</a></td>
                             <td>
-                            	操作
+                                操作
                             </td>
                             </#list>
                         </#if>

@@ -92,14 +92,14 @@
                         <h4 class="modal-title">查询路由</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form" id="eee" method="post" action="#">
+                        <form role="form" id="routeQuery" method="post">
                             <div class="form-group clearfix">
                                 <label for="name">路由编号</label>
-                                <input type="text" id="rr" name="rr" class="form-control" onchange="ww();" placeholder="请输入路由编号">
+                                <input type="text" id="routeId" name="routeId" class="form-control" onchange="ww();" placeholder="请输入路由编号">
                             </div>
                             <div class="form-group clearfix">
                                 <label for="name">路由等级</label>
-                                <select id="status" name="status" class="form-control" type="select">
+                                <select id="type" name="type" class="form-control" type="select">
 									<option value="0">一级路由</option>
 									<option value="1">二级路由</option>
 									<option value="2">混合路由</option>
@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="doImport();">查询</button>
+                        <button type="button" class="btn btn-primary" id="queryRoute">查询</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                     </div>
                 </div>
@@ -167,17 +167,28 @@
     </div>
     <!-- 查询路由弹出层 -end -->
 	
-	<script>
+	<script type="text/javascript">
 	document.getElementById('enddtime').valueAsDate=new Date();
 	function findlines(){
 
 		Modal.show('findlineModal');
-	} 
-   
-   	function doImport() {
-   		window.location.href="${s.base}/test.action";
-		
 	}
+
+    $("#queryRoute").click(function () {
+        $.ajax({
+            type: "post",
+            url: "${s.base}/queryRoute",
+            data: $("#routeQuery").serialize(),
+            success: function (result) {
+                if (result.errcode == 0 && result.message == "SUCCESS") {
+                    window.location.href="${s.base}/queryRoute/"+result.data.routeid+"/"+result.data.type+"";
+                } else {
+                    showAlert(result.message);
+                }
+            }
+        });
+    })
+
     function findplane() {
         Modal.show('findplaneModal');
      }

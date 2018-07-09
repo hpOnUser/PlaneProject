@@ -31,6 +31,7 @@ public class FileServiceImpl implements FileService {
 		
 		//构成经纬度序列
 		String s=LineUtil.ListToString(readExcel);
+		System.out.println(s);
 		route.setRoutePath(s);
 		//设置创建时间
 		Date date=new Date();
