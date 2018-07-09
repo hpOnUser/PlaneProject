@@ -1,19 +1,15 @@
 package hust.plane.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hust.plane.mapper.mapper.PlanePathMapper;
-import hust.plane.mapper.pojo.Alarm;
 import hust.plane.mapper.pojo.PlanePath;
 import hust.plane.service.interFace.PlanePathService;
 import hust.plane.utils.KMLUtil;
-import hust.plane.utils.page.AlarmPojo;
 import hust.plane.utils.page.TailPage;
 import hust.plane.utils.pojo.PlanePathVo;
 

@@ -17,6 +17,7 @@
  
     <link rel="stylesheet" type="text/css" href="//webapi.amap.com/ui/1.0/ui/misc/MarkerList/examples/index.css">
     <link href="res/css/common.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 </head>
 <body>
 	<#include "common/header.html" />
@@ -81,13 +82,13 @@
             var map = new AMap.Map('container', {
                 zoom: 9
             });
-            AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
+            /* AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
                 //缩放控件，显示Zoom值
                 map.addControl(new BasicControl.Zoom({
                     position: 'lt',
                     showZoomNum: true,
                 }));
-            });
+            }); */
 
             function disMark() {
 

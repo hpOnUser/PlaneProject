@@ -39,8 +39,10 @@ public class taskController {
 	}
 	//跳转新建任务
 	@RequestMapping("/toTaskCreate")
-	public String toTaskCrate(Model model)
+	public String toTaskCrate(Model model,Task task)
 	{
+		//在这传输数据
+		model.addAttribute("task", task);
 		model.addAttribute("curNav", "createTask");
 		return "createTask";
 	}

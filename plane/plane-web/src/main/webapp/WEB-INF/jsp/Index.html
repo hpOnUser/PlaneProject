@@ -7,6 +7,7 @@
   	<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="http://webapi.amap.com/maps?v=1.4.6&key=82f9e75505b649be9ab81a45ae34aa14"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 </head>
 <body>
 	<#include "common/header.html" />
@@ -25,13 +26,13 @@
 	                               zoom: 11,
 	                               center:  [108.338507,22.680918]
 	                           });
-	                           AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
+	                          /*  AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
 	                               //缩放控件，显示Zoom值
 	                               map.addControl(new BasicControl.Zoom({
 	                                   position: 'lt',
 	                                   showZoomNum: true,
 	                               }));
-	                           });
+	                           }); */
 	                       </script>
             	      </div>
 				 </div>

@@ -13,7 +13,6 @@
     <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="js/jquery.form.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/highcharts-4.1.min.js"></script>
     <script type="text/javascript" src="js/oc.min.js"></script>
     <link rel="icon" type="image/png" href="i/ico.png" sizes="16x16">
 </head>
@@ -68,8 +67,8 @@
 		                            <td>${planepath.createtime?date}</td> 
 		                            <td>${planepath.updatetime?date}</td>                           
 		                            <td><a href="${s.base}/showPlanePath.action?planepathid=${planepath.planepathid}" target="_blank">详细信息</a></td>
-		                            <td><button class=".btn .btn-default" onclick="createTask(${planepath.planepathid})">创建任务</button>
-		                            <button class=".btn .btn-default" onclick="createTask(${planepath.planepathid})">导出路径</button></td> 	                      
+		                            <td><a href="${s.base}/toTaskCreate?planepathid=${planepath.planepathid}">创建任务</button>
+		                            <a href="${s.base}/importPlanePath?planepathid=${planepath.planepathid}">导出路径</button></td> 	                      
                                 </#list>
                         		</#if>                                                         
 	                           </tbody>
@@ -82,7 +81,6 @@
 	    </div>
     </div>
  <script>
-    
 </script>
 </body>
 </html>

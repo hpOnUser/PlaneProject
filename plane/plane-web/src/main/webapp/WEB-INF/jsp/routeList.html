@@ -15,7 +15,7 @@
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="http://webapi.amap.com/maps?v=1.4.6&key=82f9e75505b649be9ab81a45ae34aa14"></script>
     <link href="css/common.css" rel="stylesheet" type="text/css">
-
+<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 </head>
 
 <body>
@@ -92,13 +92,13 @@
                         center: routeList[0].routePath[0],
                         zoom: 13
                     });
-                    AMapUI.loadUI(['control/BasicControl'], function (BasicControl) {
+                    /* AMapUI.loadUI(['control/BasicControl'], function (BasicControl) {
                         //缩放控件，显示Zoom值
                         map.addControl(new BasicControl.Zoom({
                             position: 'lt',
                             showZoomNum: true,
                         }));
-                    });
+                    }); */
                     var infoWindow = new AMap.InfoWindow({
                         isCustom: true,
                         offset: new AMap.Pixel(20, -35)
