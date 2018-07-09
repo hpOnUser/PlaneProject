@@ -1,5 +1,6 @@
 package hust.plane.mapper.mapper;
 
+
 import java.util.List;
 
 import hust.plane.mapper.pojo.PlanePath;
@@ -7,7 +8,7 @@ import hust.plane.utils.page.TailPage;
 
 public interface PlanePathMapper {
 	
-	 List<PlanePath> selectByPlanePathVo(PlanePath planepath);
+	 PlanePath selectByPlanePathVo(PlanePath planepath);
 
 	 void insertPlanePath();
 

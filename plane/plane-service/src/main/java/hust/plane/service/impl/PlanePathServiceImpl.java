@@ -24,10 +24,10 @@ public class PlanePathServiceImpl implements PlanePathService {
 	private PlanePathMapper planePathMapper;
 
 	@Override
-	public void importPlanePath(PlanePath planepath, String filePath) {
-		List<PlanePath> planePathList = planePathMapper.selectByPlanePathVo(planepath);
-		List<PlanePathVo> plist = KMLUtil.textToList(planePathList.get(0).getPlongda(),
-				planePathList.get(0).getHeight());
+
+	public void importPlanePath(PlanePath planepath,String filePath) {
+		PlanePath planePathList = planePathMapper.selectByPlanePathVo(planepath);
+		List<PlanePathVo> plist = KMLUtil.textToList(planePathList.getPlongda(),planePathList.getHeight());
 		KMLUtil.importKML(filePath, plist);
 
 	}

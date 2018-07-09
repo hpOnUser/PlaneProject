@@ -1,5 +1,6 @@
 package hust.plane.utils;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class KMLUtil {
 	//将飞行路径数据生成kml文件
 	public static void importKML(String filePath,List<PlanePathVo> plist)
 	{
+		File file= new File(filePath);
 		Element root =DocumentHelper.createElement("kml");//创建根节点kml;
 		Document document = DocumentHelper.createDocument(root);
 		document.setXMLEncoding("UTF-8");

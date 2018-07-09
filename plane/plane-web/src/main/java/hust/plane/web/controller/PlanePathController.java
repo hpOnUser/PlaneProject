@@ -38,10 +38,16 @@ public class PlanePathController {
 	}
 	
 	@RequestMapping("/importPlanePath")
-	public String importPlanePath(PlanePath planePath,String filePath)
+	@ResponseBody
+	public String importPlanePath(PlanePath planePath)
 	{
-		planePathServiceImpl.importPlanePath(planePath, filePath);
-		return  JsonView.render(0);
+		if(planePath!=null)
+		{
+			//E:\\hello.kml
+			String filePath = "E:\\\\"+planePath.getPlanepathid()+".kml";//设置文件名
+			planePathServiceImpl.importPlanePath(planePath, filePath);
+		}
+		return   new JsonView(0).toString();
 	}
 	
 	//返回设定飞行路径页面，返回所有路由数据，并在前台显示
