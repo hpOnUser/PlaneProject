@@ -18,12 +18,13 @@ public class RouteVo {
     private String type ;
     
     public RouteVo(Route route) {
+    	
 		this.routeId = route.getRouteId();
 		if ( route.getStatus()!= null) {
 			 this.status= route.getStatus();
 		}
 		if ( route.getRoutePath()!= null) {
-			System.out.println(route.getRoutePath());
+			
 			this.routePath = LineUtil.stringLineToList(route.getRoutePath());
 		}
 		if ( route.getDescripte()!= null) {

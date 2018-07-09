@@ -22,6 +22,20 @@ public class LineUtil {
 		}
 		return list;
 	}
+	
+	//将高度列表字符串转化为数组
+	public static ArrayList<Double> stringpointToList(String s)
+	{
+		//s="LineString(1,1,2,2)"
+		ArrayList<Double> list= new ArrayList<Double>();
+		String sub=s.substring(11, s.length()-1);
+		String slist[]=sub.split(",");
+		for(int i=0;i<slist.length;i++)
+		{
+			list.add(Double.parseDouble(slist[i]));
+		}
+		return list;
+	}
 	//将list转换为数据库数据
 	public static String ListToString(List<RouteExcel> readExcellist)
 	{

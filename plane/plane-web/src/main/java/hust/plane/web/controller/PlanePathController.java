@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import hust.plane.mapper.pojo.PlanePath;
@@ -14,7 +16,9 @@ import hust.plane.mapper.pojo.Route;
 import hust.plane.service.interFace.PlanePathService;
 import hust.plane.service.interFace.RouteService;
 import hust.plane.utils.JsonUtils;
+import hust.plane.utils.page.TailPage;
 import hust.plane.utils.pojo.JsonView;
+import hust.plane.web.controller.vo.PlanePathVo;
 import hust.plane.web.controller.vo.RouteVo;
 
 @Controller
@@ -67,4 +71,35 @@ public class PlanePathController {
 		else
 			return "failed";
 	}
+	
+	 //查询所有的飞行路径列表  分页查询
+	@RequestMapping("doGetFlyPathList")
+	public String doGetFlyPathListQueryPage(PlanePath planePath, TailPage<PlanePath> page, Model model) {
+		
+    	if("".equals(planePath.getPlanepathid()))
+    	{
+    		planePath.setPlanepathid(null);
+    	}
+        page = planePathServiceImpl.queryAlarmWithPage(planePath,page);
+        
+        model.addAttribute("page",page);
+        model.addAttribute("curNav", "flyPathList");
+        return "planePathList";
+		
+		
+	}
+	
+	//返回一条飞行路径，包括所有信息，在这里使用包装类，用于画图
+	@RequestMapping(value="showPlanePath",method=RequestMethod.GET)
+	public String showPlanePath(@RequestParam("planepathid") String planepathid,Model model) {
+			
+		PlanePath planePath = new PlanePath();
+		planePath.setPlanepathid(planepathid);
+		planePath = planePathServiceImpl.selectByPlanepathId(planePath);
+		PlanePathVo planePathVo = new PlanePathVo(planePath);
+		
+		model.addAttribute("PlanePath",JsonUtils.objectToJson(planePathVo));
+		return "showPlanePath";
+	}
+	
 }

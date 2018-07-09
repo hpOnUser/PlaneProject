@@ -10,7 +10,7 @@
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_list">
-  		planepathid,AsText(plongda),height,descripte,createtime,updatetime
+  		planepathid,AsText(plongda)as plongda,height,descripte,createtime,updatetime
   </sql>
 	<select id="selectByPlanePathVo"  parameterType="hust.plane.mapper.pojo.PlanePath" resultMap="BaseResultMap">
 		select
@@ -18,7 +18,7 @@
 		from planepath
 		WHERE 1=1 
 		<if test="PlanePath.planepathid != null">
-		AND planepathid = #{PlanePath.planepathid}
+		AND planepathid = #{planepathid}
 		</if>
 		
 	</select>
@@ -32,5 +32,35 @@
 		insert into planepath(planepathid,plongda,height,descripte,createtime,updatetime) values (#{planepathid,jdbcType=VARCHAR},GeomFromText(#{plongda,jdbcType=VARCHAR}), 
       #{height,jdbcType=LONGVARCHAR},#{descripte,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
 	</insert>
+	
+	<select id="selectByPlanepathId"  parameterType="hust.plane.mapper.pojo.PlanePath" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_list"/>
+		from planepath
+		WHERE planepathid = #{planepathid}	
+	</select>
+	
+	<select id="planePathCount" resultType="java.lang.Integer" parameterType="hust.plane.mapper.pojo.PlanePath">
+        select count(1) from planepath  
+        WHERE 1=1 
+		<if test="planepathid != null">
+		AND planepathid = #{planepathid}
+		</if>	
+    </select>
+	
+	
+	<select id="queryPlanePathPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list" />
+        FROM planepath
+        WHERE 1=1 
+		<if test="param1.planepathid != null">
+		AND planepathid = #{param1.planepathid}
+		</if>
+        ORDER BY createtime DESC
+        LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER}
+    </select>
+	
+	
 	
 </mapper>

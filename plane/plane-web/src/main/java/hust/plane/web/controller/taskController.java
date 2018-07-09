@@ -73,7 +73,7 @@ public class taskController {
 		}
 		page = taskServiceImpl.queryPage(task, page);
 		model.addAttribute("page", page);
-		
+		model.addAttribute("curNav", "taskAllList");
 		return "taskList";
 	}
 	

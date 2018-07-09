@@ -42,6 +42,7 @@
         </a>
 
           <ul id="accounts-menu3" class="nav nav-list collapse ">
+           <li <#if curNav?? && curNav =="flyPathList"> class="active" </#if>><a href="${s.base}/doGetFlyPathList.action">飞行路径列表</a></li>
             <li <#if curNav?? && curNav =="setFlyPath"> class="active" </#if>><a href="${s.base}/setFlyPath.action">设定飞行路径</a></li>
             <li <#if curNav?? && curNav =="routeImport"> class="active" </#if>><a href="#">飞行路径导入</a></li>
             <li <#if curNav?? && curNav =="importPlanePath"> class="active" </#if>><a href="${s.base}/toImportPlanePath.action">导出飞行路径</a></li>
