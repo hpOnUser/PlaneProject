@@ -9,6 +9,8 @@ import hust.plane.utils.pojo.JsonView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.annotation.Resource;
 
 
@@ -33,6 +35,7 @@ public class AlarmHistoryController {
         return "alarmHistory";
     }
     @RequestMapping(value = "dealWithAlarm")
+    @ResponseBody
     public String dealWithAlarm(String alarmid)
     {
     	alarmService.updateAlarmStatus(alarmid);
