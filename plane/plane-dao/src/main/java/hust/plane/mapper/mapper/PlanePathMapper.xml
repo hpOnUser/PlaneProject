@@ -10,15 +10,15 @@
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_list">
-  		planepathid,AsText(plongda),height,descripte,createtime,updatetime
+  		planepathid,AsText(plongda) as plongda,height,descripte,createtime,updatetime
   </sql>
 	<select id="selectByPlanePathVo"  parameterType="hust.plane.mapper.pojo.PlanePath" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_list"/>
 		from planepath
 		WHERE 1=1 
-		<if test="PlanePath.planepathid != null">
-		AND planepathid = #{PlanePath.planepathid}
+		<if test="planepathid != null">
+		AND planepathid = #{planepathid}
 		</if>
 		
 	</select>

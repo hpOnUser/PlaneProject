@@ -36,15 +36,8 @@
                                 			</div>
                             			</div>
 								</form>
-							<!-- tip提示-start -->
-								<div id="ocAlertTip" class="alert alert-success f-16" style="display:none;"><span id="al_info">请选择 .xlsx或.xls 格式的文件</span>
-								<button type="button" class="close"  onclick="closeAlert()">
-									<span aria-hidden="true">×</span>
-								</button></div>
-								<!-- tip提示-end -->
-							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-primary" onclick="doSave();">导入</button>
+								<button type="button" class="btn btn-primary" onclick="doSave();">导出</button>
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 							</div>
 						</div>
@@ -63,8 +56,9 @@
 		                    <div class="modal-title f-16" >提示信息</div>
 		                </div>
 		                <div class="modal-body">
-		                    <div><span class="color-oc f-16 oc-content"></span></div>
+		                    <div><span class="color-oc f-16 oc-content">导出成功</span></div>
 		                </div>
+		               	
 		            </div>
 		        </div>
 		    </div>
@@ -88,6 +82,7 @@
 				$('#ocAlertTip').css('display','');
 				
 			}else{
+				alert("dinaji")
 					$('#importPlanePathForm').ajaxSubmit({
 						type: 'POST',
 						datatype : 'json',
@@ -95,7 +90,7 @@
 							var resp = $.parseJSON(resp);
 							if (resp.errcode == 0) {
 								$('#myModal').modal('hide');
-								window.location.reload();//刷新
+								window.location.reload();
 							} else {
 								Modal.tipFailure(resp.message);//失败提示 
 							}
