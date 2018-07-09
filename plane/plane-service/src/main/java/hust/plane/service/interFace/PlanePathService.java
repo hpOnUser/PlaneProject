@@ -4,12 +4,12 @@ import hust.plane.mapper.pojo.PlanePath;
 import hust.plane.utils.page.TailPage;
 
 public interface PlanePathService {
-	
-	public void importPlanePath(PlanePath planepath,String filePath);
 
-	public boolean insertPlanePath(PlanePath planePath);
+    void importPlanePath(PlanePath planepath, String filePath);
 
-	PlanePath selectByPlanepathId(PlanePath planePath);
+    boolean insertPlanePath(PlanePath planePath);
 
-	public TailPage<PlanePath> queryAlarmWithPage(PlanePath planePath, TailPage<PlanePath> page);
+    PlanePath selectByPlanepathId(PlanePath planePath);
+
+    TailPage<PlanePath> queryAlarmWithPage(PlanePath planePath, TailPage<PlanePath> page);
 }

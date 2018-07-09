@@ -8,11 +8,11 @@ import hust.plane.utils.page.TaskPojo;
 
 
 public interface TaskService {
-	
-	public List<TaskPojo> getALLTask();
-	
-	public TailPage<TaskPojo> queryPage(Task task,TailPage<TaskPojo> page);
 
-	public void saveTask(Task task);
+    List<TaskPojo> getALLTask();
+
+    TailPage<TaskPojo> queryPage(Task task, TailPage<TaskPojo> page);
+
+    void saveTask(Task task);
 
 }
