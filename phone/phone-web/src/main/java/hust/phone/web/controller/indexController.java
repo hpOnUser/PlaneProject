@@ -6,10 +6,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class indexController {
 	
-	@RequestMapping("/Myidnex")
+	@RequestMapping("/myindex")
 	public String index()
 	{
 		return "index";
+	}
+	
+	@RequestMapping("/toPlane")
+	public String toPlane()
+	{
+		return "fight";
 	}
 
 }
