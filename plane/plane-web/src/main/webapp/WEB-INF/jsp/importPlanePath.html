@@ -82,14 +82,14 @@
 				$('#ocAlertTip').css('display','');
 				
 			}else{
-				alert("dinaji")
+			
 					$('#importPlanePathForm').ajaxSubmit({
 						type: 'POST',
 						datatype : 'json',
 						success : function(resp) {
 							var resp = $.parseJSON(resp);
 							if (resp.errcode == 0) {
-								$('#myModal').modal('hide');
+								
 								window.location.reload();
 							} else {
 								Modal.tipFailure(resp.message);//失败提示 
