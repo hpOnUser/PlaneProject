@@ -31,4 +31,11 @@ public class PlaneServiceImpl implements PlaneService{
 		return planeList;
 	}
 
+	@Override
+	public List<Plane> findByPlaneStatus(Plane plane) {
+		
+		List<Plane> planeList = planeMapper.selectByPlaneStatus(plane.getStatus());
+		return planeList;
+	}
+
 }

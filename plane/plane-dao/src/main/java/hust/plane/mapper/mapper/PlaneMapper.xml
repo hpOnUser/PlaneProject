@@ -29,6 +29,10 @@
         <if test="#{2}!=null and #{2}!=''">
            <![CDATA[  and DATE_FORMAT(createtime, '%Y-%m-%d') <= DATE_FORMAT(#{2}, '%Y-%m-%d')    ]]>
         </if>
-        
+	</select>
+	<select id="selectByPlaneStatus" resultMap="BaseResultMap">
+		select planeId,planename,userid,AsText(flongda) as flongda,status,updateTime
+		from plane
+		where status=#{0}
 	</select>
 </mapper>

@@ -61,7 +61,9 @@
         ORDER BY createtime DESC
         LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER}
     </select>
-	
-	
-	
+	<select id="findAllplanePath"  parameterType="hust.plane.mapper.pojo.PlanePath" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_list"/>
+		from planepath
+	</select>
 </mapper>

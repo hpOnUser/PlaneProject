@@ -1,5 +1,7 @@
 package hust.plane.service.interFace;
 
+import java.util.List;
+
 import hust.plane.mapper.pojo.PlanePath;
 import hust.plane.utils.page.TailPage;
 
@@ -12,4 +14,6 @@ public interface PlanePathService {
     PlanePath selectByPlanepathId(PlanePath planePath);
 
     TailPage<PlanePath> queryAlarmWithPage(PlanePath planePath, TailPage<PlanePath> page);
+
+	List<PlanePath> findAllplanePath();
 }
