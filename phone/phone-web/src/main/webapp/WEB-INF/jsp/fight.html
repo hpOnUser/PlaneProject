@@ -12,93 +12,68 @@
 
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-
+    <link rel="stylesheet" href="css/phone.css">
+    <link rel="stylesheet" href="css/main1119.css" />
+    
+    <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="http://webapi.amap.com/maps?v=1.4.6&key=82f9e75505b649be9ab81a45ae34aa14"></script>
+   <style>
+       .amap-ui-control-zoom{
+          margin-top: 25px;
+           margin-left: -18px;
+           padding: 0;
+       }
+    </style>
 </head>
 
 <body>
     <div class="page-group">
+        <div id="locate"><img src="images/lo-34.png" ></div>
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left" href="index.html" data-transition='slide-out'>
-      <span class="icon icon-left"></span>
-      返回
-    </a>
+            <a class="button button-link button-nav pull-left" href="${s.base}/myindex.html" data-transition='slide-out'> <span class="icon icon-left"></span>
+				返回
+			</a>
             <h1 class='title'>无人机操作</h1>
+            <a class="button button-link button-nav pull-right" href="${s.base}/myindex.html" data-transition='slide-out'> <span class="icon icon-refresh"></span>&nbsp;&nbsp;
+			</a>
         </header>
-
-        <div class="content">
-            <div class="list-block user-list">
-                <ul>
-                    <li>
-                        <a class="item-content item-link" href="">
-                            <div class="item-media"><span class="icon icon-star"></sapn></div>
-        <div class="item-inner">
-          <div class="item-title">无人机起飞</div>
+        <div id="content">
+            
+            <div id="container"></div>
+            <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+            <script>
+                var map = new AMap.Map('container', {
+                    resizeEnable: true,
+                    zoom: 11,
+                    center: [108.338507, 22.680918]
+                });
+                AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
+                //缩放控件，显示Zoom值
+                map.addControl(new BasicControl.Zoom({
+                    position: 'lt',
+                    showZoomNum: true,
+                }));
+            });
+            </script>
         </div>
-        </a>
-      </li>
-    </ul>
-    <br/>
-    <ul>
-      <li>
-        <a class="item-content item-link"  href="">
-          <div class="item-media"><span class="icon icon-star"></sapn></div>
-          <div class="item-inner">
-            <div class="item-title">紧急迫降</div>
-          </div>
-        </a>
-      </li>
-    </ul>
-                <br>
-    <ul>
-      <li>
-        <a class="item-content item-link"  href="">
-        <div class="item-media"><span class="icon icon-star"></sapn></div>
-        <div class="item-inner">
-          <div class="item-title">紧急返航</div>
+        <div id="optionArea">
+                   
+                <div class="content-block">
+                    <p class="buttons-row">
+                        <a href="#" class="button">自检完成</a>
+                        <a href="#" class="button">起飞</a>
+                        <a href="#" class="button">实时影像</a>
+                    </p>
+                    <p class="buttons-row">
+                        <a href="#" class="button">紧急迫降</a>
+                        <a href="#" class="button">紧急返航</a>
+                        <a href="#" class="button">报告失联</a>
+                    </p>
+                </div>
         </div>
-        </a>
-      </li>
-    </ul>
-                <br>
-    <ul>
-      <li>
-        <a class="item-content item-link"  href="">
-        <div class="item-media"><span class="icon icon-star"></sapn></div>
-        <div class="item-inner">
-          <div class="item-title">报告失联</div>
-        </div>
-        </a>
-      </li>
-    </ul>
-                <br>
-    <ul>
-      <li>
-        <a class="item-content item-link"  href="">
-        <div class="item-media"><span class="icon icon-star"></sapn></div>
-        <div class="item-inner">
-          <div class="item-title">实时位置</div>
-        </div>
-        </a>
-      </li>
-    </ul>
-    <br>
-    <ul>
-      <li>
-        <a class="item-content item-link"  href="">
-        <div class="item-media"><span class="icon icon-star"></sapn></div>
-        <div class="item-inner">
-          <div class="item-title">实时影像</div>
-        </div>
-        </a>
-      </li>
-    </ul>
-  </div>
-        </div>
-
-        <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-        <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-        <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-
+    </div>
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    
 </body>
-
 </html>

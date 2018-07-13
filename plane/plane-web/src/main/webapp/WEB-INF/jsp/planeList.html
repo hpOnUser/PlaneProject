@@ -24,7 +24,7 @@
   
     </script>
 </head>
-<body >
+<body onload="initpage()">
 	<#include "common/header.html" />
       <#include "./nav.html" />
    <div class="content">
@@ -65,7 +65,7 @@
             //创建地图
             var map = new AMap.Map('container', {
                 zoom: 9,
-                center: [116.397428, 39.90923], //中心点坐标
+                center: [107.79876,23.06781], //中心点坐标
             });
 /* 
             AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
@@ -202,56 +202,13 @@
                 map.clearInfoWindow();
             }
 
-            //function disPlane() {
-            //通过ajax加载数据
-            //                if (PlaneInit == false) {
-            //                    if (window.XMLHttpRequest) 
-            //                    {
-            //                        var oAjax = new XMLHttpRequest(); //创建ajax对象
-            //                    } else //如果没有XMLHttpRequest，那就是IE6浏览器
-            //                    {
-            //                        var oAjax = new ActiveXObject("Microsoft.XMLHTTP"); //IE6浏览器创建ajax对象
-            //                    }
-            //                    oAjax.open("POST", "${s.base}/routeList.action?t='+new Date().getTime()", true); //加上t='+new Date().getTime()"的目的是为了消除缓存，每次的t的值不一样。
-            //                    oAjax.send();
-            //                    oAjax.onreadystatechange = function() {
-            //                    if (oAjax.readyState == 4) {
-            //                        if (oAjax.status == 200) //判断是否成功,如果是200，就代表成功
-            //                            {
-            //                                PlaneInit = true;
-            //                                alert("成功" + oAjax.responseText); 
-            //                            } else {
-            //                                alert("无人机数据查询失败");
-            //                            }
-            //                        }
-            //                    };
-            //                }
-            //在这里显示路由
-            //                var ListPlane = document.getElementById("panel");
-            //                var disPlanecheckbox = document.getElementById("disPlane");
-            //                if (disPlanecheckbox.checked == false) {
-            //
-            //                    ListPlane.style.display = "none";
-            //                    undisMarker();
-            //
-            //                } else {
-            //                    ListPlane.style.display = "";
-            //                    disMark();
-            //                }
-            //                }
-            //
-            //            function disRoute() {
-            //                //在这里显示无人机
-            //                var disRouteCheckbox = document.getElementById("disRoute");
-            //                if (disRouteCheckbox.checked == true) {
-            //                    //alert('选中');
-            //                } else {
-            //                    // alert('未选中');
-            //                }
-            //            }
+            function initpage(){
+            	//document.getElementById('#optionsRadios0').click();
+            	          	
+       	    }
+         
         </script>
-    
- </div>
+ 		</div>
  
 	</body>
 </html>

@@ -2,6 +2,9 @@ package hust.plane.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +12,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import hust.plane.mapper.mapper.TaskMapper;
+import hust.plane.mapper.pojo.Plane;
+import hust.plane.mapper.pojo.PlanePath;
 import hust.plane.mapper.pojo.Task;
 import hust.plane.mapper.pojo.User;
+import hust.plane.service.interFace.PlanePathService;
+import hust.plane.service.interFace.PlaneService;
 import hust.plane.service.interFace.TaskService;
+import hust.plane.service.interFace.UserService;
+import hust.plane.utils.PlaneUtils;
 import hust.plane.utils.page.TailPage;
 import hust.plane.utils.page.TaskPojo;
 
@@ -21,6 +30,14 @@ public class taskController {
 	
 	@Autowired
 	private TaskService taskServiceImpl;
+	@Autowired
+	private PlanePathService planePathServiceImpl;
+	@Autowired
+	private UserService userServiceImpl;
+	@Autowired
+	private PlaneService planeServiceImpl;
+	
+	
 	
 	@RequestMapping("/task")	
 	public String gettestTask()
@@ -39,8 +56,31 @@ public class taskController {
 	}
 	//跳转新建任务
 	@RequestMapping("/toTaskCreate")
-	public String toTaskCrate(Model model,Task task)
+	public String toTaskCrate(Model model,Task task,HttpServletRequest request)
 	{
+		//操作者
+		//放飞者
+		//回收者
+		//无人机编号
+		//飞行路线
+		User aUser = PlaneUtils.getLoginUser(request);
+		User userExmple = new User();
+		userExmple.setRole("1");
+		List<User> bUsers =  userServiceImpl.findByUserRole(userExmple);
+		userExmple.setRole("2");
+		List<User> cUsers =  userServiceImpl.findByUserRole(userExmple);
+		Plane plane = new Plane();
+		plane.setStatus("1");
+		List<Plane> planes = planeServiceImpl.findByPlaneStatus(plane);
+		PlanePath planePath = new PlanePath();
+		List<PlanePath> planePaths = planePathServiceImpl.findAllplanePath();
+		
+		model.addAttribute("aUser",aUser);
+		model.addAttribute("bUsers",bUsers);
+		model.addAttribute("cUsers",cUsers);
+		model.addAttribute("planes",planes);
+		model.addAttribute("planePaths",planePaths);
+			
 		//在这传输数据
 		model.addAttribute("task", task);
 		model.addAttribute("curNav", "createTask");

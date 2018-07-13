@@ -11,5 +11,7 @@ public interface PlaneService {
 
     List<Plane> getPlaneByOption(String userid, Date starttime, Date endtime);
 
+	List<Plane> findByPlaneStatus(Plane plane);
+
 
 }

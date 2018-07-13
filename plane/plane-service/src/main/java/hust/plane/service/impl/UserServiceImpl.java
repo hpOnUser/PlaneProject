@@ -118,4 +118,14 @@ public class UserServiceImpl implements UserService {
         user.setUpdatetime(DateKit.getNow());
         userDao.updateByPrimaryKeySelective(user);
     }
+
+	@Override
+	public List<User> findByUserRole(User userExmple) {
+		
+		UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+		criteria.andRoleEqualTo(userExmple.getRole());
+		
+		return userDao.selectByExample(example);
+	}
 }

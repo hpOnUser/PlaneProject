@@ -18,5 +18,7 @@ public interface PlanePathMapper {
 
 	int planePathCount(PlanePath planePath);
 
-	List<PlanePath> queryPlanePathPage(PlanePath planePath, TailPage<PlanePath> page); 
+	List<PlanePath> queryPlanePathPage(PlanePath planePath, TailPage<PlanePath> page);
+
+	List<PlanePath> findAllplanePath(); 
 }

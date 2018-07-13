@@ -61,4 +61,11 @@ public class PlanePathServiceImpl implements PlanePathService {
 		
 	}
 
+	@Override
+	public List<PlanePath> findAllplanePath() {
+		
+		List<PlanePath> planePaths = planePathMapper.findAllplanePath();
+		return planePaths;
+	}
+
 }

@@ -2,6 +2,8 @@ package hust.plane.service.interFace;
 
 import hust.plane.mapper.pojo.User;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 public interface UserService {
@@ -12,4 +14,6 @@ public interface UserService {
     User queryUserById(String uid);
 
     void modifyPwd(HttpServletRequest request, String oldpassword, String password);
+
+	List<User> findByUserRole(User userExmple);
 }

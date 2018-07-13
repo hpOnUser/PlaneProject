@@ -27,13 +27,13 @@
   <#include "common/header.html" />
   <#include "./nav.html" />
 
-
-
-
     <div class="content">
         <div class="container-fluid">
+         <div class="block span6">
+	                <a class="block-heading f-14" data-toggle="collapse">任务创建</a>	           
+	     </div>
             <div class="row-fluid container-fluid" style="margin-top: 40px;margin-left: 40px;">
-
+           
                 <form class="form-horizontal" role="form" action="${s.base}/taskCreate.action">
                     <div class="form-group">
                         <label class="control-label">任务编号：</label>
@@ -45,17 +45,19 @@
                         <label class="control-label">操作者：</label>
                         <div class="col-sm-7">
                             <select name="useraid" class="form-control" type="select">
-									<option value="1">1</option>
-									<option value="2">2</option>
+									<option value="${aUser.userid!}">${aUser.userid!}</option>								
 				            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label">放飞者：</label>
                         <div class="col-sm-7">
-                            <select  name="userbid" class="form-control" type="select">
-									<option value="1">1</option>
-									<option value="2">2</option>
+                            <select  name="userbid" class="form-control" type="select">								
+									<#if bUsers??>
+									<#list bUsers as bUser>
+										<option value="${bUser.userid!}">${bUser.userid!}</option>
+									</#list>								
+									</#if>						
 				            </select>
                         </div>
                     </div>
@@ -63,8 +65,11 @@
                         <label class="control-label">接收者：</label>
                         <div class="col-sm-7">
                             <select  name="usercid" class="form-control" type="select">
-									<option value="1">1</option>
-									<option value="2">2</option>
+									<#if cUsers??>
+									<#list cUsers as cUser>
+										<option value="${cUser.userid!}">${cUser.userid!}</option>
+									</#list>								
+									</#if>	
 				            </select>
                         </div>
                     </div>
@@ -72,8 +77,11 @@
                         <label class="control-label">无人机编号：</label>
                         <div class="col-sm-7">
                             <select  name="planeid" class="form-control" type="select">
-									<option value="1">1</option>
-									<option value="2">2</option>
+									<#if planes??>
+									<#list planes as plane>
+										<option value="${plane.planeId!}">${plane.planeId!}</option>
+									</#list>								
+									</#if>									
 				            </select>
                         </div>
                     </div>
@@ -83,9 +91,13 @@
                               <select  name="planepathid" class="form-control" type="select">
                               		<#if task.planepathid??>
                               		<option value="${task.planepathid!}">${task.planepathid!}</option>
+                              		<#else>
+	                              		<#if planePaths??>
+										<#list planePaths as planePath>
+											<option value="${planePath.planepathid!}">${planePath.planepathid!}</option>
+										</#list>								
+										</#if>	
                               		</#if>                           
-									<option value="2">2</option>
-									<option value="3">3</option>
 				            </select>
                         </div>
                     </div>
