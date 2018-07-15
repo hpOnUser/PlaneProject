@@ -98,6 +98,11 @@
     where username=#{username,jdbcType=VARCHAR}
   </select>
 
+  <select id="selectByUserNameAndRole" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*) from user
+    where username=#{param1,jdbcType=VARCHAR} And role = #{param2}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user
     where userid = #{userid,jdbcType=VARCHAR}
