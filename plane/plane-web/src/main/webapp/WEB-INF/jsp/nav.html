@@ -75,7 +75,7 @@
             <span style="font-weight: bold;font-size: 16px;">我的账号</span>
         </a>
         <ul id="accounts-menu6" class="nav nav-list collapse ">
-            <li <#if curNav?? && curNav =="editInfo"> class="active" </#if>><a href="${s.base}/admin/profile">修改个人信息</a></li>
+            <li <#if curNav?? && curNav =="editInfo"> class="active" </#if>><a href="${s.base}/admin/profile">个人信息</a></li>
             <li <#if curNav?? && curNav =="logout"> class="active" </#if>><a href="${s.base}/admin/logout">退出</a></li>
         </ul>
        
@@ -93,19 +93,23 @@
                         <h4 class="modal-title">查询路由</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form" id="routeQuery" method="post">
+                        <form role="form" id="routeQuery" method="post">                         
                             <div class="form-group clearfix">
-                                <label for="name">路由编号</label>
-                                <input type="text" id="routeId" name="routeId" class="form-control" onchange="ww();" placeholder="请输入路由编号">
+                                <label class="control-label"  style="white-space:nowrap">路由编号：</label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="routeId" name="routeId" class="form-control" onchange="ww();" placeholder="请输入路由编号">
+                                </div>
                             </div>
                             <div class="form-group clearfix">
-                                <label for="name">路由等级</label>
-                                <select id="type" name="type" class="form-control" type="select">
+                                <label class="control-label"  style="white-space:nowrap">路由等级：</label>
+                                <div class="col-sm-7">
+                                   <select id="type" name="type" class="form-control" type="select">
 									<option value="0">一干路由</option>
 									<option value="1">二干路由</option>
 									<option value="2">混合路由</option>
-								</select>
-                            </div>
+									</select>	
+								</div>
+                            </div>                        
                         </form>
                         <!-- tip提示-start -->
                         <div id="_ocAlertTip" class="alert alert-success f-16" style="display: none;">提示</div>
@@ -137,20 +141,20 @@
                             <div class="form-group clearfix">
 
                                 <label class="control-label"  style="white-space:nowrap">责任人编号：</label>
-                                <div class="col-sm-8">
+                                <div class="col-sm-5">
                                     <input type="text clearfix" class="form-control" name="userid" placeholder="请输入责任人编号">
                                 </div>
                             </div>
                             <div class="form-group clearfix">
 
                                 <label class="control-label"  style="white-space:nowrap">登记起始时间：</label>
-                                <div class="col-sm-8">
+                                <div class="col-sm-5">
                                     <input type="date" class="form-control" name="starttime" value="2018-07-01" />
                                 </div>
                             </div>
                             <div class="form-group clearfix">
                                 <label class="control-label"  style="white-space:nowrap">登记终止时间：</label>
-                                <div class="col-sm-8">
+                                <div class="col-sm-5">
                                     <input type="date" class="form-control" id="enddtime" name="endtime" value="" />
                                 </div>
                             </div>
