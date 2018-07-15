@@ -1,11 +1,13 @@
 package hust.plane.service.impl;
 
 import hust.plane.mapper.mapper.UserMapper;
+import hust.plane.mapper.pojo.Plane;
 import hust.plane.mapper.pojo.User;
 import hust.plane.mapper.pojo.UserExample;
 import hust.plane.service.interFace.UserService;
 import hust.plane.utils.DateKit;
 import hust.plane.utils.PlaneUtils;
+import hust.plane.utils.UUID;
 import hust.plane.utils.pojo.TipException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -65,7 +67,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             throw new TipException("用户名和密码不能为空");
         }
-        int usernameCount = userDao.selectByUserName(username);
+        int usernameCount = userDao.selectByUserNameAndRole(username,"0");
         if (usernameCount == 1) {
             throw new TipException("该用户名已经存在");
         }
@@ -75,7 +77,7 @@ public class UserServiceImpl implements UserService {
         user.setRole("0");
         user.setCreatetime(new Date());
         user.setDescripte("操作员");
-        user.setUserid("4");
+        user.setUserid(UUID.UU32());
         int count = userDao.insertSelective(user);
         return count;
     }

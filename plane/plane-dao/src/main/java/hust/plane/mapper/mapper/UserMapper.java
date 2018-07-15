@@ -29,4 +29,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
     //根据该用户名查出用户的数量
     int selectByUserName(String username);
+
+    int selectByUserNameAndRole(@Param("username") String username,@Param("role") String role);
 }
