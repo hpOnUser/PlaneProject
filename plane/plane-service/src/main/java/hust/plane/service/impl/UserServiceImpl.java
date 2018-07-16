@@ -74,10 +74,12 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(PlaneUtils.MD5encode(username + password));
-        user.setRole("0");
+        //注册不能成为管理员
+//        user.setRole("0");
         user.setCreatetime(new Date());
-        user.setDescripte("操作员");
-        user.setUserid(UUID.UU32());
+//        user.setDescripte("操作员");
+        user.setUserid(UUID.UU32());//暂且用UUID
+//      int count = userDao.insertSelectiveWithIdInc(user);//主键不是int类型的值，无法自增
         int count = userDao.insertSelective(user);
         return count;
     }

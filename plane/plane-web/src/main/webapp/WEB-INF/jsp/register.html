@@ -247,7 +247,7 @@
                         success: function(result) {
                             if (result.errcode==0)
                             {
-                                showAlert(result.message);
+                                $.setTimeout(showAlert(result.message),3000);
                                 window.location.href = "login";
                             } else {
                                 showAlert(result.message);
