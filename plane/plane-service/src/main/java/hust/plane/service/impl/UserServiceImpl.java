@@ -154,6 +154,10 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isBlank(userid)){
             throw new TipException("获取用户id错误");
         }
+        String Role = userDao.selectByPrimaryKey(userid).getRole();
+        if(StringUtils.isNotBlank(Role)&&Role.equals("0")){
+            throw new TipException("权限不足以删除管理员");
+        }
         int count = userDao.deleteByPrimaryKey(userid);
         if(count!=1){
             throw new TipException("删除用户异常");
