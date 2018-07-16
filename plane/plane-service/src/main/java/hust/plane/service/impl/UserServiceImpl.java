@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             throw new TipException("用户名和密码不能为空");
         }
-        int usernameCount = userDao.selectByUserNameAndRole(username, "0");
+        int usernameCount = userDao.selectByUserName(username);
         if (usernameCount == 1) {
             throw new TipException("该用户名已经存在");
         }
@@ -146,5 +146,18 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userDao.selectAllUser(page);
         page.setItems(userList);
         return page;
+    }
+
+
+    @Override
+    public int delUserById(String userid) {
+        if(StringUtils.isBlank(userid)){
+            throw new TipException("获取用户id错误");
+        }
+        int count = userDao.deleteByPrimaryKey(userid);
+        if(count!=1){
+            throw new TipException("删除用户异常");
+        }
+        return count;
     }
 }

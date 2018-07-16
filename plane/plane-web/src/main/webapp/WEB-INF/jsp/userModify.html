@@ -17,45 +17,36 @@
     <script type="text/javascript">
         CONETXT_PATH = '${s.base}';
     </script>
-    <style>
-        .pointer {
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
 <#include "common/header.html" />
 <#include "./nav.html" />
 
 
-<!-- 历史告警弹出层 -start -->
-<!--<div class="modal" id="alarmHistoryModal" tabindex="-1" role="dialog" aria-hidden="true">-->
-    <!--<div class="modal_wapper">-->
-        <!--<div class="modal-dialog w-8">-->
-            <!--<div class="modal-content">-->
-                <!--<div class="modal-header">-->
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                        <!--<span aria-hidden="true">×</span>-->
-                    <!--</button>-->
-                    <!--<h4 class="modal-title">告警点详细信息</h4>-->
-                <!--</div>-->
-                <!--<div class="modal-body">-->
-                    <!--<div class="form-group" style="width:100%">-->
-                        <!--告警点描述：<span id="descripte"></span>-->
-                    <!--</div>-->
-                    <!--<img id="infoImg" src="" style="width:100%;">-->
+<!-- 用户信息删除弹出层 -start -->
+<div class="modal" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal_wapper">
+        <div class="modal-dialog w-8">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="text-align: center;color: indigo">
+                     <span style="font-size:2rem;"><b>确定删除该用户？</b></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="ensureDelUser">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
 
-                <!--</div>-->
-                <!--&lt;!&ndash;-->
-                                    <!--<div class="modal-footer">-->
-                                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
-                                    <!--</div>-->
-                <!--&ndash;&gt;-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-<!-- 查询路由弹出层 -end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 用户信息删除弹出层 -end -->
 <div class="content">
     <div class="container-fluid">
         <form id="queryPageForm" class="mt-15">
@@ -103,7 +94,7 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary" style="background-color:#5cb85c">修改</button>
-                                <button type="button" class="btn btn-danger" style="background-color:#d9534f">删除</button>
+                                <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser(${user.userid})">删除</button>
                             </td>
                             </#list>
                         </#if>
@@ -116,23 +107,66 @@
         </form>
     </div>
 </div>
-<!--<div class="modal" id="_ocDialogModal" tabindex="-1" aria-hidden="true">-->
-    <!--<div class="modal_wapper small">-->
-        <!--<div class="modal-dialog w-4" >-->
-            <!--<div class="modal-content">-->
-                <!--<div class="modal-header">-->
-                    <!--<div class="modal-title f-16" >提示信息</div>-->
-                <!--</div>-->
-                <!--<div class="modal-body">-->
-                    <!--<div><span class="color-oc f-16 oc-content">警告已经处理</span></div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-<script>
+<div class="modal" id="successDelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal_wapper small">
+        <div class="modal-dialog w-4" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title f-16" >提示信息</div>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <div><span class="color-oc f-16 oc-content" style="font-size: 2rem;color:#260cff">该用户删除成功!</span></div>
+                    <div><span class="color-oc f-16 oc-content"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal" id="failDelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal_wapper small">
+        <div class="modal-dialog w-4" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title f-16" >提示信息</div>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <div><span class="color-oc f-16 oc-content" style="font-size: 2rem;color: #c7254e">该用户删除失败，请重新操作</span></div>
+                    <div><span class="color-oc f-16 oc-content"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function showUserList()
+    {
+        window.location.reload();
+    }
+    var userID = null;
+    function delUser(uid){
+        userID=uid;
+        Modal.show('deleteUserModal');
+    }
 
+    $("#ensureDelUser").click(function () {
+        $.ajax({
+            type:"POST",
+            url:"deleteUser",
+            data:{
+                "userid":userID
+            },
+            success:function(result){
+                if (result.errcode == 0 && result.message == "SUCCESS") {
+                        Modal.show('successDelModal');
+                        setTimeout(showUserList,2000);
+                }else{
+                       Modal.show('failDelModal');
+                       setTimeout(showUserList,2000);
+                }
+            }
+        });
+    })
 </script>
 </body>
 </html>

@@ -20,4 +20,6 @@ public interface UserService {
 	List<User> findByUserRole(User userExmple);
 
     TailPage<User> getAllUserWithPage(TailPage<User> page);
+
+    int delUserById(String userid);
 }
