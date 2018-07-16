@@ -3,6 +3,8 @@ package hust.plane.mapper.mapper;
 import hust.plane.mapper.pojo.User;
 import hust.plane.mapper.pojo.UserExample;
 import java.util.List;
+
+import hust.plane.utils.page.TailPage;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
@@ -31,4 +33,8 @@ public interface UserMapper {
     int selectByUserName(String username);
 
     int selectByUserNameAndRole(@Param("username") String username,@Param("role") String role);
+
+    int selectUserCount();
+
+    List<User> selectAllUser(@Param("page") TailPage<User> page);
 }
