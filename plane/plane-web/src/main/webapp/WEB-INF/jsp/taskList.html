@@ -72,7 +72,23 @@
                                 	<td>${taskpojo.task.planeid!}</td>
                                 	<td>${taskpojo.task.routeid!}</td>
                                 	<td>${(taskpojo.task.plantime?date)!}</td>
-                                	<td>${taskpojo.task.status!}</td>
+                                	<td>
+                                	<#if taskpojo.task.status?? && taskpojo.task.status!="">                               	
+                               	      <#if  taskpojo.task.status == '-1'><span class="label label-danger">故障</span>
+                               	    <#elseif taskpojo.task.status =='0'><span class="label label-warning">任务退回</span>
+                               	    <#elseif taskpojo.task.status =='1'><span class="label label-primary">已归档</span>
+                               	    <#elseif taskpojo.task.status =='2'><span class="label label-primary">放飞者确认</span>
+                               	    <#elseif taskpojo.task.status =='3'><span class="label label-primary">接收者确认</span>
+                               	    <#elseif taskpojo.task.status =='4'><span class="label label-info">开始执行</span>
+                               	    <#elseif taskpojo.task.status =='5'><span class="label label-info">自检完成</span>
+                               	    <#elseif taskpojo.task.status =='6'><span class="label label-success">自检完成</span>
+                               	    <#elseif taskpojo.task.status =='7'><span class="label label-primary">待放飞</span>
+                               	    <#elseif taskpojo.task.status =='8'><span class="label label-info">放飞完成</span>
+                               	    <#elseif taskpojo.task.status =='9'><span class="label label-info">飞行中</span>
+                               	    <#elseif taskpojo.task.status =='10'><span class="label label-success">任务完成</span>
+                               	    </#if>
+                               	    </#if>
+                                	</td>
                                 	<td>
                                 		 <a href="javascript:void(0)" onclick="toEdit();">生成飞行报告</a>
                                 	</td>
