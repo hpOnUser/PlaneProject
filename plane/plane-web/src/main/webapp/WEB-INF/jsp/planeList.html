@@ -159,10 +159,18 @@
 
             function showPlan(e, positionX, positionY) {
                 var posi = [positionX, positionY];
-                //e.className +=' selected';
-                //console.log(e);
+                
+                var lilist = document.getElementById('my-list')
+                var eles = lilist.getElementsByTagName('li');
+                
+                for(var i=0;i<eles.length;i++){
+                	
+                	eles[i].className = 'poibox';
+                	console.log(eles[i]);
+                }
+                e.className ='poibox selected';
+                       
                 map.panTo(posi);
-
             }
 
           
