@@ -80,6 +80,7 @@
                                 <th>管理</th>
                             </tr>
                             </thead>
+                            <tbody>
                             <#if (page.items)??>
                             <#list page.items as user>
                             <td>${user.userid}</td>
@@ -88,6 +89,7 @@
                             <td><#if user.createtime??>${user.createtime?datetime!}</#if></td>
                             <td><#if user.updatetime??>${user.updatetime?datetime!}</#if></td>
                             <td>
+                            <#if user.role??>
                                 <#if user.role == "0">
                                 <span class="label label-primary">管理员</span>
                                 <#elseif user.role == "1">
@@ -95,6 +97,9 @@
                                 <#else>
                                 <span class="label label-warning">降落员</span>
                                 </#if>
+                            <#else>
+                            <span class="label label-danger">待确认</span>
+                           </#if>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary" style="background-color:#5cb85c">修改</button>
