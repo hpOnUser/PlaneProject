@@ -35,9 +35,26 @@ public class UserController {
     @ResponseBody
     public String doDelUser(@RequestParam String userid) {
         try {
-            int count = userService.delUserById(userid);
+            userService.delUserById(userid);
         } catch (Exception e) {
             String msg = "删除失败";
+            if (e instanceof TipException) {
+                msg = e.getMessage();
+            } else {
+                LOGGER.error(msg, e);
+            }
+            return JsonView.render(1, msg);
+        }
+        return JsonView.render(0, WebConst.SUCCESS_RESULT);
+    }
+
+    @RequestMapping(value = "modifyUser", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String deModifyUser(@RequestParam String userid, @RequestParam String role, @RequestParam String descripte) {
+        try {
+            userService.modifyUserRoleAndDes(userid, role, descripte);
+        } catch (Exception e) {
+            String msg = "修改失败";
             if (e instanceof TipException) {
                 msg = e.getMessage();
             } else {

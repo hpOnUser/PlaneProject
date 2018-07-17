@@ -151,16 +151,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int delUserById(String userid) {
-        if(StringUtils.isBlank(userid)){
+        if (StringUtils.isBlank(userid)) {
             throw new TipException("获取用户id错误");
         }
         String Role = userDao.selectByPrimaryKey(userid).getRole();
-        if(StringUtils.isNotBlank(Role)&&Role.equals("0")){
+        if (StringUtils.isNotBlank(Role) && Role.equals("0")) {
             throw new TipException("权限不足以删除管理员");
         }
         int count = userDao.deleteByPrimaryKey(userid);
-        if(count!=1){
+        if (count != 1) {
             throw new TipException("删除用户异常");
+        }
+        return count;
+    }
+
+    @Override
+    public int modifyUserRoleAndDes(String userid, String role, String descripte) {
+        if (StringUtils.isBlank(userid) || StringUtils.isBlank(role) || StringUtils.isBlank(descripte)) {
+            throw new TipException("角色和描述的填写不能为空！");
+        }
+        User user = userDao.selectByPrimaryKey(userid);
+        user.setRole(role);
+        user.setDescripte(descripte);
+        user.setUpdatetime(new Date());
+        int count = userDao.updateByPrimaryKeySelective(user);
+        if (count != 1) {
+            throw new TipException("修改用户异常");
         }
         return count;
     }

@@ -114,12 +114,14 @@ public class IndexController {
         }
         return JsonView.render(0, "注册成功,等待管理员确认！");
     }
+
     /**
      * 用户退出登陆
-     * @author rfYang
-     * @date 2018/7/3 18:07
+     *
      * @param [request, response, session]
      * @return void
+     * @author rfYang
+     * @date 2018/7/3 18:07
      */
     @RequestMapping(value = "/logout")
     public void doLogout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -139,28 +141,29 @@ public class IndexController {
 
     /**
      * 个人设置GET请求
+     *
      * @param mv
      * @return
      */
     @RequestMapping(value = "/profile")
-    public ModelAndView doEditPwd(ModelAndView mv){
-         mv.setViewName("profileEdit");
-         return mv;
+    public ModelAndView doEditPwd(ModelAndView mv) {
+        mv.setViewName("profileEdit");
+        return mv;
     }
 
-    @RequestMapping(value = "/profile",produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+    @RequestMapping(value = "/profile", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public String doEditPwd(@RequestParam String oldpassword,@RequestParam String password,HttpServletRequest request){
+    public String doEditPwd(@RequestParam String oldpassword, @RequestParam String password, HttpServletRequest request) {
         try {
-            userService.modifyPwd(request,oldpassword,password);
-        }catch (Exception e){
-            String msg ="更改失败";
-            if(e instanceof TipException){
+            userService.modifyPwd(request, oldpassword, password);
+        } catch (Exception e) {
+            String msg = "更改失败";
+            if (e instanceof TipException) {
                 msg = e.getMessage();
-            }else{
+            } else {
                 LOGGER.error(msg, e);
             }
-            return JsonView.render(1,msg);
+            return JsonView.render(1, msg);
         }
         return JsonView.render(0, "修改成功");
     }

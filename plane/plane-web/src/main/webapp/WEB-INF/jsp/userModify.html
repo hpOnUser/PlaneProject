@@ -110,8 +110,8 @@
                         <div class="form-group clearfix">
                             <label class="control-label" style="white-space:nowrap">角色：</label>
                             <div class="col-sm-11">
-                                <select id="type" name="type" class="form-control" type="select">
-                                    <option value="0">管理员</option>
+                                <select id="userType" name="userType" class="form-control" type="select">
+                                    <option value="0" selected="selected">管理员</option>
                                     <option value="1">起飞员</option>
                                     <option value="2">降落员</option>
                                 </select>
@@ -128,9 +128,9 @@
                         </div>
                     </form>
                 </div>
-
+                <div id="alertDiv"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="modifyUser">修改</button>
+                    <button type="button" class="btn btn-primary" name="modifyUser" id="modify">修改</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div>
@@ -138,55 +138,55 @@
     </div>
 </div>
 <!-- 用户信息修改弹出层 -end -->
-<div class="content">
-    <div class="container-fluid">
-        <form id="queryPageForm" class="mt-15">
-            <div class="block span6">
-                <a class="block-heading f-14" data-toggle="collapse">用户列表</a>
-            </div>
-
-            <input type="button" class="search-btn" value="新增">
-
-            <div class="row-fluid">
+    <div class="content">
+        <div class="container-fluid">
+            <form id="queryPageForm" class="mt-15">
                 <div class="block span6">
-                    <div id="tablewidget" class="block-body collapse in">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>用户名</th>
-                                <th>描述</th>
-                                <th>创建时间</th>
-                                <th>最近修改时间</th>
-                                <th>角色</th>
-                                <th>管理</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <#if (page.items)??>
-                            <#list page.items as user>
-                            <td>${user.userid}</td>
-                            <td>${user.username}</td>
-                            <td><#if user.descripte??>${user.descripte}</#if></td>
-                            <td><#if user.createtime??>${user.createtime?datetime!}</#if></td>
-                            <td><#if user.updatetime??>${user.updatetime?datetime!}</#if></td>
-                            <td>
-                            <#if user.role??>
-                                <#if user.role == "0">
-                                <span class="label label-primary">管理员</span>
-                                <#elseif user.role == "1">
-                                <span class="label label-info">起飞员</span>
-                                <#else>
-                                <span class="label label-warning">降落员</span>
+                    <a class="block-heading f-14" data-toggle="collapse">用户列表</a>
+                </div>
+
+                <input type="button" class="search-btn" value="新增">
+
+                <div class="row-fluid">
+                    <div class="block span6">
+                        <div id="tablewidget" class="block-body collapse in">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>用户名</th>
+                                    <th>描述</th>
+                                    <th>创建时间</th>
+                                    <th>最近修改时间</th>
+                                    <th>角色</th>
+                                    <th>管理</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <#if (page.items)??>
+                                <#list page.items as user>
+                                <td>${user.userid}</td>
+                                <td>${user.username}</td>
+                                <td><#if user.descripte??>${user.descripte}</#if></td>
+                                <td><#if user.createtime??>${user.createtime?datetime!}</#if></td>
+                                <td><#if user.updatetime??>${user.updatetime?datetime!}</#if></td>
+                                <td>
+                                    <#if user.role??>
+                                    <#if user.role == "0">
+                                    <span class="label label-primary">管理员</span>
+                                    <#elseif user.role == "1">
+                                    <span class="label label-info">起飞员</span>
+                                    <#else>
+                                    <span class="label label-warning">降落员</span>
                                 </#if>
-                            <#else>
-                            <span class="label label-danger">待确认</span>
-                           </#if>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary" style="background-color:#5cb85c" onclick="modUser(${user.userid},'${user.username}')">修改</button>
-                                <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser(${user.userid})">删除</button>
-                            </td>
+                                <#else>
+                                <span class="label label-danger">待确认</span>
+                                </#if>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" style="background-color:#5cb85c" onclick="modUser(${user.userid},'${user.username}')">修改</button>
+                                    <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser(${user.userid})">删除</button>
+                                </td>
                             </#list>
                         </#if>
                         </tbody>
@@ -194,12 +194,19 @@
                         <p><#include "common/tailPage.html"/></p>
                     </div>
                 </div>
-            </div>
+        </div>
         </form>
     </div>
 </div>
 
 <script type="text/javascript">
+    function showAlert(message) {
+        var alertitem = document.getElementById("alertDiv");
+        var innHTMl = '<div class="alert alert-danger alert-dismissable" id="alerth">' + message + '</div>';
+        alertitem.innerHTML = innHTMl;
+        alertitem.style.display = "block";
+    }
+
     function showUserList()
     {
         window.location.reload();
@@ -209,7 +216,6 @@
         userID=uid;
         Modal.show('deleteUserModal');
     }
-
 
     function modUser(uid,uname){
         $("#modifyUserId").attr("placeholder",uid);
@@ -232,6 +238,31 @@
                        $("#failMsg").html(result.message);
                        Modal.show('failDelModal');
                        setTimeout(showUserList,2000);
+                }
+            }
+        });
+    })
+
+
+    $("#modify").click(function () {
+        var id = $("#modifyUserId").attr('placeholder');
+        var type = $("#userType").val();
+        var text = $("#description").val();
+        $.ajax({
+            url: "modifyUser",
+            type: "POST",
+            data: {
+                userid:id,
+                role: type,
+                descripte: text
+            },
+            async: true,
+            success: function (result) {
+                if (result.errcode == 0 && result.message == "SUCCESS") {
+                    showAlert("用户信息修改成功!");
+                    setTimeout(showUserList,2000);
+                } else {
+                    showAlert(result.message);
                 }
             }
         });

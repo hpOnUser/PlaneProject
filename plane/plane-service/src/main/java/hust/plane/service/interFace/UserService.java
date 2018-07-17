@@ -22,4 +22,6 @@ public interface UserService {
     TailPage<User> getAllUserWithPage(TailPage<User> page);
 
     int delUserById(String userid);
+
+    int modifyUserRoleAndDes(String userid, String role, String descripte);
 }
