@@ -138,65 +138,130 @@
     </div>
 </div>
 <!-- 用户信息修改弹出层 -end -->
-    <div class="content">
-        <div class="container-fluid">
-            <form id="queryPageForm" class="mt-15">
-                <div class="block span6">
-                    <a class="block-heading f-14" data-toggle="collapse">用户列表</a>
+<!-- 新增用户弹出层 -start -->
+<div class="modal" id="addUserModal" tabindex="-1"  aria-hidden="true">
+    <div class="modal_wapper">
+        <div class="modal-dialog w-8">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">新建用户</h4>
                 </div>
-
-                <input type="button" class="search-btn" value="新增">
-
-                <div class="row-fluid">
-                    <div class="block span6">
-                        <div id="tablewidget" class="block-body collapse in">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>序号</th>
-                                    <th>用户名</th>
-                                    <th>描述</th>
-                                    <th>创建时间</th>
-                                    <th>最近修改时间</th>
-                                    <th>角色</th>
-                                    <th>管理</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <#if (page.items)??>
-                                <#list page.items as user>
-                                <td>${user.userid}</td>
-                                <td>${user.username}</td>
-                                <td><#if user.descripte??>${user.descripte}</#if></td>
-                                <td><#if user.createtime??>${user.createtime?datetime!}</#if></td>
-                                <td><#if user.updatetime??>${user.updatetime?datetime!}</#if></td>
-                                <td>
-                                    <#if user.role??>
-                                    <#if user.role == "0">
-                                    <span class="label label-primary">管理员</span>
-                                    <#elseif user.role == "1">
-                                    <span class="label label-info">起飞员</span>
-                                    <#else>
-                                    <span class="label label-warning">降落员</span>
-                                </#if>
-                                <#else>
-                                <span class="label label-danger">待确认</span>
-                                </#if>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" style="background-color:#5cb85c" onclick="modUser(${user.userid},'${user.username}')">修改</button>
-                                    <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser(${user.userid})">删除</button>
-                                </td>
-                            </#list>
-                        </#if>
-                        </tbody>
-                        </table>
-                        <p><#include "common/tailPage.html"/></p>
-                    </div>
+                <div class="modal-body">
+                    <form role="form" id="addUserForm" method="post" enctype="multipart/form-data">
+                        <div class="form-group clearfix">
+                            <label class="control-label" style="white-space:nowrap">编号：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="addUserId" id="addUserId"
+                                       placeholder="请输入用户编号">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="control-label" style="white-space:nowrap">名称：</label>
+                            <div class="col-sm-8">
+                                <input type="text clearfix" class="form-control" name="addUsername" id="addUsername"
+                                       placeholder="请输入用户名">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="control-label" style="white-space:nowrap">密码：</label>
+                            <div class="col-sm-8">
+                                <input type="text clearfix" class="form-control" name="addUserPaw" id="addUserPaw"
+                                       placeholder="请输入用户密码">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="control-label" style="white-space:nowrap">角色：</label>
+                            <div class="col-sm-8">
+                                <select id="addUserRole" name="addUserRole" class="form-control" type="select">
+                                    <option value="0" selected="selected">管理员</option>
+                                    <option value="1">起飞员</option>
+                                    <option value="2">降落员</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="control-label" style="white-space:nowrap">描述：</label>
+                            <div class="col-sm-8">
+                                <input type="text clearfix" class="form-control" name="addUserDescripte"
+                                       id="addUserDescripte" placeholder="请输入对该用户的描述">
+                            </div>
+                        </div>
+                    </form>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">创建</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
         </div>
-        </form>
     </div>
+</div>
+
+<!-- 新增用户弹出层 -end -->
+
+<div class="content">
+    <div class="container-fluid">
+        <form id="queryPageForm" class="mt-15">
+            <div class="block span6">
+                <a class="block-heading f-14" data-toggle="collapse">用户列表</a>
+            </div>
+
+            <input type="button" class="search-btn" value="搜索">
+
+            <div class="row-fluid">
+                <div class="block span6">
+                    <div id="tablewidget" class="block-body collapse in">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>用户名</th>
+                                <th>描述</th>
+                                <th>创建时间</th>
+                                <th>最近修改时间</th>
+                                <th>角色</th>
+                                <th>管理</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <#if (page.items)??>
+                            <#list page.items as user>
+                            <td>${user.userid}</td>
+                            <td>${user.username}</td>
+                            <td><#if user.descripte??>${user.descripte}</#if></td>
+                            <td><#if user.createtime??>${user.createtime?datetime!}</#if></td>
+                            <td><#if user.updatetime??>${user.updatetime?datetime!}</#if></td>
+                            <td>
+                                <#if user.role??>
+                                <#if user.role == "0">
+                                <span class="label label-primary">管理员</span>
+                                <#elseif user.role == "1">
+                                <span class="label label-info">起飞员</span>
+                                <#else>
+                                <span class="label label-warning">降落员</span>
+                            </#if>
+                            <#else>
+                            <span class="label label-danger">待确认</span>
+                            </#if>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" onclick="addUser()">新增</button>
+                                <button type="button" class="btn btn-primary" style="background-color:#5cb85c" onclick="modUser(${user.userid},'${user.username}')">修改</button>
+                                <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser(${user.userid})">删除</button>
+                            </td>
+                        </#list>
+                    </#if>
+                    </tbody>
+                    </table>
+                    <p><#include "common/tailPage.html"/></p>
+                </div>
+            </div>
+    </div>
+    </form>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -267,6 +332,10 @@
             }
         });
     })
+
+    function addUser() {
+        Modal.show('addUserModal');
+    }
 </script>
 </body>
 </html>
