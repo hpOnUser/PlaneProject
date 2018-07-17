@@ -19,10 +19,8 @@
     position: absolute;
     top: 1px;
     right: 0;
-    width: 260px;
-    z-index: 990;
-    opacity: 0.9;
-
+    width: 280px;
+    z-index: 90; 
     bottom: 0;
     right: 0;
     height: 100%;
@@ -39,7 +37,7 @@
 }
 
 #seletc-option {
-    z-index: 999;
+    z-index: 99;
     position: absolute;
     margin-left: 80px;
     margin-top: 10px;
@@ -60,11 +58,10 @@
 
 #my-list li {
     background: #eee;
-    margin: 2px 0;
+    margin: 3px 0;
     list-style: none;
     padding: 5px;
     cursor: pointer;
-    list-style:none;
 	font-size:13px;
     
 }
@@ -78,12 +75,11 @@
 
 #my-list li.poibox{
 border-bottom:1px solid #eaeaea;
-border-left:2px solid rgba(0,0,0,0);
+border-left:3px solid rgba(0,0,0,0);
 
 }
-#my-list li .selected{
-border-left-color:#f00;
-background:#f6f6f6;
+#my-list li.selected{
+border-left:3px solid #FF7256!important;
 }
 #my-list li.poibox:hover{
 background:#f6f6f6;
@@ -91,9 +87,6 @@ background:#f6f6f6;
 #my-list li.poibox:last-child{
 border-bottom:none;
 }
-
-
-
 
 #panel h3 {
     margin: 10px 0;

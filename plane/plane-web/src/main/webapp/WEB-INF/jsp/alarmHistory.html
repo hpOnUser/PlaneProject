@@ -171,7 +171,7 @@
             success: function (result) {
                 if (result.errcode == 0 && result.message == "SUCCESS") {
                     $("#descripte").html(result.data.body);
-                    var img = "res/" + result.data.img;
+                    var img = result.data.img;
                     $("#infoImg").attr("src", img);
                     Modal.show('alarmHistoryModal');
                 } else {

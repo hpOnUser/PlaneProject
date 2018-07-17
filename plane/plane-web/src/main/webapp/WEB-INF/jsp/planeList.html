@@ -18,13 +18,11 @@
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     <script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.6&key=82f9e75505b649be9ab81a45ae34aa14'></script>
-    <link href="css/common.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
-   <script>
-  
-    </script>
+    <link href="css/common.css" rel="stylesheet" type="text/css">
+   
 </head>
-<body onload="initpage()">
+<body>
 	<#include "common/header.html" />
       <#include "./nav.html" />
    <div class="content">
@@ -161,10 +159,18 @@
 
             function showPlan(e, positionX, positionY) {
                 var posi = [positionX, positionY];
-                //e.className +=' selected';
-                //console.log(e);
+                
+                var lilist = document.getElementById('my-list')
+                var eles = lilist.getElementsByTagName('li');
+                
+                for(var i=0;i<eles.length;i++){
+                	
+                	eles[i].className = 'poibox';
+                	console.log(eles[i]);
+                }
+                e.className ='poibox selected';
+                       
                 map.panTo(posi);
-
             }
 
           
@@ -201,12 +207,7 @@
             function closeInfoWindow() {
                 map.clearInfoWindow();
             }
-
-            function initpage(){
-            	//document.getElementById('#optionsRadios0').click();
-            	          	
-       	    }
-         
+          
         </script>
  		</div>
  

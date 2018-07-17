@@ -231,6 +231,11 @@
         </div>
     </div>
     <script type="text/javascript">
+        function goLogin(){
+            window.location.href = "login";
+        }
+
+
            $("#register").click(function() {
                 var password = $("#password").val();
                 var passwordensure = $("#passwordensure").val();
@@ -248,7 +253,7 @@
                             if (result.errcode==0)
                             {
                                 showAlert(result.message);
-                                window.location.href = "login";
+                                setTimeout(goLogin,2000);
                             } else {
                                 showAlert(result.message);
                             }

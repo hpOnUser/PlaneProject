@@ -1,6 +1,8 @@
 package hust.plane.service.interFace;
 
 import hust.plane.mapper.pojo.User;
+import hust.plane.utils.page.Page;
+import hust.plane.utils.page.TailPage;
 
 import java.util.List;
 
@@ -16,4 +18,8 @@ public interface UserService {
     void modifyPwd(HttpServletRequest request, String oldpassword, String password);
 
 	List<User> findByUserRole(User userExmple);
+
+    TailPage<User> getAllUserWithPage(TailPage<User> page);
+
+    int delUserById(String userid);
 }

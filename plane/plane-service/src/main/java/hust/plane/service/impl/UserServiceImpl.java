@@ -6,6 +6,8 @@ import hust.plane.mapper.pojo.UserExample;
 import hust.plane.service.interFace.UserService;
 import hust.plane.utils.DateKit;
 import hust.plane.utils.PlaneUtils;
+import hust.plane.utils.UUID;
+import hust.plane.utils.page.TailPage;
 import hust.plane.utils.pojo.TipException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -72,16 +74,19 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(PlaneUtils.MD5encode(username + password));
-        user.setRole("0");
+        //注册不能成为管理员
+//        user.setRole("0");
         user.setCreatetime(new Date());
-        user.setDescripte("操作员");
-        user.setUserid("4");
+//        user.setDescripte("操作员");
+        user.setUserid(UUID.UU32());//暂且用UUID
+//      int count = userDao.insertSelectiveWithIdInc(user);//主键不是int类型的值，无法自增
         int count = userDao.insertSelective(user);
         return count;
     }
 
     /**
      * 根据用户id查询到用户
+     *
      * @param uid
      * @return
      */
@@ -96,22 +101,23 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 修改用户名密码
+     *
      * @param request
      * @param oldpassword
      * @param password
      */
     @Override
     public void modifyPwd(HttpServletRequest request, String oldpassword, String password) {
-        if(StringUtils.isBlank(oldpassword)||StringUtils.isBlank(password)){
+        if (StringUtils.isBlank(oldpassword) || StringUtils.isBlank(password)) {
             throw new TipException("旧密码和新密码不能为空");
         }
         User user = PlaneUtils.getLoginUser(request);
-        oldpassword = PlaneUtils.MD5encode(user.getUsername()+oldpassword);
-        if(!oldpassword.equals(user.getPassword())){
+        oldpassword = PlaneUtils.MD5encode(user.getUsername() + oldpassword);
+        if (!oldpassword.equals(user.getPassword())) {
             throw new TipException("输入的原密码不正确");
         }
-        password = PlaneUtils.MD5encode(user.getUsername()+password);
-        if(oldpassword.equals(password)){
+        password = PlaneUtils.MD5encode(user.getUsername() + password);
+        if (oldpassword.equals(password)) {
             throw new TipException("新密码不能和原密码相同");
         }
         user.setPassword(password);
@@ -119,13 +125,43 @@ public class UserServiceImpl implements UserService {
         userDao.updateByPrimaryKeySelective(user);
     }
 
-	@Override
-	public List<User> findByUserRole(User userExmple) {
-		
-		UserExample example = new UserExample();
+    @Override
+    public List<User> findByUserRole(User userExmple) {
+
+        UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
-		criteria.andRoleEqualTo(userExmple.getRole());
-		
-		return userDao.selectByExample(example);
-	}
+        criteria.andRoleEqualTo(userExmple.getRole());
+
+        return userDao.selectByExample(example);
+    }
+
+
+    @Override
+    public TailPage<User> getAllUserWithPage(TailPage<User> page) {
+        int count = userDao.selectUserCount();
+        if (count < 1) {
+            LOGGER.error("用户表为空");
+        }
+        page.setItemsTotalCount(count);
+        List<User> userList = userDao.selectAllUser(page);
+        page.setItems(userList);
+        return page;
+    }
+
+
+    @Override
+    public int delUserById(String userid) {
+        if(StringUtils.isBlank(userid)){
+            throw new TipException("获取用户id错误");
+        }
+        String Role = userDao.selectByPrimaryKey(userid).getRole();
+        if(StringUtils.isNotBlank(Role)&&Role.equals("0")){
+            throw new TipException("权限不足以删除管理员");
+        }
+        int count = userDao.deleteByPrimaryKey(userid);
+        if(count!=1){
+            throw new TipException("删除用户异常");
+        }
+        return count;
+    }
 }

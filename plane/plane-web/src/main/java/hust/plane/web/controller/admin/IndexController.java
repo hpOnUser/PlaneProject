@@ -112,7 +112,7 @@ public class IndexController {
             }
             return JsonView.render(1, msg);
         }
-        return JsonView.render(0, "注册成功");
+        return JsonView.render(0, "注册成功,等待管理员确认！");
     }
     /**
      * 用户退出登陆

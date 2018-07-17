@@ -37,13 +37,13 @@
                 <form class="form-horizontal" role="form" action="${s.base}/taskCreate.action">
                     <div class="form-group">
                         <label class="control-label">任务编号：</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="taskid" placeholder="请输入任务编号">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label">操作者：</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-5">
                             <select name="useraid" class="form-control" type="select">
 									<option value="${aUser.userid!}">${aUser.userid!}</option>								
 				            </select>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">放飞者：</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-5">
                             <select  name="userbid" class="form-control" type="select">								
 									<#if bUsers??>
 									<#list bUsers as bUser>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">接收者：</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-5">
                             <select  name="usercid" class="form-control" type="select">
 									<#if cUsers??>
 									<#list cUsers as cUser>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">无人机编号：</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-5">
                             <select  name="planeid" class="form-control" type="select">
 									<#if planes??>
 									<#list planes as plane>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="form-group ">
                         <label class="control-label">导入飞行路线：</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-5">
                               <select  name="planepathid" class="form-control" type="select">
                               		<#if task.planepathid??>
                               		<option value="${task.planepathid!}">${task.planepathid!}</option>
@@ -103,12 +103,12 @@
                     </div>
                     <div class="form-group ">
                         <label class="control-label">计划时间：</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-5">
                             <input type="datetime-local" class="form-control"  name="plantime" >
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-1 col-sm-7">
+                        <div class="col-sm-offset-1 col-sm-5">
                             <button type="submit" class="btn btn-default" style="margin-right:30px;">创建</button>
                             <button type="reset" class="btn btn-default">重置</button>
                         </div>
