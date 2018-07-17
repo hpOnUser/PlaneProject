@@ -6,6 +6,7 @@ import hust.plane.service.interFace.UserService;
 import hust.plane.utils.page.TailPage;
 import hust.plane.utils.pojo.JsonView;
 import hust.plane.utils.pojo.TipException;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,9 +25,35 @@ public class UserController {
     @Resource
     private UserService userService;
 
+//    @RequestMapping(value = "searchUser", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+//    @ResponseBody
+//    public String doSearchUser(@RequestParam String searchUserStatus, @RequestParam(required = false) String searchUserId,
+//                               TailPage<User> page) {
+//        if (StringUtils.isBlank(searchUserId)) {
+//            searchUserId = WebConst.SEARCH_NO_USERID;
+//        }
+//        page = userService.getUserByRoleOrIdWithPage(searchUserStatus, searchUserId, page);
+//        pageList.add(page);
+//        return JsonView.render(0,WebConst.SUCCESS_RESULT);
+//    }
+
+
     @RequestMapping(value = "toUserCreate", method = RequestMethod.GET)
-    public String userModify(TailPage<User> page, Model model) {
-        page = userService.getAllUserWithPage(page);
+    public String userModify(TailPage<User> page, Model model, User user) {
+        if("-1".equals(user.getRole()))
+        {
+            user.setRole(null);
+        }
+        if (StringUtils.isNotBlank(user.getUserid()) || StringUtils.isNotBlank(user.getRole())) {
+            String searchUserStatus = user.getRole();
+            String searchUserId = user.getUserid();
+            if (StringUtils.isBlank(searchUserId)) {
+                searchUserId = WebConst.SEARCH_NO_USERID;
+            }
+            page = userService.getUserByRoleOrIdWithPage(searchUserStatus, searchUserId, page);
+        } else {
+            page = userService.getAllUserWithPage(page);
+        }
         model.addAttribute("page", page);
         return "userModify";
     }
@@ -82,4 +109,6 @@ public class UserController {
         }
         return JsonView.render(0, WebConst.SUCCESS_RESULT);
     }
+
+
 }

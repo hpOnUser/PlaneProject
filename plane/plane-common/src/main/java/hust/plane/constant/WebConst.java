@@ -21,4 +21,8 @@ public class WebConst {
      * aes加密加盐
      */
     public static String AES_SALT = "0123456789abcdef";
+    /**
+     * 搜索不用用户序号
+     */
+    public static String SEARCH_NO_USERID = "S_N_ID";
 }

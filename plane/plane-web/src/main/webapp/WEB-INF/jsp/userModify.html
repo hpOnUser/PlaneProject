@@ -207,74 +207,75 @@
     <div class="container-fluid">
         <form id="queryPageForm" class="mt-15">
             <div class="block span6">
-                <a class="block-heading f-14" data-toggle="collapse">历史告警</a>
+                <a class="block-heading f-14" data-toggle="collapse">用户列表</a>
                 <div class="block-body collapse in">
                     <p>
-                        <select name="searchUserStatus" class="search-select">
-                            <option value="0" selected="selected">管理员</option>
+                        <select name="role" class="search-select">
+                            <option value="-1">全部</option>
+                            <option value="0">管理员</option>
                             <option value="1">起飞员</option>
                             <option value="2">降落员</option>
                         </select>
                     </p>
                     <p>
-                        <input name="searchUserId" type="text" class="search-text" value="" placeholder="请输入用户序号">
+                        <input name="userid" type="text" class="search-text" value="" placeholder="请输入用户序号">
                     </p>
                     <p>
-                        <input type="submit" class="search-btn" value="搜索">
+                        <input type="submit" class="search-btn"  value="搜索">
                     </p>
-            </div>
+                </div>
 
-            <div class="row-fluid">
-                <div class="block span6">
-                    <div id="tablewidget" class="block-body collapse in">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>用户名</th>
-                                <th>描述</th>
-                                <th>创建时间</th>
-                                <th>最近修改时间</th>
-                                <th>角色</th>
-                                <th>管理</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <#if (page.items)??>
-                            <#list page.items as user>
-                            <td>${user.userid}</td>
-                            <td>${user.username}</td>
-                            <td><#if user.descripte??>${user.descripte}</#if></td>
-                            <td><#if user.createtime??>${user.createtime?datetime!}</#if></td>
-                            <td><#if user.updatetime??>${user.updatetime?datetime!}</#if></td>
-                            <td>
-                                <#if user.role??>
-                                <#if user.role == "0">
-                                <span class="label label-primary">管理员</span>
-                                <#elseif user.role == "1">
-                                <span class="label label-info">起飞员</span>
+                <div class="row-fluid">
+                    <div class="block span6">
+                        <div id="tablewidget" class="block-body collapse in">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>用户名</th>
+                                    <th>描述</th>
+                                    <th>创建时间</th>
+                                    <th>最近修改时间</th>
+                                    <th>角色</th>
+                                    <th>管理</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <#if (page.items)??>
+                                <#list page.items as user>
+                                <td>${user.userid}</td>
+                                <td>${user.username}</td>
+                                <td><#if user.descripte??>${user.descripte}</#if></td>
+                                <td><#if user.createtime??>${user.createtime?datetime!}</#if></td>
+                                <td><#if user.updatetime??>${user.updatetime?datetime!}</#if></td>
+                                <td>
+                                    <#if user.role??>
+                                    <#if user.role == "0">
+                                    <span class="label label-primary">管理员</span>
+                                    <#elseif user.role == "1">
+                                    <span class="label label-info">起飞员</span>
+                                    <#else>
+                                    <span class="label label-warning">降落员</span>
+                                </#if>
                                 <#else>
-                                <span class="label label-warning">降落员</span>
-                            </#if>
-                            <#else>
-                            <span class="label label-danger">待确认</span>
-                            </#if>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary" onclick="addUser()">新增</button>
-                                <button type="button" class="btn btn-primary" style="background-color:#5cb85c" onclick="modUser(${user.userid},'${user.username}')">修改</button>
-                                <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser(${user.userid})">删除</button>
-                            </td>
-                        </#list>
-                    </#if>
-                    </tbody>
-                    </table>
-                    <p><#include "common/tailPage.html"/></p>
+                                <span class="label label-danger">待确认</span>
+                                </#if>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" onclick="addUser()">新增</button>
+                                    <button type="button" class="btn btn-primary" style="background-color:#5cb85c" onclick="modUser(${user.userid},'${user.username}')">修改</button>
+                                    <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser(${user.userid})">删除</button>
+                                </td>
+                            </#list>
+                        </#if>
+                        </tbody>
+                        </table>
+                        <p><#include "common/tailPage.html"/></p>
+                    </div>
                 </div>
             </div>
+        </form>
     </div>
-    </form>
-</div>
 </div>
 
 <script type="text/javascript">

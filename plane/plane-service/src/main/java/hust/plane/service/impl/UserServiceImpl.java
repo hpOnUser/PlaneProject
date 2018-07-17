@@ -1,5 +1,6 @@
 package hust.plane.service.impl;
 
+import hust.plane.constant.WebConst;
 import hust.plane.mapper.mapper.UserMapper;
 import hust.plane.mapper.pojo.User;
 import hust.plane.mapper.pojo.UserExample;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -198,5 +200,21 @@ public class UserServiceImpl implements UserService {
             throw new TipException("新增用户操作异常");
         }
         return count;
+    }
+
+    @Override
+    public TailPage<User> getUserByRoleOrIdWithPage(String searchUserStatus, String searchUserId, TailPage<User> page) {
+        if (searchUserId.equals(WebConst.SEARCH_NO_USERID)) {
+            int count = userDao.selectCountWithRole(searchUserStatus);
+            page.setItemsTotalCount(count);
+            List<User> userList = userDao.selectUserByRole(page, searchUserStatus);
+            page.setItems(userList);
+        } else {
+            page.setItemsTotalCount(1);
+            List<User> userList = new ArrayList<>(1);
+            userList.add(userDao.selectByPrimaryKey(searchUserId));
+            page.setItems(userList);
+        }
+        return page;
     }
 }
