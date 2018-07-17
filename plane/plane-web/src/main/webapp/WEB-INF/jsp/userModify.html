@@ -21,6 +21,7 @@
 <body>
 <#include "common/header.html" />
 <#include "./nav.html" />
+<!-- 用户信息删除成功弹出层 -start -->
 <div class="modal" id="successDelModal" tabindex="-1" aria-hidden="true">
     <div class="modal_wapper small">
         <div class="modal-dialog w-4" >
@@ -36,7 +37,8 @@
         </div>
     </div>
 </div>
-
+<!-- 用户信息删除成功弹出层 -end -->
+<!-- 用户信息删除失败弹出层 -start -->
 <div class="modal" id="failDelModal" tabindex="-1" aria-hidden="true">
     <div class="modal_wapper small">
         <div class="modal-dialog w-4" >
@@ -52,6 +54,7 @@
         </div>
     </div>
 </div>
+<!-- 用户信息删除失败弹出层 -end -->
 <!-- 用户信息删除弹出层 -start -->
 <div class="modal" id="deleteUserModal" tabindex="-1"  aria-hidden="true">
     <div class="modal_wapper small">
@@ -75,6 +78,66 @@
     </div>
 </div>
 <!-- 用户信息删除弹出层 -end -->
+<!-- 用户信息修改弹出层 -start -->
+<div class="modal" id="modifyUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal_wapper">
+        <div class="modal-dialog w-6">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">用户修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="userModify" method="post">
+                        <div class="form-group clearfix">
+                            <label class="control-label" style="white-space:nowrap">编号：</label>
+                            <div class="col-sm-11">
+                                <input type="text" id="modifyUserId" name="modify_userid" class="form-control" readonly="readonly">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group clearfix">
+                            <label class="control-label"  style="white-space:nowrap">名称：</label>
+                            <div class="col-sm-11">
+                                <input type="text" id="modifyUsername" name="modify_username" class="form-control"  readonly="readonly">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group clearfix">
+                            <label class="control-label" style="white-space:nowrap">角色：</label>
+                            <div class="col-sm-11">
+                                <select id="type" name="type" class="form-control" type="select">
+                                    <option value="0">管理员</option>
+                                    <option value="1">起飞员</option>
+                                    <option value="2">降落员</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group clearfix">
+                            <label class="control-label" style="white-space:nowrap">描述：</label>
+                            <div class="col-sm-11">
+                                <input type="text" id="description" name="description" class="form-control"
+                                       placeholder="请输入对用户的描述">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="modifyUser">修改</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 用户信息修改弹出层 -end -->
 <div class="content">
     <div class="container-fluid">
         <form id="queryPageForm" class="mt-15">
@@ -121,7 +184,7 @@
                            </#if>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-primary" style="background-color:#5cb85c">修改</button>
+                                <button type="button" class="btn btn-primary" style="background-color:#5cb85c" onclick="modUser(${user.userid},'${user.username}')">修改</button>
                                 <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser(${user.userid})">删除</button>
                             </td>
                             </#list>
@@ -145,6 +208,13 @@
     function delUser(uid){
         userID=uid;
         Modal.show('deleteUserModal');
+    }
+
+
+    function modUser(uid,uname){
+        $("#modifyUserId").attr("placeholder",uid);
+        $("#modifyUsername").attr("placeholder",uname);
+        Modal.show('modifyUserModal');
     }
 
     $("#ensureDelUser").click(function () {
