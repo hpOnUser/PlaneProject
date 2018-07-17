@@ -207,10 +207,22 @@
     <div class="container-fluid">
         <form id="queryPageForm" class="mt-15">
             <div class="block span6">
-                <a class="block-heading f-14" data-toggle="collapse">用户列表</a>
+                <a class="block-heading f-14" data-toggle="collapse">历史告警</a>
+                <div class="block-body collapse in">
+                    <p>
+                        <select name="searchUserStatus" class="search-select">
+                            <option value="0" selected="selected">管理员</option>
+                            <option value="1">起飞员</option>
+                            <option value="2">降落员</option>
+                        </select>
+                    </p>
+                    <p>
+                        <input name="searchUserId" type="text" class="search-text" value="" placeholder="请输入用户序号">
+                    </p>
+                    <p>
+                        <input type="submit" class="search-btn" value="搜索">
+                    </p>
             </div>
-
-            <input type="button" class="search-btn" value="搜索">
 
             <div class="row-fluid">
                 <div class="block span6">
