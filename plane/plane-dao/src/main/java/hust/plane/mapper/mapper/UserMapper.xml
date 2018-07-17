@@ -191,6 +191,19 @@
         </if>
     </select>
 
+    <select id="selectCountWithRole" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from user
+        where role = #{Role}
+    </select>
+
+    <select id="selectUserByRole" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where 1=1 AND role = #{role}
+        LIMIT #{page.startIndex, jdbcType=INTEGER} , #{page.pageSize, jdbcType=INTEGER}
+    </select>
+
     <update id="updateByExampleSelective" parameterType="map" >
         update user
         <set >

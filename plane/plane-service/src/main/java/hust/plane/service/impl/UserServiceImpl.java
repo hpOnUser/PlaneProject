@@ -1,5 +1,6 @@
 package hust.plane.service.impl;
 
+import hust.plane.constant.WebConst;
 import hust.plane.mapper.mapper.UserMapper;
 import hust.plane.mapper.pojo.User;
 import hust.plane.mapper.pojo.UserExample;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -67,7 +69,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             throw new TipException("用户名和密码不能为空");
         }
-        int usernameCount = userDao.selectByUserNameAndRole(username, "0");
+        int usernameCount = userDao.selectByUserName(username);
         if (usernameCount == 1) {
             throw new TipException("该用户名已经存在");
         }
@@ -145,6 +147,74 @@ public class UserServiceImpl implements UserService {
         page.setItemsTotalCount(count);
         List<User> userList = userDao.selectAllUser(page);
         page.setItems(userList);
+        return page;
+    }
+
+
+    @Override
+    public int delUserById(String userid) {
+        if (StringUtils.isBlank(userid)) {
+            throw new TipException("获取用户id错误");
+        }
+        String Role = userDao.selectByPrimaryKey(userid).getRole();
+        if (StringUtils.isNotBlank(Role) && Role.equals("0")) {
+            throw new TipException("权限不足以删除管理员");
+        }
+        int count = userDao.deleteByPrimaryKey(userid);
+        if (count != 1) {
+            throw new TipException("删除用户异常");
+        }
+        return count;
+    }
+
+    @Override
+    public int modifyUserRoleAndDes(String userid, String role, String descripte) {
+        if (StringUtils.isBlank(userid) || StringUtils.isBlank(role) || StringUtils.isBlank(descripte)) {
+            throw new TipException("角色和描述的填写不能为空！");
+        }
+        User user = userDao.selectByPrimaryKey(userid);
+        user.setRole(role);
+        user.setDescripte(descripte);
+        user.setUpdatetime(new Date());
+        int count = userDao.updateByPrimaryKeySelective(user);
+        if (count != 1) {
+            throw new TipException("修改用户异常");
+        }
+        return count;
+    }
+
+    @Override
+    public int addUserWithInfo(String addUserId, String addUsername, String addUserPaw, String addUserRole, String addUserDescripte) {
+        if (StringUtils.isBlank(addUserId) || StringUtils.isBlank(addUsername) || StringUtils.isBlank(addUserPaw) || StringUtils.isBlank(addUserRole) || StringUtils.isBlank(addUserDescripte)) {
+            throw new TipException("填写的信息不完整,请填写完整");
+        }
+        User user = new User();
+        user.setUserid(addUserId);
+        user.setUsername(addUsername);
+        user.setPassword(PlaneUtils.MD5encode(addUsername + addUserPaw));
+        user.setRole(addUserRole);
+        user.setDescripte(addUserDescripte);
+        user.setCreatetime(new Date());
+        int count = userDao.insertSelective(user);
+        if (count != 1) {
+            throw new TipException("新增用户操作异常");
+        }
+        return count;
+    }
+
+    @Override
+    public TailPage<User> getUserByRoleOrIdWithPage(String searchUserStatus, String searchUserId, TailPage<User> page) {
+        if (searchUserId.equals(WebConst.SEARCH_NO_USERID)) {
+            int count = userDao.selectCountWithRole(searchUserStatus);
+            page.setItemsTotalCount(count);
+            List<User> userList = userDao.selectUserByRole(page, searchUserStatus);
+            page.setItems(userList);
+        } else {
+            page.setItemsTotalCount(1);
+            List<User> userList = new ArrayList<>(1);
+            userList.add(userDao.selectByPrimaryKey(searchUserId));
+            page.setItems(userList);
+        }
         return page;
     }
 }

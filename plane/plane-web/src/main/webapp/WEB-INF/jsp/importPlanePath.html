@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>路由导入</title>
+    <title>飞行路径导出</title>
   	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<link href="css/style.css" rel="stylesheet" type="text/css"/>
 	<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
@@ -89,7 +89,7 @@
 						success : function(resp) {
 							var resp = $.parseJSON(resp);
 							if (resp.errcode == 0) {
-								
+								$('#lineModal').modal('hide');
 								window.location.reload();
 							} else {
 								Modal.tipFailure(resp.message);//失败提示 
