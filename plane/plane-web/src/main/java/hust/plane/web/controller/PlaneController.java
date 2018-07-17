@@ -9,11 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import hust.plane.mapper.pojo.Plane;
-import hust.plane.mapper.pojo.User;
 import hust.plane.service.interFace.PlaneService;
 import hust.plane.utils.JsonUtils;
 import hust.plane.utils.PointUtil;
