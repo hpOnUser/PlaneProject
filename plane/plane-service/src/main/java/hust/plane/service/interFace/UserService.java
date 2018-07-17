@@ -24,4 +24,6 @@ public interface UserService {
     int delUserById(String userid);
 
     int modifyUserRoleAndDes(String userid, String role, String descripte);
+
+    int addUserWithInfo(String addUserId, String addUsername, String addUserPaw, String addUserRole, String addUserDescripte);
 }

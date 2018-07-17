@@ -191,8 +191,9 @@
                         </div>
                     </form>
                 </div>
+                <div id="alertDiv1"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">创建</button>
+                    <button type="button" class="btn btn-primary" id="addUserButton">创建</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div>
@@ -272,6 +273,13 @@
         alertitem.style.display = "block";
     }
 
+    function showAlert1(message) {
+        var alertitem1 = document.getElementById("alertDiv1");
+        var innHTMl = '<div class="alert alert-danger alert-dismissable" id="alerth1">' + message + '</div>';
+        alertitem1.innerHTML = innHTMl;
+        alertitem1.style.display = "block";
+    }
+
     function showUserList()
     {
         window.location.reload();
@@ -336,6 +344,23 @@
     function addUser() {
         Modal.show('addUserModal');
     }
+
+    $("#addUserButton").click(function () {
+        $.ajax({
+            url: "addUser",
+            type: "POST",
+            data: $("#addUserForm").serialize(),
+            async:true,
+            success:function(result){
+                if (result.errcode == 0 && result.message == "SUCCESS") {
+                    showAlert1("添加用户成功!");
+                    setTimeout(showUserList,2000);
+                } else {
+                    showAlert1(result.message);
+                }
+            }
+        });
+    })
 </script>
 </body>
 </html>

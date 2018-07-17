@@ -64,4 +64,22 @@ public class UserController {
         }
         return JsonView.render(0, WebConst.SUCCESS_RESULT);
     }
+
+    @RequestMapping(value = "addUser", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String doAddUser(@RequestParam String addUserId, @RequestParam String addUsername, @RequestParam String addUserPaw,
+                            @RequestParam String addUserRole, @RequestParam String addUserDescripte) {
+        try {
+            userService.addUserWithInfo(addUserId, addUsername, addUserPaw, addUserRole, addUserDescripte);
+        } catch (Exception e) {
+            String msg = "添加失败";
+            if (e instanceof TipException) {
+                msg = e.getMessage();
+            } else {
+                LOGGER.error(msg, e);
+            }
+            return JsonView.render(1, msg);
+        }
+        return JsonView.render(0, WebConst.SUCCESS_RESULT);
+    }
 }

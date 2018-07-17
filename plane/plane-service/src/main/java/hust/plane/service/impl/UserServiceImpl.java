@@ -180,4 +180,23 @@ public class UserServiceImpl implements UserService {
         }
         return count;
     }
+
+    @Override
+    public int addUserWithInfo(String addUserId, String addUsername, String addUserPaw, String addUserRole, String addUserDescripte) {
+        if (StringUtils.isBlank(addUserId) || StringUtils.isBlank(addUsername) || StringUtils.isBlank(addUserPaw) || StringUtils.isBlank(addUserRole) || StringUtils.isBlank(addUserDescripte)) {
+            throw new TipException("填写的信息不完整,请填写完整");
+        }
+        User user = new User();
+        user.setUserid(addUserId);
+        user.setUsername(addUsername);
+        user.setPassword(PlaneUtils.MD5encode(addUsername + addUserPaw));
+        user.setRole(addUserRole);
+        user.setDescripte(addUserDescripte);
+        user.setCreatetime(new Date());
+        int count = userDao.insertSelective(user);
+        if (count != 1) {
+            throw new TipException("新增用户操作异常");
+        }
+        return count;
+    }
 }
