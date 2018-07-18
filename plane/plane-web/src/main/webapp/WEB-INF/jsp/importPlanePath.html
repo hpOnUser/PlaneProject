@@ -65,6 +65,11 @@
 		</div>
 	<!-- 弹出层 alert 信息 -->
       <script type="text/javascript">
+	      function showAlarmModel()
+	  	{
+	  		window.location.reload();
+	  	}
+  	
       	function showModel()
       	{
       		$('#lineModal').modal('show');
@@ -89,8 +94,10 @@
 						success : function(resp) {
 							var resp = $.parseJSON(resp);
 							if (resp.errcode == 0) {
-								$('#lineModal').modal('hide');
-								window.location.reload();
+								//$('#lineModal').modal('hide');
+								Modal.show('_ocDialogModal');
+								setTimeout(showAlarmModel,1000)
+								//window.location.reload();
 							} else {
 								Modal.tipFailure(resp.message);//失败提示 
 							}

@@ -57,8 +57,8 @@
                     <p>
                         <select name="status" class="search-select">
                             <option value="-1">全部</option>
-                            <option value="0">已处理告警</option>
-                            <option value="1">未处理告警</option>
+                            <option value="0" <#if (selectStatus)?? && selectStatus =="0">selected="selected"</#if>>已处理告警</option>
+                            <option value="1" <#if (selectStatus)?? && selectStatus =="1">selected="selected"</#if>>未处理告警</option>
                         </select>
                     </p>
                     <p>
@@ -89,6 +89,7 @@
                             <tbody>
                             <#if (page.items)??>
                             <#list page.items as alarm>
+                            <tr>
                             <td>${alarm.alarmid}</td>
                             <td>${alarm.planeid}</td>
                             <td>${alarm.alongda}</td>
@@ -110,8 +111,10 @@
                             <td>
                                 操作
                             </td>
+                             </tr>
                             </#list>
                         </#if>
+                       
                         </tbody>
                         </table>
                         <p><#include "common/tailPage.html"/></p>

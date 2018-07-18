@@ -212,9 +212,9 @@
                     <p>
                         <select name="role" class="search-select">
                             <option value="-1">全部</option>
-                            <option value="0">管理员</option>
-                            <option value="1">起飞员</option>
-                            <option value="2">降落员</option>
+                            <option value="0" <#if (selectStatus)?? && selectStatus =="0">selected="selected"</#if>>管理员</option>
+                            <option value="1"<#if (selectStatus)?? && selectStatus =="1">selected="selected"</#if>>起飞员</option>
+                            <option value="2"<#if (selectStatus)?? && selectStatus =="2">selected="selected"</#if>>降落员</option>
                         </select>
                     </p>
                     <p>
@@ -243,6 +243,7 @@
                                 <tbody>
                                 <#if (page.items)??>
                                 <#list page.items as user>
+                                <tr>
                                 <td>${user.userid}</td>
                                 <td>${user.username}</td>
                                 <td><#if user.descripte??>${user.descripte}</#if></td>
@@ -266,6 +267,7 @@
                                     <button type="button" class="btn btn-primary" style="background-color:#5cb85c" onclick="modUser(${user.userid},'${user.username}')">修改</button>
                                     <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser(${user.userid})">删除</button>
                                 </td>
+                                </tr>
                             </#list>
                         </#if>
                         </tbody>

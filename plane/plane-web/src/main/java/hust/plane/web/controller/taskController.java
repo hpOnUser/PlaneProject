@@ -114,6 +114,7 @@ public class taskController {
 			task.setStatus(null);
 		}
 		page = taskServiceImpl.queryPage(task, page);
+		model.addAttribute("selectStatus", task.getStatus());
 		model.addAttribute("page", page);
 		model.addAttribute("curNav", "taskAllList");
 		return "taskList";

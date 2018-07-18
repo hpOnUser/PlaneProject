@@ -30,6 +30,7 @@ public class AlarmHistoryController {
     		alarm.setAlarmid(null);
     	}
         page = alarmService.queryAlarmWithPage(alarm,page);
+        model.addAttribute("selectStatus", alarm.getStatus());
         model.addAttribute("page",page);
         model.addAttribute("curNav", "alarmhistory");
         return "alarmHistory";

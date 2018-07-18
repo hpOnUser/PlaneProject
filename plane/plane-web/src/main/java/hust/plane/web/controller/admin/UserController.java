@@ -54,6 +54,7 @@ public class UserController {
         } else {
             page = userService.getAllUserWithPage(page);
         }
+        model.addAttribute("selectStatus", user.getRole());
         model.addAttribute("page", page);
         return "userModify";
     }

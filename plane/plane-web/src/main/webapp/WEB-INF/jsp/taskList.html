@@ -25,8 +25,8 @@
 	                	<p>
 								<select  name="status" class="search-select">
 									<option value="-1">全部</option>
-									<option value="0" >受理</option>
-									<option value="1" >待收</option>
+									<option value="0" <#if (selectStatus)?? && selectStatus =="0">selected="selected"</#if> >受理</option>
+									<option value="1" <#if (selectStatus)?? && selectStatus =="1">selected="selected"</#if> >待收</option>
 								</select>
 							</p>
 	                    <p>
@@ -62,6 +62,7 @@
 									 
                             <#if (page.items)??>
                                 <#list page.items as taskpojo>
+                                	<tr>
                                 	<td>${taskpojo.task.taskid!}</td>
                                 	<td>${taskpojo.userAName!}</td>
                                 	<td>${taskpojo.task.useraid!}</td>
@@ -91,6 +92,7 @@
                                 	<td>
                                 		 <a href="javascript:void(0)" onclick="toEdit();">生成飞行报告</a>
                                 	</td>
+                                	</tr>
                                 </#list>
                              </#if>   	                         
 	                           </tbody>
