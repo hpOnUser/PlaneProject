@@ -88,10 +88,13 @@ public class taskController {
 	}
 	//创建任务
 	@RequestMapping("/taskCreate")
-	public String createTask(Task task)
+	public String createTask(Task task,HttpServletRequest request)
 	{
-		//初始状态为0受理中
-		task.setStatus("0");
+		//初始状态为1归档
+		task.setStatus("1");
+		User aUser = PlaneUtils.getLoginUser(request);
+		
+		task.setUseraid(aUser.getUserid());
 		taskServiceImpl.saveTask(task);
 		return "redirect:/taskPageList";
 	}

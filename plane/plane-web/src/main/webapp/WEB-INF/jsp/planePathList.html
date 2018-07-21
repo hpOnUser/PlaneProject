@@ -49,19 +49,22 @@
 	                                <th>创建时间</th>
                                     <th>更新时间</th>
                                     <th>地理位置</th>
-                                    <th>创建任务</th>		                                                       
+                                    <th>创建任务</th>
+                                                                                         
 	                            </tr>
 	                            </thead>
 	                            <tbody>                              
 	                            <#if (page.items)??>
 	                            <#list page.items as planepath>
+	                            	<tr>
 		                            <td>${planepath.planepathid}</td>
 		                            <td>${planepath.descripte}</td>
 		                            <td>${planepath.createtime?date}</td> 
 		                            <td>${planepath.updatetime?date}</td>                           
 		                            <td><a href="${s.base}/showPlanePath.action?planepathid=${planepath.planepathid}" target="_blank">详细信息</a></td>
 		                            <td><a href="${s.base}/toTaskCreate?planepathid=${planepath.planepathid}">创建任务</button>
-		                            <a href="${s.base}/importPlanePath?planepathid=${planepath.planepathid}">导出路径</button></td> 	                      
+		                            <a href="${s.base}/importPlanePath?planepathid=${planepath.planepathid}">导出路径</button></td>
+		                            </tr> 	                      
                                 </#list>
                         		</#if>                                                         
 	                           </tbody>
