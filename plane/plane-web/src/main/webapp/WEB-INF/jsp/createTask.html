@@ -56,7 +56,7 @@
                             <select  name="userbid" class="form-control" type="select">								
 									<#if bUsers??>
 									<#list bUsers as bUser>
-										<option value="${bUser.userid!}">${bUser.userid!}</option>
+										<option value="${bUser.userid!}">${bUser.userid!}:${bUser.username!}</option>
 									</#list>								
 									</#if>						
 				            </select>
@@ -68,7 +68,7 @@
                             <select  name="usercid" class="form-control" type="select">
 									<#if cUsers??>
 									<#list cUsers as cUser>
-										<option value="${cUser.userid!}">${cUser.userid!}</option>
+										<option value="${cUser.userid!}">${cUser.userid!}:${cUser.username}</option>
 									</#list>								
 									</#if>	
 				            </select>
@@ -80,7 +80,7 @@
                             <select  name="planeid" class="form-control" type="select">
 									<#if planes??>
 									<#list planes as plane>
-										<option value="${plane.planeId!}">${plane.planeId!}</option>
+										<option value="${plane.planeId!}">${plane.planeId!}:${plane.planename}</option>
 									</#list>								
 									</#if>									
 				            </select>
@@ -91,11 +91,11 @@
                         <div class="col-sm-5">
                               <select  name="planepathid" class="form-control" type="select">
                               		<#if task.planepathid??>
-                              		<option value="${task.planepathid!}">${task.planepathid!}</option>
+                              		<option value="${task.planepathid!}">${task.planepathid!}:${planePath.descripte!}</option>
                               		<#else>
 	                              		<#if planePaths??>
 										<#list planePaths as planePath>
-											<option value="${planePath.planepathid!}">${planePath.planepathid!}</option>
+											<option value="${planePath.planepathid!}">${planePath.planepathid!}:${planePath.descripte!}</option>
 										</#list>								
 										</#if>	
                               		</#if>                           

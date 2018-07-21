@@ -112,8 +112,8 @@
                             <div class="col-sm-11">
                                 <select id="userType" name="userType" class="form-control" type="select">
                                     <option value="0" selected="selected">管理员</option>
-                                    <option value="1">起飞员</option>
-                                    <option value="2">降落员</option>
+                                    <option value="1">巡检员</option>
+                                    <option value="2">巡检员</option>
                                 </select>
                             </div>
                         </div>
@@ -177,8 +177,8 @@
                             <div class="col-sm-8">
                                 <select id="addUserRole" name="addUserRole" class="form-control" type="select">
                                     <option value="0" selected="selected">管理员</option>
-                                    <option value="1">起飞员</option>
-                                    <option value="2">降落员</option>
+                                    <option value="1">巡检员</option>
+                                    <option value="2">巡检员</option>
                                 </select>
                             </div>
                         </div>
@@ -254,9 +254,9 @@
                                     <#if user.role == "0">
                                     <span class="label label-primary">管理员</span>
                                     <#elseif user.role == "1">
-                                    <span class="label label-info">起飞员</span>
+                                    <span class="label label-info">巡检员</span>
                                     <#else>
-                                    <span class="label label-warning">降落员</span>
+                                    <span class="label label-warning">巡检员</span>
                                 </#if>
                                 <#else>
                                 <span class="label label-danger">待确认</span>

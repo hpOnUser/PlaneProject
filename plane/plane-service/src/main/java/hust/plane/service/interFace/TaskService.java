@@ -15,4 +15,6 @@ public interface TaskService {
 
     void saveTask(Task task);
 
+	void setStatusTaskByTask(Task task, String string);
+
 }
