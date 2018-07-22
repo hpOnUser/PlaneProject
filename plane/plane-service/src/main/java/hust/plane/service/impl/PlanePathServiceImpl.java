@@ -50,7 +50,7 @@ public class PlanePathServiceImpl implements PlanePathService {
 	}
 
 	@Override
-	public TailPage<PlanePath> queryAlarmWithPage(PlanePath planePath, TailPage<PlanePath> page) {
+	public TailPage<PlanePath> queryPlanePathWithPage(PlanePath planePath, TailPage<PlanePath> page) {
 		
 		int count = planePathMapper.planePathCount(planePath);
         page.setItemsTotalCount(count);

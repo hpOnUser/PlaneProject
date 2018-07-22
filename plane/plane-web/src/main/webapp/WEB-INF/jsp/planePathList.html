@@ -62,8 +62,8 @@
 		                            <td>${planepath.createtime?date}</td> 
 		                            <td>${planepath.updatetime?date}</td>                           
 		                            <td><a href="${s.base}/showPlanePath.action?planepathid=${planepath.planepathid}" target="_blank">详细信息</a></td>
-		                            <td><a href="${s.base}/toTaskCreate?planepathid=${planepath.planepathid}">创建任务</button>
-		                            <a href="${s.base}/importPlanePath?planepathid=${planepath.planepathid}">导出路径</button></td>
+		                            <td><a href="${s.base}/toTaskCreate?planepathid=${planepath.planepathid}">创建任务</a>
+		                            <a onclick='importPlanePath("${planepath.planepathid!}",${planepath.height!})' style="cursor: pointer;">导出路径</a></td>
 		                            </tr> 	                      
                                 </#list>
                         		</#if>                                                         
@@ -75,8 +75,31 @@
 	            </div>
 	        </form>
 	    </div>
+	    <div class="modal" id="_ocDialogModal" tabindex="-1" aria-hidden="true">
+	    <div class="modal_wapper small">
+	        <div class="modal-dialog w-4" >
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <div class="modal-title f-16" >提示信息</div>
+	                </div>
+	                <div class="modal-body">
+	                    <div><span class="color-oc f-16 oc-content">缺少高度数据，无法导出！</span></div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
     </div>
  <script>
+ 	function importPlanePath(id,heigth){
+ 		if(heigth==null || height==""){
+ 			Modal.show('_ocDialogModal');
+			setTimeout(showAlarmModel,1000)				
+ 		}else{
+ 			//导出飞行路径
+ 			
+ 		}	
+ 	}
 </script>
 </body>
 </html>
