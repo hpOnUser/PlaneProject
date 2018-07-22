@@ -13,7 +13,7 @@ public interface PlanePathService {
 
     PlanePath selectByPlanepathId(PlanePath planePath);
 
-    TailPage<PlanePath> queryAlarmWithPage(PlanePath planePath, TailPage<PlanePath> page);
+    TailPage<PlanePath> queryPlanePathWithPage(PlanePath planePath, TailPage<PlanePath> page);
 
 	List<PlanePath> findAllplanePath();
 }
