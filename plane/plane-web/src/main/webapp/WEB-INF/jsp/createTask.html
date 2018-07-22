@@ -91,7 +91,7 @@
                         <div class="col-sm-5">
                               <select  name="planepathid" class="form-control" type="select">
                               		<#if task.planepathid??>
-                              		<option value="${task.planepathid!}">${task.planepathid!}:${planePath.descripte!}</option>
+                              		<option value="${task.planepathid!}">${task.planepathid!}</option>
                               		<#else>
 	                              		<#if planePaths??>
 										<#list planePaths as planePath>

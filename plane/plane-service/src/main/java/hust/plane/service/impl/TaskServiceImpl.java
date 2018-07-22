@@ -99,8 +99,9 @@ public class TaskServiceImpl implements TaskService {
 		Date date = new Date();
 		task.setCreatetime(date);
 		task.setUpdatetime(date);
-		task.setFinishstatus("1");
-		
+		task.setRealtime(date);
+		task.setFinishstatus("0");
+		//设置状态未完成
 		
 		taskMapper.insert(task);
 		

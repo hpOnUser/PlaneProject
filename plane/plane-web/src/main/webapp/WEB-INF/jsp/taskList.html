@@ -83,7 +83,7 @@
                                	    <#elseif taskpojo.task.status =='4'><span class="label label-info">开始执行</span>
                                	    <#elseif taskpojo.task.status =='5'><span class="label label-info">自检完成</span>
                                	    <#elseif taskpojo.task.status =='6'><span class="label label-success">自检完成</span>
-                               	    	<button type="button" class="btn btn-info btn-xs" onclick="onsureFly(${taskpojo.task.taskid!})">允许放飞</button>
+                               	    	<button type="button" class="btn btn-info btn-xs" onclick="onsureFly('${taskpojo.task.taskid!}')">允许放飞</button>
                                	    <#elseif taskpojo.task.status =='7'><span class="label label-primary">待放飞</span>
                                	    <#elseif taskpojo.task.status =='8'><span class="label label-info">飞行中</span>
                                	    <#elseif taskpojo.task.status =='9'><span class="label label-success">飞行完成</span>
