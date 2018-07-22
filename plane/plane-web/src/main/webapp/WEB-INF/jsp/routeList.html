@@ -163,7 +163,7 @@
                             var content = [];
                             content.push("类型：" + routeStatusCode[Number(routeList[i].type)]);
                             content.push("描述：" + routeList[i].descripte);
-                            content.push("更新时间：" + routeList[i].updateTime);
+                            content.push("创建时间：" + routeList[i].createTime);
 
                             Onestart.content = createInfoWindow(title, content.join("<br/>"));
                             Onestart.on('click', markerClick);
