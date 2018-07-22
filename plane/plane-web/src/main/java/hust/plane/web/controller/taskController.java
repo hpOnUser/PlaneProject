@@ -96,8 +96,17 @@ public class taskController {
 		task.setStatus("1");
 		User aUser = PlaneUtils.getLoginUser(request);
 		
-		task.setUseraid(aUser.getUserid());
-		taskServiceImpl.saveTask(task);
+		task.setUseraid(aUser.getUserid());   
+		taskServiceImpl.saveTask(task);    //保存新建的任务
+		
+		
+		User userb = new User();
+		User userc = new User();
+		userb.setUserid(task.getUserbid());
+		userc.setUserid(task.getUsercid());		
+		userServiceImpl.updataTasknumByUser(userb);   
+		userServiceImpl.updataTasknumByUser(userc);    //并且把操作员的任务数量+1
+		
 		return "redirect:/taskPageList";
 	}
 	

@@ -300,5 +300,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-
+   <update id="userAddTasknum" parameterType="hust.plane.mapper.pojo.User" >
+    update user
+    set tasknum = tasknum + 1
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
 </mapper>
