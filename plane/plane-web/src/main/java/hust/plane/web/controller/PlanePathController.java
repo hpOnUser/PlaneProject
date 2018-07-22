@@ -80,14 +80,14 @@ public class PlanePathController {
 	
 	 //查询所有的飞行路径列表  分页查询
 	@RequestMapping("doGetFlyPathList")
-	public String doGetFlyPathListQueryPage(PlanePath planePath, TailPage<PlanePath> page, Model model) {
+	public String doGetFlyPathListQueryPage(PlanePath planePath, String status,TailPage<PlanePath> page, Model model) {
 		
     	if("".equals(planePath.getPlanepathid()))
     	{
     		planePath.setPlanepathid(null);
     	}
         page = planePathServiceImpl.queryAlarmWithPage(planePath,page);
-        
+        model.addAttribute("selectStatus",status);
         model.addAttribute("page",page);
         model.addAttribute("curNav", "flyPathList");
         return "planePathList";

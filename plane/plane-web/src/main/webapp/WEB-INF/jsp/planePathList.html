@@ -30,7 +30,7 @@
 	                <div class="block-body collapse in">
 	                	<p><select  name="status" class="search-select">
 								<option value="1">可用</option>
-								<option value="0" >过期</option>		
+								<option value="0" <#if (selectStatus)?? && selectStatus =="0">selected="selected"</#if>>过期</option>		
 							</select>
 						</p>
 	                    <p><input name="taskid" type="text" value="" class="search-text" value="" placeholder="请输入飞行路径编号">
@@ -55,13 +55,15 @@
 	                            <tbody>                              
 	                            <#if (page.items)??>
 	                            <#list page.items as planepath>
+	                            	<tr>
 		                            <td>${planepath.planepathid}</td>
 		                            <td>${planepath.descripte}</td>
 		                            <td>${planepath.createtime?date}</td> 
 		                            <td>${planepath.updatetime?date}</td>                           
 		                            <td><a href="${s.base}/showPlanePath.action?planepathid=${planepath.planepathid}" target="_blank">详细信息</a></td>
 		                            <td><a href="${s.base}/toTaskCreate?planepathid=${planepath.planepathid}">创建任务</button>
-		                            <a href="${s.base}/importPlanePath?planepathid=${planepath.planepathid}">导出路径</button></td> 	                      
+		                            <a href="${s.base}/importPlanePath?planepathid=${planepath.planepathid}">导出路径</button></td> 	    
+		                            </tr>                  
                                 </#list>
                         		</#if>                                                         
 	                           </tbody>
