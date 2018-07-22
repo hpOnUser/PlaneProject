@@ -108,7 +108,7 @@
                 var content = [];
                 content.push("状态：" + statusDec);
                 content.push("描述：" + data[i].dec);
-                content.push("更新时间：" + data[i].updateTime);
+                content.push("创建时间：" + data[i].createTime);
 
                 markeritem.content = createInfoWindow(title, content.join("<br/>"));
                 markeritem.on('click', markerClick);
