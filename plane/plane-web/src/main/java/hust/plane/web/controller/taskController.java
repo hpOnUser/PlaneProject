@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import hust.plane.utils.DateKit;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,7 +83,8 @@ public class taskController {
 		model.addAttribute("cUsers",cUsers);
 		model.addAttribute("planes",planes);
 		model.addAttribute("planePaths",planePaths);
-			
+
+		task.setPlantime(DateKit.get2HoursLater());
 		//在这传输数据
 		model.addAttribute("task", task);
 		model.addAttribute("curNav", "createTask");
@@ -95,7 +97,6 @@ public class taskController {
 		//初始状态为1归档
 		task.setStatus("1");
 		User aUser = PlaneUtils.getLoginUser(request);
-		
 		task.setUseraid(aUser.getUserid());
 		taskServiceImpl.saveTask(task);
 		return "redirect:/taskPageList";
