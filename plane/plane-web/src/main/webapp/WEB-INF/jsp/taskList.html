@@ -72,7 +72,7 @@
                                 	<td>${taskpojo.task.usercid!}</td>
                                 	<td>${taskpojo.task.planeid!}</td>
                                 	<td>${taskpojo.task.routeid!}</td>
-                                	<td>${(taskpojo.task.plantime?date)!}</td>
+                                	<td>${(taskpojo.task.plantime?datetime)!}</td>
                                 	<td>
                                 	<#if taskpojo.task.status?? && taskpojo.task.status!="">                               	
                                	    <#if  taskpojo.task.status == '-1'><span class="label label-danger">故障</span>
