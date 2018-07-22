@@ -217,4 +217,10 @@ public class UserServiceImpl implements UserService {
         }
         return page;
     }
+
+	@Override
+	public void updataTasknumByUser(User user) {
+		// TODO Auto-generated method stub
+		userDao.userAddTasknum(user);
+	}
 }

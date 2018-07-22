@@ -86,8 +86,8 @@ public class PlanePathController {
     	{
     		planePath.setPlanepathid(null);
     	}
-        page = planePathServiceImpl.queryAlarmWithPage(planePath,page);
         model.addAttribute("selectStatus",status);
+        page = planePathServiceImpl.queryPlanePathWithPage(planePath,page);
         model.addAttribute("page",page);
         model.addAttribute("curNav", "flyPathList");
         return "planePathList";

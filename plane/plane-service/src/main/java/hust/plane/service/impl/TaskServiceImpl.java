@@ -1,6 +1,8 @@
 package hust.plane.service.impl;
 
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +96,24 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void saveTask(Task task) {
+		Date date = new Date();
+		task.setCreatetime(date);
+		task.setUpdatetime(date);
+		task.setRealtime(date);
+		task.setFinishstatus("0");
+		//设置状态未完成
+		
 		taskMapper.insert(task);
+		
+	}
+
+	@Override
+	public void setStatusTaskByTask(Task task, String status) {
+		// TODO Auto-generated method stub
+		Task task2 = taskMapper.selectByPrimaryKey(task.getTaskid());
+		task2.setStatus(status);
+		
+		taskMapper.updateByPrimaryKey(task2);
 		
 	}
 	

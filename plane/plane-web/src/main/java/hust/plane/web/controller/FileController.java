@@ -22,6 +22,7 @@ public class FileController {
 	{
 		
 		String filename=file.getOriginalFilename();
+		route.setStatus("1");
 		FileServiceImpl.insertRoute(filename, route);
 		return "success";
 	}

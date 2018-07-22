@@ -16,7 +16,7 @@ public class Task {
     private String planepathid;
 
     private String planeid;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date plantime;
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createtime;

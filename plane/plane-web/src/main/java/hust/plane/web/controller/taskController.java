@@ -5,11 +5,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import hust.plane.utils.DateKit;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hust.plane.mapper.mapper.TaskMapper;
 import hust.plane.mapper.pojo.Plane;
@@ -80,7 +83,8 @@ public class taskController {
 		model.addAttribute("cUsers",cUsers);
 		model.addAttribute("planes",planes);
 		model.addAttribute("planePaths",planePaths);
-			
+
+		task.setPlantime(DateKit.get2HoursLater());
 		//在这传输数据
 		model.addAttribute("task", task);
 		model.addAttribute("curNav", "createTask");
@@ -88,11 +92,23 @@ public class taskController {
 	}
 	//创建任务
 	@RequestMapping("/taskCreate")
-	public String createTask(Task task)
+	public String createTask(Task task,HttpServletRequest request)
 	{
-		//初始状态为0受理中
-		task.setStatus("0");
-		taskServiceImpl.saveTask(task);
+		//初始状态为1归档
+		task.setStatus("1");
+		User aUser = PlaneUtils.getLoginUser(request);
+		
+		task.setUseraid(aUser.getUserid());
+		taskServiceImpl.saveTask(task);    //保存新建的任务
+
+
+		User userb = new User();
+		User userc = new User();
+		userb.setUserid(task.getUserbid());
+		userc.setUserid(task.getUsercid());
+		userServiceImpl.updataTasknumByUser(userb);
+		userServiceImpl.updataTasknumByUser(userc);    //并且把操作员的任务数量+1
+
 		return "redirect:/taskPageList";
 	}
 	
@@ -118,6 +134,15 @@ public class taskController {
 		model.addAttribute("page", page);
 		model.addAttribute("curNav", "taskAllList");
 		return "taskList";
+	}
+	
+	@RequestMapping(value = "onsureFly", method = RequestMethod.POST)
+	@ResponseBody
+	public String onsureFly(Task task) {
+		
+		taskServiceImpl.setStatusTaskByTask(task,"7");
+		
+		return "success";
 	}
 	
  

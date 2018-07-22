@@ -28,4 +28,6 @@ public interface UserService {
     int addUserWithInfo(String addUserId, String addUsername, String addUserPaw, String addUserRole, String addUserDescripte);
 
     TailPage<User> getUserByRoleOrIdWithPage(String searchUserStatus, String searchUserId, TailPage<User> page);
+
+	void updataTasknumByUser(User user);
 }

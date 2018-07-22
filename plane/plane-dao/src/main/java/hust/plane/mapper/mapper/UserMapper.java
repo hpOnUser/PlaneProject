@@ -46,4 +46,6 @@ public interface UserMapper {
     int selectCountWithRole(@Param("Role") String searchUserStatus);
 
     List<User> selectUserByRole(@Param("page") TailPage<User> page, @Param("role") String searchUserStatus);
+
+	void userAddTasknum(User user);
 }
