@@ -143,5 +143,8 @@ public class PlaneUtils {
             LOGGER.error(e.getMessage(), e);
         }
     }
+    public static void main(String[] args) {
+		System.out.println(MD5encode("黄攀123"));
+	}
 
 }

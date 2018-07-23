@@ -24,6 +24,7 @@ public class ExcelUtil {
 	private static final String EXCEL_XLS = "xls";
 	private static final String EXCEL_XLSX = "xlsx";
 	
+	
 	public static Workbook getWorkbok(File file) throws IOException
 	{
 		Workbook wb=null;
@@ -118,6 +119,7 @@ public class ExcelUtil {
 	//读取内容
 	public static List<RouteExcel> readExcel(String path)
 	{
+		
 		File file=new File(path);
 		List<RouteExcel> list=new ArrayList<RouteExcel>();
 		try {
@@ -144,6 +146,9 @@ public class ExcelUtil {
 					  Row row0 = sheet.getRow(k);
 					  routeExcel=new RouteExcel();
 					  Cell cell0 = row0.getCell(0);
+					  Double flag = cell0.getNumericCellValue();
+					  if(flag==null || (flag-0.0)<0.00001)    //判断序号是否为空或者0
+						  break;
 					  routeExcel.setId(cell0.getNumericCellValue());
 					  //得到经度
 					  Cell cell1 = row0.getCell(1);
