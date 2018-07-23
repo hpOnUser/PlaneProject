@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import hust.plane.mapper.pojo.Plane;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -102,6 +103,11 @@ public class test {
 		plist.add(vo1);
 		KMLUtil.importKML(path, plist);
 		
+	}
+
+
+	public static void main(String[] args) {
+		System.out.println(PlaneUtils.MD5encode("黄攀123"));
 	}
 
 }
