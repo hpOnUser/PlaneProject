@@ -37,14 +37,13 @@ public class RouteServiceImpl implements RouteService {
             if (StringUtils.isNotBlank(type)) {
                 route = routeMapper.getRouteByIdAndStatus(routeId, type);
             }
-            routeList = routeMapper.selectRoute(routeId, type);
+            if (route == null) {
+                routeList = routeMapper.selectRoute(routeId, type);
+                return routeList;
+            }
         }
-        if (route == null) {
-            return routeList;
-        } else {
-            List<Route> listOnlyOne = new ArrayList<>(1);
-            listOnlyOne.add(route);
-            return listOnlyOne;
-        }
+        List<Route> listOnlyOne = new ArrayList<>(1);
+        listOnlyOne.add(route);
+        return listOnlyOne;
     }
 }
