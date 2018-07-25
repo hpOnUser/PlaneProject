@@ -7,5 +7,5 @@ import hust.plane.mapper.pojo.Route;
 public interface RouteService {
     List<Route> getAllRoute();
 
-    Route getRouteByIdAndStatus(String routeId, String type);
+    List<Route> getRouteByIdAndStatus(String routeId, String type);
 }
