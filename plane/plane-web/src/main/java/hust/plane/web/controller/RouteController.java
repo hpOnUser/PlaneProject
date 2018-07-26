@@ -95,9 +95,7 @@ public class RouteController {
      */
     @RequestMapping(value = "/queryRoute/{id}/{type}", method = RequestMethod.GET)
     public String toRouteQuery(Model model, @PathVariable("id") String routeId, @PathVariable("type") String type) {
-        Route route = routeServiceImpl.getRouteByIdAndStatus(routeId, type);
-        List<Route> allRoute = new ArrayList<>();
-        allRoute.add(route);
+        List<Route> allRoute =   routeServiceImpl.getRouteByIdAndStatus(routeId, type);
         List<RouteVo> routeList = new ArrayList<RouteVo>();
         for (int i = 0; i < allRoute.size(); i++) {
             RouteVo routeVo = new RouteVo(allRoute.get(i));

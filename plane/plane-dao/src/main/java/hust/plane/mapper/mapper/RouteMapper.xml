@@ -32,4 +32,13 @@
             AND type = #{param2}
         </if>
     </select>
+
+    <select id="selectRoute" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select routeid,status,AsText(routepath) as routepath,descripte,createtime,updatetime,type
+        from route
+        where 1=1 AND routeid LIKE '%${param1}%'
+        <if test="type != null">
+            and type = ${type}
+        </if>
+    </select>
 </mapper>

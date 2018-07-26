@@ -42,6 +42,21 @@ public class DateKit {
         public DateKit() {
         }
 
+        public static Date stringToDate(String dateString){
+            //获得SimpleDateFormat类，我们转换为yyyy-MM-dd的时间格式
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+            Date date = new Date();
+            try {
+                //使用SimpleDateFormat的parse()方法生成Date
+                date = sf.parse(dateString);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return date;
+        }
+
+
         public static boolean isToday(Date date) {
             Date now = new Date();
             boolean result = true;
