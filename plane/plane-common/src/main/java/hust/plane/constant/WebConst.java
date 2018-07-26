@@ -25,4 +25,8 @@ public class WebConst {
      * 搜索不用用户序号
      */
     public static String SEARCH_NO_USERID = "S_N_ID";
+    /**
+     * 图片的路径
+     */
+    public static String ALARM_PIC_PATH = "D:/100MEDIA";
 }
