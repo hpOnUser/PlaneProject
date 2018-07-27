@@ -249,7 +249,7 @@
             showAlert('新密码和确认新密码不一致！');
         } else {
             $.ajax({
-                url: 'profile',
+                url: '${s.base}/admin/profile.action',
                 type: 'POST',
                 async: true,
                 data:$("#profileForm").serialize(),
@@ -260,20 +260,20 @@
                     if (result.errcode==0)
                     {
                         showAlert(result.message);
-                        window.location.href = "${s.base}/index";
+                        window.location.href = "${s.base}/index.action";
                     } else {
                         showAlert(result.message);
                     }
                 }
             });
         }
-    })
+    });
 
     $("#restart").click(function () {
         $("#oldpassword").val('');
         $("#newpassword").val('');
         $("#newpasswordensure").val('');
-    })
+    });
 
     function showAlert(message) {
         var alertitem = document.getElementById("alertDiv");

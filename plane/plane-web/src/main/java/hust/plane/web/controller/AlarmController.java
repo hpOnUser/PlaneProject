@@ -19,19 +19,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import hust.plane.mapper.pojo.Alarm;
+import hust.plane.mapper.pojo.Plane;
 import hust.plane.service.interFace.AlarmService;
-import hust.plane.service.interFace.FileService;
+import hust.plane.service.interFace.PlaneService;
 import hust.plane.utils.JsonUtils;
 import hust.plane.web.controller.vo.AlarmVo;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AlarmController {
 
     @Autowired
     private AlarmService alarmService;
+    
+    @Autowired
+    private PlaneService planeServiceImpl;
 
     @Resource
     private RouteService routeServiceImpl;
@@ -77,5 +80,18 @@ public class AlarmController {
         info.setBody(alarm.getDescripte());
         return JsonView.render(0, WebConst.SUCCESS_RESULT, info);
     }
-
+    
+    @RequestMapping("importAlarm")
+    public String importAlarm(Model model){
+    	
+    	List<Plane> planelist = planeServiceImpl.getAllPlane();
+    	
+    	model.addAttribute("planelist",planelist);	
+    	model.addAttribute("curNav", "importAlarm");
+    	return "importAlarm";
+    }
+    
+ 
+    
+    
 }
