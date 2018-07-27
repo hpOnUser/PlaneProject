@@ -25,11 +25,11 @@ public class RouteController {
     @Autowired
     public RouteService routeServiceImpl;
     
-	@RequestMapping("/index")
+	@RequestMapping("/home")
 	public String index(Model model)
 	{
 		model.addAttribute("curNav", "home");
-		return "index";
+		return "home";
 	}
     // 得到路由分布。解决路径序列
     @RequestMapping("/erouteList")

@@ -243,7 +243,7 @@
             success: function (result) {
                 //alert(JSON.stringify(result));
                 if (result.errcode == 0 && result.message == "success") {
-                    window.location = '${s.base}/index.action';
+                    window.location = '${s.base}/home.action';
                 } else {
                     showAlert(result.message);
                 }
