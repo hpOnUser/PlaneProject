@@ -56,6 +56,7 @@ public class UserController {
         }
         model.addAttribute("selectStatus", user.getRole());
         model.addAttribute("page", page);
+        model.addAttribute("curNav", "usersEdit");
         return "userModify";
     }
 

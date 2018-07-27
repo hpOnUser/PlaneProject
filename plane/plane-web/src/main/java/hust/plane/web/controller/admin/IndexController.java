@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -146,9 +147,10 @@ public class IndexController {
      * @return
      */
     @RequestMapping(value = "/profile")
-    public ModelAndView doEditPwd(ModelAndView mv) {
-        mv.setViewName("profileEdit");
-        return mv;
+    public String doEditPwd(Model mv) {
+      
+    	mv.addAttribute("curNav","editInfo");   
+        return "profileEdit";
     }
 
     @RequestMapping(value = "/profile", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)

@@ -166,7 +166,7 @@
         var alarmId = id;
         $.ajax({
             type: 'POST',
-            url: 'alarmInfo',
+            url: '${s.base}/alarmInfo.action',
             data: {
                 alarmId: alarmId
             },

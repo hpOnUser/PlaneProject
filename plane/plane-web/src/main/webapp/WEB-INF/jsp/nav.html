@@ -3,7 +3,13 @@
         <a href="#dashboard-menu" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">GIS路由</span>
         </a>
-        <ul id="dashboard-menu" class="nav nav-list collapse in">
+        <#if curNav??>
+        	<#if curNav =="home" || curNav =="routeList" || curNav =="routeImport">
+        	    <ul id="dashboard-menu" class="nav nav-list collapse in">
+        	 <#else>
+        	 	<ul id="dashboard-menu" class="nav nav-list collapse">
+        	</#if>
+        </#if>           
         	<li <#if curNav?? && curNav =="home">class="active" </#if>>
                 <a href="${s.base}/index.action">主页</a>
             </li>
@@ -15,17 +21,21 @@
             </li>
             <li>
                 <a onclick="findlines();" >路由查询</a>
-            </li>
-           
+            </li>         
         </ul>
 
 
         <a href="#accounts-menu3" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">无人机设定</span>
         </a>
-
-          <ul id="accounts-menu3" class="nav nav-list collapse in">
-           <li <#if curNav?? && curNav =="flyPathList"> class="active" </#if>><a href="${s.base}/doGetFlyPathList.action">飞行路径列表</a></li>
+		 <#if curNav??>
+        	<#if curNav =="flyPathList" || curNav =="setFlyPath" || curNav =="importPlanePath">
+        	    <ul id="accounts-menu3" class="nav nav-list collapse in">
+        	 <#else>
+        	 	<ul id="accounts-menu3" class="nav nav-list collapse">
+        	</#if>
+        </#if> 
+           	<li <#if curNav?? && curNav =="flyPathList"> class="active" </#if>><a href="${s.base}/doGetFlyPathList.action">飞行路径列表</a></li>
             <li <#if curNav?? && curNav =="setFlyPath"> class="active" </#if>><a href="${s.base}/setFlyPath.action">飞行路径设定</a></li>
             <li <#if curNav?? && curNav =="#"> class="active" </#if>><a href="#">飞行路径导入</a></li>
             <li <#if curNav?? && curNav =="importPlanePath"> class="active" </#if>><a href="${s.base}/toImportPlanePath.action">飞行路径导出</a></li>
@@ -35,7 +45,13 @@
         <a href="#accounts-menu4" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">飞行任务调度</span>
         </a>
-        <ul id="accounts-menu4" class="nav nav-list collapse in">
+        <#if curNav??>
+        	<#if curNav =="createTask" || curNav =="taskAllList">
+        	    <ul id="accounts-menu4" class="nav nav-list collapse in">
+        	 <#else>
+        	 	<ul id="accounts-menu4" class="nav nav-list collapse">
+        	</#if>
+        </#if>       
             <li <#if curNav?? && curNav =="createTask"> class="active" </#if>> <a href="${s.base}/toTaskCreate.action">任务创建</a></li>
             <li <#if curNav?? && curNav =="taskAllList"> class="active" </#if>><a href="${s.base}/taskPageList.action">任务列表</a></li>
         </ul>
@@ -43,7 +59,14 @@
         <a href="#accounts-menu2" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">无人机图层</span>
         </a>
-        <ul id="accounts-menu2" class="nav nav-list collapse ">
+        
+        <#if curNav??>
+        	<#if curNav =="planeAllList" || curNav =="planeFind">
+        	    <ul id="accounts-menu2" class="nav nav-list collapse in">
+        	 <#else>
+        	 	<ul id="accounts-menu2" class="nav nav-list collapse">
+        	</#if>
+        </#if>        
             <li <#if curNav?? && curNav =="planeAllList"> class="active" </#if>><a href="${s.base}/planeList.action">无人机显示</a></li>
             <li <#if curNav?? && curNav =="planeFind"> class="active" </#if>><a onclick="findplane()">过滤查询</a></li>
         </ul>
@@ -51,7 +74,14 @@
         <a href="#accounts-menu1" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">告警显示</span>
         </a>
-        <ul id="accounts-menu1" class="nav nav-list collapse in">
+        
+         <#if curNav??>
+        	<#if curNav =="alarmList" || curNav =="alarmhistory" || curNav =="importAlarm">
+        	    <ul id="accounts-menu1" class="nav nav-list collapse in">
+        	 <#else>
+        	 	<ul id="accounts-menu1" class="nav nav-list collapse">
+        	</#if>
+        </#if>   
             <li <#if curNav?? && curNav =="alarmList" > class="active"</#if>><a href="${s.base}/alarmList.action">告警显示</a></li>
             <li <#if curNav?? && curNav =="alarmhistory"> class="active" </#if>><a href="${s.base}/alarmHistory.action">历史高警</a></li>
             <li <#if curNav?? && curNav =="importAlarm" > class="active"</#if>><a href="${s.base}/alarmList.action">告警导出</a></li>
@@ -60,9 +90,15 @@
         <a href="#accounts-menu5" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">用户管理</span>
         </a>
-        <ul id="accounts-menu5" class="nav nav-list collapse ">
+         <#if curNav??>
+        	<#if curNav =="usersEdit" || curNav =="usersBind">
+        	    <ul id="accounts-menu5" class="nav nav-list collapse in">
+        	 <#else>
+        	 	<ul id="accounts-menu5" class="nav nav-list collapse">
+        	</#if>
+        </#if> 
             <li <#if curNav?? && curNav =="usersEdit"> class="active" </#if>><a href="${s.base}/toUserCreate.action">用户增删改</a></li>
-             <li <#if curNav?? && curNav =="usersBind"> class="active" </#if>><a href="#">用户组绑定</a></li>
+            <li <#if curNav?? && curNav =="usersBind"> class="active" </#if>><a href="#">用户组绑定</a></li>
         </ul>
         
     
@@ -70,14 +106,20 @@
         <a href="#accounts-menu6" class="nav-header" data-toggle="collapse">
             <span style="font-weight: bold;font-size: 16px;">我的账号</span>
         </a>
-        <ul id="accounts-menu6" class="nav nav-list collapse ">
+         <#if curNav??>
+        	<#if curNav =="editInfo" || curNav =="logout">
+        	    <ul id="accounts-menu6" class="nav nav-list collapse in">
+        	 <#else>
+        	 	<ul id="accounts-menu6" class="nav nav-list collapse">
+        	</#if>
+        </#if> 
             <li <#if curNav?? && curNav =="editInfo"> class="active" </#if>><a href="${s.base}/admin/profile">个人信息</a></li>
             <li <#if curNav?? && curNav =="logout"> class="active" </#if>><a href="${s.base}/admin/logout">退出</a></li>
         </ul>
        
     </div>
 
-             <!-- 查询路由弹出层 -start -->
+    <!-- 查询路由弹出层 -start -->
 	<div class="modal" id="findlineModal" tabindex="-1" role="dialog"  aria-hidden="true">
 		 <div class="modal_wapper">
             <div class="modal-dialog w-8">
@@ -170,6 +212,8 @@
 	
 	<script type="text/javascript">
 	document.getElementById('enddtime').valueAsDate=new Date();
+	
+	
 	function findlines(){
 
 		Modal.show('findlineModal');

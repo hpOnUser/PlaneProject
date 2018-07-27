@@ -238,7 +238,7 @@
     $("#login").click(function () {
         $.ajax({
             type: "post",
-            url: "login",
+            url: "${s.base}/admin/login.action",
             data: $("#loginForm").serialize(),
             success: function (result) {
                 //alert(JSON.stringify(result));
