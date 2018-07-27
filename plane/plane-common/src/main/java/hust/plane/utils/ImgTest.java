@@ -13,7 +13,7 @@ public class ImgTest {
     public static void main(String[] args) throws JpegProcessingException, IOException {
         List<Alarm> alarmList = new ArrayList<>();
         try {
-           alarmList=ImgUtils.alarmList(WebConst.ALARM_PIC_PATH);
+           alarmList=ImgUtils.alarmList(WebConst.ALARM_PIC_PATH,"2");
            System.out.println(alarmList);
         } catch (Exception e) {
             e.printStackTrace();

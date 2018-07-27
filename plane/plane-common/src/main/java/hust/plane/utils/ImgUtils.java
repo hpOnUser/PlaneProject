@@ -14,14 +14,14 @@ import java.util.Date;
 import java.util.List;
 
 public class ImgUtils {
-    public static List<Alarm> alarmList(String path) throws Exception {
+    public static List<Alarm> alarmList(String path,String planeId) throws Exception {
         File file = new File(path);
         List<Alarm> alarmList = new ArrayList<>(file.listFiles().length + 2);
         if (file.exists()) {
             File[] files = file.listFiles();
             for (File img : files) {
                 File fileIMG = img;
-                alarmList.add(printImageTags(fileIMG));
+                alarmList.add(printImageTags(fileIMG,planeId));
             }
         }
         return alarmList;
@@ -30,11 +30,11 @@ public class ImgUtils {
     /**
      * 读取照片里面的信息
      */
-    private static Alarm printImageTags(File file) throws ImageProcessingException, Exception {
+    private static Alarm printImageTags(File file,String planeId) throws ImageProcessingException, Exception {
         Alarm alarm = new Alarm();
         alarm.setUpdateTime(new Date());
-        alarm.setStatus("0");
-        alarm.setPlaneid("2");//后续考虑
+        alarm.setStatus("1");//未处理告警
+        alarm.setPlaneid(planeId);//后续考虑
         //alarm.setImage();
         ImgPicToAlarm imgPicToAlarm = new ImgPicToAlarm();
         Metadata metadata = ImageMetadataReader.readMetadata(file);
