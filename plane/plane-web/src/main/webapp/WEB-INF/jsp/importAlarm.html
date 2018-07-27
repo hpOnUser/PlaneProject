@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>告警图片导入</title>
+  	<#include "common/res.html" />
+</head>
+<body onload=showModel()>
+	<#include "common/header.html" />
+    <#include "./nav.html" />
+     <div class="content">
+        <div class="container-fluid">
+		       <div class="modal" id="alarmImportModal" tabindex="-1" role="dialog"  aria-hidden="true">
+				<div class="modal_wapper">
+					<div class="modal-dialog w-8" >
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4 class="modal-title" >导入告警图片</h4>
+							</div>
+							
+							<div class="modal-body">
+								<form role="form" id="importCourseSectionForm" method="post" action="${s.base}/alarmImgImport.action"  enctype="multipart/form-data">								 
+									
+									<div class="form-group clearfix">
+                                		<label class="control-label"  style="white-space:nowrap" >飞机编号：</label>
+                                			<div class="col-sm-8">
+                                    		<select id="plane_id" name="planeId" class="form-control" type="select" >
+												<#if planelist??>
+													<#list planelist as plane>
+														<option value="${plane.planeId}">${plane.planename}</option>
+													</#list>
+												</#if>
+											</select>
+                                			</div>
+                            		</div>
+									<div class="form-group clearfix"> 
+										<label class="control-label"  >告警图片：<span id="imgErrSpan" style="color:red;font-weight:normal;"></span> </label> 
+										<div class="col-sm-6 ">
+												<input type="file" id="alarm_Img" name="alarmImg" multiple accept="image/jpeg,image/jpg,image/png">
+										</div>
+									</div>
+									
+								</form>
+								<!-- tip提示-start -->
+								<div id="ocAlertTip" class="alert alert-success f-16" style="display:none;"><span id="al_info">图片文件或者文件夹</span>
+								<button type="button" class="close"  onclick="closeAlert()">
+									<span aria-hidden="true">×</span>
+								</button></div>
+								<!-- tip提示-end -->
+							</div>
+							
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" onclick="doSave();">导入</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 查询路由章节弹出层 -end -->
+        </div>
+     </div>
+       <!-- 弹出层 alert 信息 -->
+		<div class="modal" id="_ocDialogModal" tabindex="-1" aria-hidden="true">
+		    <div class="modal_wapper small">
+		        <div class="modal-dialog w-4" >
+		            <div class="modal-content">
+		                <div class="modal-header">
+		                    <div class="modal-title f-16" >提示信息</div>
+		                </div>
+		                <div class="modal-body">
+		                    <div><span class="color-oc f-16 oc-content"></span></div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	<!-- 弹出层 alert 信息 -->
+      <script type="text/javascript">
+      	function showModel()
+      	{
+      		$('#alarmImportModal').modal('show');
+      	}
+      	function closeAlert(){
+      		$('#ocAlertTip').css('display','none');
+      	}
+		function doSave(){
+			
+			var plane_id = $('#plane_id').val();
+			var alarm_Img = $("#alarm_Img").val();
+			
+			if(plane_id==''){
+				
+				$('#al_info').html("请选择无人机编号！");
+				$('#ocAlertTip').css('display','block');
+				
+			} else if(alarm_Img==""){
+				
+				$('#al_info').html("请选择告警图片文件！");
+				$('#ocAlertTip').css('display','block'); 
+			}  
+			else{
+				
+					$('#importCourseSectionForm').ajaxSubmit({
+						type: 'POST',
+						datatype : 'json',
+						success : function(resp) {
+							window.location.href="${s.base}/alarmList.action";
+							/* var resp = $.parseJSON(resp);
+							if (resp.errcode == 0) {
+								$('#myModal').modal('hide');
+								window.location.reload();//刷新
+							} else {
+								Modal.tipFailure(resp.message);//失败提示 
+							} */
+						},
+						error: function(){
+							Modal.tipFailure('保存失败');
+		                    //alert(arguments[0].responseText);
+		                }
+					});
+			}	
+		}
+		</script>
+	</body>
+</html>

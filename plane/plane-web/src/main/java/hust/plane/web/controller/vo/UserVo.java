@@ -1,7 +1,6 @@
 package hust.plane.web.controller.vo;
 
 import hust.plane.mapper.pojo.User;
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class UserVo {
     private String userid;

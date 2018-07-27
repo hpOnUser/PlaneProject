@@ -3,7 +3,6 @@ package hust.plane.web.controller.vo;
 import java.util.List;
 
 import hust.plane.mapper.pojo.Plane;
-import hust.plane.utils.JsonUtils;
 import hust.plane.utils.PointUtil;
 
 public class PlaneVo {
