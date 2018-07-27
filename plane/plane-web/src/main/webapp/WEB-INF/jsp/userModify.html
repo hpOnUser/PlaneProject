@@ -314,7 +314,7 @@
     $("#ensureDelUser").click(function () {
         $.ajax({
             type:"POST",
-            url:"deleteUser",
+            url:"${s.base}/deleteUser.action",
             data:{
                 "userid":userID
             },
@@ -337,7 +337,7 @@
         var type = $("#userType").val();
         var text = $("#description").val();
         $.ajax({
-            url: "modifyUser",
+            url: "${s.base}/modifyUser.action",
             type: "POST",
             data: {
                 userid:id,
@@ -362,7 +362,7 @@
 
     $("#addUserButton").click(function () {
         $.ajax({
-            url: "addUser",
+            url: "${s.base}/addUser.action",
             type: "POST",
             data: $("#addUserForm").serialize(),
             async:true,

@@ -20,7 +20,7 @@
 								</button>
 								<h4 class="modal-title" >导入告警</h4>
 							</div>
-							
+
 							<div class="modal-body">
 								<form role="form" id="importCourseSectionForm" method="post"  enctype="multipart/form-data">
 									 <div class="form-group clearfix">
@@ -30,14 +30,14 @@
                                 			</div>
                             			</div>
 								</form>
-							
+
 								<div id="ocAlertTip" class="alert alert-success f-16" style="display:none;"><span id="al_info"></span>
 								<button type="button" class="close"  onclick="closeAlert()">
 									<span aria-hidden="true">×</span>
 								</button></div>
 								<!-- tip提示-end -->
 							</div>
-							
+
 							<div class="modal-footer">
 								<button type="button" class="btn btn-primary" onclick="doSave();">导入</button>
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -59,9 +59,9 @@
       		$('#ocAlertTip').css('display','none');
       	}
 		function doSave(){
-			
-			var planeId = $('#planeId').val();		
-			console.log(planeId);		
+
+			var planeId = $('#planeId').val();
+			console.log(planeId);
 			if(planeId==''){
 				$('#al_info').html("请输入无人机编号！");
 				$('#ocAlertTip').css('display','block');
@@ -86,9 +86,10 @@
 							Modal.tipFailure('导入失败');
 		                }
 					});
-			}	
+			}
 		}
 		</script>
-  
+
 	</body>
+>>>>>>> 06944888c2b74e77809c2c08bb0bdf0ba0b5ecfb
 </html>

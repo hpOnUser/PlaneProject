@@ -1,7 +1,6 @@
 package hust.plane.web.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import hust.plane.constant.WebConst;
@@ -10,7 +9,6 @@ import hust.plane.utils.pojo.JsonView;
 import hust.plane.web.controller.vo.QueryRouteVo;
 import hust.plane.web.controller.vo.RouteVo;
 
-import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +18,6 @@ import hust.plane.mapper.pojo.Route;
 import hust.plane.service.interFace.RouteService;
 import hust.plane.utils.JsonUtils;
 import hust.plane.utils.LineUtil;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class RouteController {

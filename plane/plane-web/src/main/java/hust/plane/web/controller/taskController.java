@@ -3,7 +3,6 @@ package hust.plane.web.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import hust.plane.utils.DateKit;
 import org.apache.commons.lang.StringUtils;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hust.plane.mapper.mapper.TaskMapper;
 import hust.plane.mapper.pojo.Plane;
 import hust.plane.mapper.pojo.PlanePath;
 import hust.plane.mapper.pojo.Task;
@@ -75,7 +73,7 @@ public class taskController {
 		Plane plane = new Plane();
 		plane.setStatus("1");
 		List<Plane> planes = planeServiceImpl.findByPlaneStatus(plane);
-		PlanePath planePath = new PlanePath();
+		
 		List<PlanePath> planePaths = planePathServiceImpl.findAllplanePath();
 		
 		model.addAttribute("aUser",aUser);

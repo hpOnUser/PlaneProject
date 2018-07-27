@@ -1,7 +1,7 @@
-<!-- ²Ëµ¥µ¼º½ -->
+  <!-- èœå•å¯¼èˆª -->
     <div class="sidebar-nav">
         <a href="#dashboard-menu" class="nav-header" data-toggle="collapse">
-            <span style="font-weight: bold;font-size: 16px;">GISÂ·ÓÉ</span>
+            <span style="font-weight: bold;font-size: 16px;">GISè·¯ç”±</span>
         </a>
         <#if curNav??>
         	<#if curNav =="home" || curNav =="routeList" || curNav =="routeImport">
@@ -11,22 +11,22 @@
         	</#if>
         </#if>           
         	<li <#if curNav?? && curNav =="home">class="active" </#if>>
-                <a href="${s.base}/index.action">Ö÷Ò³</a>
+                <a href="${s.base}/index.action">ä¸»é¡µ</a>
             </li>
         	<li <#if curNav?? && curNav =="routeList"> class="active"</#if>>
-                <a href="${s.base}/routeList.action">Â·ÓÉ·Ö²¼</a>
+                <a href="${s.base}/routeList.action">è·¯ç”±åˆ†å¸ƒ</a>
             </li>
          	<li <#if curNav?? && curNav =="routeImport"> class="active" </#if>>
-                <a href="${s.base}/routeImport.action">Â·ÓÉµ¼Èë</a>
+                <a href="${s.base}/routeImport.action">è·¯ç”±å¯¼å…¥</a>
             </li>
             <li>
-                <a onclick="findlines();" >Â·ÓÉ²éÑ¯</a>
+                <a onclick="findlines();" >è·¯ç”±æŸ¥è¯¢</a>
             </li>         
         </ul>
 
 
         <a href="#accounts-menu3" class="nav-header" data-toggle="collapse">
-            <span style="font-weight: bold;font-size: 16px;">ÎŞÈË»úÉè¶¨</span>
+            <span style="font-weight: bold;font-size: 16px;">æ— äººæœºè®¾å®š</span>
         </a>
 		 <#if curNav??>
         	<#if curNav =="flyPathList" || curNav =="setFlyPath" || curNav =="importPlanePath">
@@ -35,15 +35,15 @@
         	 	<ul id="accounts-menu3" class="nav nav-list collapse">
         	</#if>
         </#if> 
-           	<li <#if curNav?? && curNav =="flyPathList"> class="active" </#if>><a href="${s.base}/doGetFlyPathList.action">·ÉĞĞÂ·¾¶ÁĞ±í</a></li>
-            <li <#if curNav?? && curNav =="setFlyPath"> class="active" </#if>><a href="${s.base}/setFlyPath.action">·ÉĞĞÂ·¾¶Éè¶¨</a></li>
-            <li <#if curNav?? && curNav =="#"> class="active" </#if>><a href="#">·ÉĞĞÂ·¾¶µ¼Èë</a></li>
-            <li <#if curNav?? && curNav =="importPlanePath"> class="active" </#if>><a href="${s.base}/toImportPlanePath.action">·ÉĞĞÂ·¾¶µ¼³ö</a></li>
-            <li <#if curNav?? && curNav =="#"> class="active" </#if>><a href="#">·ÉĞĞÂ·¾¶ÏÂ·¢</a></li>
+           	<li <#if curNav?? && curNav =="flyPathList"> class="active" </#if>><a href="${s.base}/doGetFlyPathList.action">é£è¡Œè·¯å¾„åˆ—è¡¨</a></li>
+            <li <#if curNav?? && curNav =="setFlyPath"> class="active" </#if>><a href="${s.base}/setFlyPath.action">é£è¡Œè·¯å¾„è®¾å®š</a></li>
+            <li <#if curNav?? && curNav =="#"> class="active" </#if>><a href="#">é£è¡Œè·¯å¾„å¯¼å…¥</a></li>
+            <li <#if curNav?? && curNav =="importPlanePath"> class="active" </#if>><a href="${s.base}/toImportPlanePath.action">é£è¡Œè·¯å¾„å¯¼å‡º</a></li>
+            <li <#if curNav?? && curNav =="#"> class="active" </#if>><a href="#">é£è¡Œè·¯å¾„ä¸‹å‘</a></li>
 
         </ul>
         <a href="#accounts-menu4" class="nav-header" data-toggle="collapse">
-            <span style="font-weight: bold;font-size: 16px;">·ÉĞĞÈÎÎñµ÷¶È</span>
+            <span style="font-weight: bold;font-size: 16px;">é£è¡Œä»»åŠ¡è°ƒåº¦</span>
         </a>
         <#if curNav??>
         	<#if curNav =="createTask" || curNav =="taskAllList">
@@ -52,12 +52,12 @@
         	 	<ul id="accounts-menu4" class="nav nav-list collapse">
         	</#if>
         </#if>       
-            <li <#if curNav?? && curNav =="createTask"> class="active" </#if>> <a href="${s.base}/toTaskCreate.action">ÈÎÎñ´´½¨</a></li>
-            <li <#if curNav?? && curNav =="taskAllList"> class="active" </#if>><a href="${s.base}/taskPageList.action">ÈÎÎñÁĞ±í</a></li>
+            <li <#if curNav?? && curNav =="createTask"> class="active" </#if>> <a href="${s.base}/toTaskCreate.action">ä»»åŠ¡åˆ›å»º</a></li>
+            <li <#if curNav?? && curNav =="taskAllList"> class="active" </#if>><a href="${s.base}/taskPageList.action">ä»»åŠ¡åˆ—è¡¨</a></li>
         </ul>
 
         <a href="#accounts-menu2" class="nav-header" data-toggle="collapse">
-            <span style="font-weight: bold;font-size: 16px;">ÎŞÈË»úÍ¼²ã</span>
+            <span style="font-weight: bold;font-size: 16px;">æ— äººæœºå›¾å±‚</span>
         </a>
         
         <#if curNav??>
@@ -67,12 +67,12 @@
         	 	<ul id="accounts-menu2" class="nav nav-list collapse">
         	</#if>
         </#if>        
-            <li <#if curNav?? && curNav =="planeAllList"> class="active" </#if>><a href="${s.base}/planeList.action">ÎŞÈË»úÏÔÊ¾</a></li>
-            <li <#if curNav?? && curNav =="planeFind"> class="active" </#if>><a onclick="findplane()">¹ıÂË²éÑ¯</a></li>
+            <li <#if curNav?? && curNav =="planeAllList"> class="active" </#if>><a href="${s.base}/planeList.action">æ— äººæœºæ˜¾ç¤º</a></li>
+            <li <#if curNav?? && curNav =="planeFind"> class="active" </#if>><a onclick="findplane()">è¿‡æ»¤æŸ¥è¯¢</a></li>
         </ul>
 
         <a href="#accounts-menu1" class="nav-header" data-toggle="collapse">
-            <span style="font-weight: bold;font-size: 16px;">¸æ¾¯ÏÔÊ¾</span>
+            <span style="font-weight: bold;font-size: 16px;">å‘Šè­¦æ˜¾ç¤º</span>
         </a>
         
          <#if curNav??>
@@ -82,13 +82,13 @@
         	 	<ul id="accounts-menu1" class="nav nav-list collapse">
         	</#if>
         </#if>   
-            <li <#if curNav?? && curNav =="alarmList" > class="active"</#if>><a href="${s.base}/alarmList.action">¸æ¾¯ÏÔÊ¾</a></li>
-            <li <#if curNav?? && curNav =="alarmhistory"> class="active" </#if>><a href="${s.base}/alarmHistory.action">ÀúÊ·¸ß¾¯</a></li>
-            <li <#if curNav?? && curNav =="alarmImport" > class="active"</#if>><a href="${s.base}/alarmImport.action">¸æ¾¯µ¼Èë</a></li>
+            <li <#if curNav?? && curNav =="alarmList" > class="active"</#if>><a href="${s.base}/alarmList.action">å‘Šè­¦æ˜¾ç¤º</a></li>
+            <li <#if curNav?? && curNav =="alarmhistory"> class="active" </#if>><a href="${s.base}/alarmHistory.action">å†å²é«˜è­¦</a></li>
+            <li <#if curNav?? && curNav =="alarmImport" > class="active"</#if>><a href="${s.base}/alarmImport.action">å‘Šè­¦å¯¼å…¥</a></li>
         </ul>
 
         <a href="#accounts-menu5" class="nav-header" data-toggle="collapse">
-            <span style="font-weight: bold;font-size: 16px;">ÓÃ»§¹ÜÀí</span>
+            <span style="font-weight: bold;font-size: 16px;">ç”¨æˆ·ç®¡ç†</span>
         </a>
          <#if curNav??>
         	<#if curNav =="usersEdit" || curNav =="usersBind">
@@ -97,14 +97,14 @@
         	 	<ul id="accounts-menu5" class="nav nav-list collapse">
         	</#if>
         </#if> 
-            <li <#if curNav?? && curNav =="usersEdit"> class="active" </#if>><a href="${s.base}/toUserCreate.action">ÓÃ»§ÔöÉ¾¸Ä</a></li>
-            <li <#if curNav?? && curNav =="usersBind"> class="active" </#if>><a href="#">ÓÃ»§×é°ó¶¨</a></li>
+            <li <#if curNav?? && curNav =="usersEdit"> class="active" </#if>><a href="${s.base}/toUserCreate.action">ç”¨æˆ·å¢åˆ æ”¹</a></li>
+            <li <#if curNav?? && curNav =="usersBind"> class="active" </#if>><a href="#">ç”¨æˆ·ç»„ç»‘å®š</a></li>
         </ul>
         
     
         
         <a href="#accounts-menu6" class="nav-header" data-toggle="collapse">
-            <span style="font-weight: bold;font-size: 16px;">ÎÒµÄÕËºÅ</span>
+            <span style="font-weight: bold;font-size: 16px;">æˆ‘çš„è´¦å·</span>
         </a>
          <#if curNav??>
         	<#if curNav =="editInfo" || curNav =="logout">
@@ -113,92 +113,92 @@
         	 	<ul id="accounts-menu6" class="nav nav-list collapse">
         	</#if>
         </#if> 
-            <li <#if curNav?? && curNav =="editInfo"> class="active" </#if>><a href="${s.base}/admin/profile">¸öÈËĞÅÏ¢</a></li>
-            <li <#if curNav?? && curNav =="logout"> class="active" </#if>><a href="${s.base}/admin/logout">ÍË³ö</a></li>
+            <li <#if curNav?? && curNav =="editInfo"> class="active" </#if>><a href="${s.base}/admin/profile">ä¸ªäººä¿¡æ¯</a></li>
+            <li <#if curNav?? && curNav =="logout"> class="active" </#if>><a href="${s.base}/admin/logout">é€€å‡º</a></li>
         </ul>
        
     </div>
 
-    <!-- ²éÑ¯Â·ÓÉµ¯³ö²ã -start -->
+    <!-- æŸ¥è¯¢è·¯ç”±å¼¹å‡ºå±‚ -start -->
 	<div class="modal" id="findlineModal" tabindex="-1" role="dialog"  aria-hidden="true">
 		 <div class="modal_wapper">
             <div class="modal-dialog w-8">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">¡Á</span>
+							<span aria-hidden="true">Ã—</span>
 						</button>
-                        <h4 class="modal-title">²éÑ¯Â·ÓÉ</h4>
+                        <h4 class="modal-title">æŸ¥è¯¢è·¯ç”±</h4>
                     </div>
                     <div class="modal-body">
                         <form role="form" id="routeQuery" method="post">                         
                             <div class="form-group clearfix">
-                                <label class="control-label"  style="white-space:nowrap">Â·ÓÉ±àºÅ£º</label>
+                                <label class="control-label"  style="white-space:nowrap">è·¯ç”±ç¼–å·ï¼š</label>
                                 <div class="col-sm-7">
-                                    <input type="text" id="routeId" name="routeId" class="form-control" onchange="ww();" placeholder="ÇëÊäÈëÂ·ÓÉ±àºÅ">
+                                    <input type="text" id="routeId" name="routeId" class="form-control" onchange="ww();" placeholder="è¯·è¾“å…¥è·¯ç”±ç¼–å·">
                                 </div>
                             </div>
                             <div class="form-group clearfix">
-                                <label class="control-label"  style="white-space:nowrap">Â·ÓÉµÈ¼¶£º</label>
+                                <label class="control-label"  style="white-space:nowrap">è·¯ç”±ç­‰çº§ï¼š</label>
                                 <div class="col-sm-7">
                                    <select id="type" name="type" class="form-control" type="select">
-									<option value="0">Ò»¸ÉÂ·ÓÉ</option>
-									<option value="1">¶ş¸ÉÂ·ÓÉ</option>
-									<option value="2">»ìºÏÂ·ÓÉ</option>
+									<option value="0">ä¸€å¹²è·¯ç”±</option>
+									<option value="1">äºŒå¹²è·¯ç”±</option>
+									<option value="2">æ··åˆè·¯ç”±</option>
 									</select>	
 								</div>
                             </div>                        
                         </form>
-                        <!-- tipÌáÊ¾-start -->
-                        <div id="_ocAlertTip" class="alert alert-success f-16" style="display: none;">ÌáÊ¾</div>
-                        <!-- tipÌáÊ¾-end -->
+                        <!-- tipæç¤º-start -->
+                        <div id="_ocAlertTip" class="alert alert-success f-16" style="display: none;">æç¤º</div>
+                        <!-- tipæç¤º-end -->
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="queryRoute">²éÑ¯</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">¹Ø±Õ</button>
+                        <button type="button" class="btn btn-primary" id="queryRoute">æŸ¥è¯¢</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">å…³é—­</button>
                     </div>
                 </div>
             </div>
         </div>
 	</div>
-	<!-- ²éÑ¯Â·ÓÉÕÂ½Úµ¯³ö²ã -end -->
-	<!-- ²éÑ¯Â·ÓÉµ¯³ö²ã -start -->
+	<!-- æŸ¥è¯¢è·¯ç”±ç« èŠ‚å¼¹å‡ºå±‚ -end -->
+	<!-- æŸ¥è¯¢è·¯ç”±å¼¹å‡ºå±‚ -start -->
     <div class="modal" id="findplaneModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal_wapper">
             <div class="modal-dialog w-8">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">¡Á</span>
+							<span aria-hidden="true">Ã—</span>
 						</button>
-                        <h4 class="modal-title">ÎŞÈË»ú¹ıÂË²éÑ¯</h4>
+                        <h4 class="modal-title">æ— äººæœºè¿‡æ»¤æŸ¥è¯¢</h4>
                     </div>
                     <div class="modal-body">
                         <form role="form" id="planeFind" method="post" action="${s.base}/doFindPlane.action">
                             <div class="form-group clearfix">
 
-                                <label class="control-label"  style="white-space:nowrap">ÔğÈÎÈË±àºÅ£º</label>
+                                <label class="control-label"  style="white-space:nowrap">è´£ä»»äººç¼–å·ï¼š</label>
                                 <div class="col-sm-5">
-                                    <input type="text clearfix" class="form-control" name="userid" placeholder="ÇëÊäÈëÔğÈÎÈË±àºÅ">
+                                    <input type="text clearfix" class="form-control" name="userid" placeholder="è¯·è¾“å…¥è´£ä»»äººç¼–å·">
                                 </div>
                             </div>
                             <div class="form-group clearfix">
 
-                                <label class="control-label"  style="white-space:nowrap">µÇ¼ÇÆğÊ¼Ê±¼ä£º</label>
+                                <label class="control-label"  style="white-space:nowrap">ç™»è®°èµ·å§‹æ—¶é—´ï¼š</label>
                                 <div class="col-sm-5">
                                     <input type="date" class="form-control" name="starttime" value="2018-07-01" />
                                 </div>
                             </div>
                             <div class="form-group clearfix">
-                                <label class="control-label"  style="white-space:nowrap">µÇ¼ÇÖÕÖ¹Ê±¼ä£º</label>
+                                <label class="control-label"  style="white-space:nowrap">ç™»è®°ç»ˆæ­¢æ—¶é—´ï¼š</label>
                                 <div class="col-sm-5">
                                     <input type="date" class="form-control" id="enddtime" name="endtime" value="" />
                                 </div>
                             </div>
                           <div class="modal-footer">
-                        	<button type="submit" class="btn btn-primary" >²éÑ¯</button>
-                        	<button type="button" class="btn btn-default" data-dismiss="modal">¹Ø±Õ</button>
+                        	<button type="submit" class="btn btn-primary" >æŸ¥è¯¢</button>
+                        	<button type="button" class="btn btn-default" data-dismiss="modal">å…³é—­</button>
                     	</div>
                         </form>
                     </div>
@@ -208,15 +208,17 @@
             </div>
         </div>
     </div>
-    <!-- ²éÑ¯Â·ÓÉµ¯³ö²ã -end -->
+    <!-- æŸ¥è¯¢è·¯ç”±å¼¹å‡ºå±‚ -end -->
 	
 	<script type="text/javascript">
 	document.getElementById('enddtime').valueAsDate=new Date();
 	
 	
 	function findlines(){
+
 		Modal.show('findlineModal');
 	}
+
     $("#queryRoute").click(function () {
         $.ajax({
             type: "post",
@@ -231,8 +233,11 @@
             }
         });
     })
+
     function findplane() {
         Modal.show('findplaneModal');
      }
     
 	</script>
+
+ 

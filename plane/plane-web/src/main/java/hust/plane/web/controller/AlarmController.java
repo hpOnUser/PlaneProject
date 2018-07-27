@@ -22,8 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import hust.plane.mapper.pojo.Alarm;
+import hust.plane.mapper.pojo.Plane;
 import hust.plane.service.interFace.AlarmService;
-import hust.plane.service.interFace.FileService;
+import hust.plane.service.interFace.PlaneService;
 import hust.plane.utils.JsonUtils;
 import hust.plane.web.controller.vo.AlarmVo;
 
@@ -35,6 +36,9 @@ public class AlarmController {
     private static Logger logger = LoggerFactory.getLogger(AlarmController.class);
     @Autowired
     private AlarmService alarmService;
+
+    @Autowired
+    private PlaneService planeServiceImpl;
 
     @Resource
     private RouteService routeServiceImpl;
