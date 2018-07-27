@@ -24,7 +24,13 @@ public class RouteController {
 
     @Autowired
     public RouteService routeServiceImpl;
-
+    
+	@RequestMapping("/index")
+	public String index(Model model)
+	{
+		model.addAttribute("curNav", "home");
+		return "index";
+	}
     // 得到路由分布。解决路径序列
     @RequestMapping("/erouteList")
     public String getAllRoute(Model model) {
