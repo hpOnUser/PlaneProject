@@ -33,7 +33,7 @@ public class ImgUtils {
     private static Alarm printImageTags(File file,String planeId) throws ImageProcessingException, Exception {
         Alarm alarm = new Alarm();
         alarm.setUpdateTime(new Date());
-        alarm.setStatus("0");
+        alarm.setStatus("1");//未处理告警
         alarm.setPlaneid(planeId);//后续考虑
         //alarm.setImage();
         ImgPicToAlarm imgPicToAlarm = new ImgPicToAlarm();
