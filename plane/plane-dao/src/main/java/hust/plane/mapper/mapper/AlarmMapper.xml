@@ -82,10 +82,10 @@
             <if test="descripte != null" >
                 descripte,
             </if>
-            <if test="createtime != null" >
+            <if test="createTime != null" >
                 createtime,
             </if>
-            <if test="updatetime != null" >
+            <if test="updateTime != null" >
                 updatetime,
             </if>
             <if test="status != null" >
@@ -108,11 +108,11 @@
             <if test="descripte != null" >
                 #{descripte,jdbcType=VARCHAR},
             </if>
-            <if test="createtime != null" >
-                #{createtime,jdbcType=TIMESTAMP},
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updatetime != null" >
-                #{updatetime,jdbcType=TIMESTAMP},
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="status != null" >
                 #{status,jdbcType=INTEGER},
