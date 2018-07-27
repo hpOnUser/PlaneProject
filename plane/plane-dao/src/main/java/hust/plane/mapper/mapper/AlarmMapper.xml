@@ -103,7 +103,7 @@
                 #{planeid,jdbcType=VARCHAR},
             </if>
             <if test="alongda != null" >
-                #{alongda,jdbcType=VARCHAR},
+                GeomFromText(#{alongda,jdbcType=VARCHAR}),
             </if>
             <if test="descripte != null" >
                 #{descripte,jdbcType=VARCHAR},
