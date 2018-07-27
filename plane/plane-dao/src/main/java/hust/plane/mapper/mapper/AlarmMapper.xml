@@ -64,4 +64,59 @@
     <update id="updateByAlarmId" parameterType="java.lang.String">
     	update alarm set status="0" where alarmid=#{alarmid}
     </update>
+    <insert id="insertAlarmSelective" parameterType="hust.plane.mapper.pojo.Alarm" >
+        insert into alarm
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="alarmid != null" >
+                alarmid,
+            </if>
+            <if test="image != null" >
+                image,
+            </if>
+            <if test="planeid != null" >
+                planeid,
+            </if>
+            <if test="alongda != null" >
+                alongda,
+            </if>
+            <if test="descripte != null" >
+                descripte,
+            </if>
+            <if test="createtime != null" >
+                createtime,
+            </if>
+            <if test="updatetime != null" >
+                updatetime,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="alarmid != null" >
+                #{alarmid,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null" >
+                #{image,jdbcType=VARCHAR},
+            </if>
+            <if test="planeid != null" >
+                #{planeid,jdbcType=VARCHAR},
+            </if>
+            <if test="alongda != null" >
+                #{alongda,jdbcType=VARCHAR},
+            </if>
+            <if test="descripte != null" >
+                #{descripte,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null" >
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null" >
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
 </mapper>

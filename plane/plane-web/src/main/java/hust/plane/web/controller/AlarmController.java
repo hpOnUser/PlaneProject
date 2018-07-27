@@ -3,13 +3,16 @@ package hust.plane.web.controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.slf4j.Logger;
 
 import hust.plane.constant.WebConst;
 import hust.plane.mapper.pojo.Route;
 import hust.plane.service.interFace.RouteService;
 import hust.plane.utils.pojo.InfoTplData;
 import hust.plane.utils.pojo.JsonView;
+import hust.plane.utils.pojo.TipException;
 import hust.plane.web.controller.vo.RouteVo;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AlarmController {
-
+    private static Logger logger = LoggerFactory.getLogger(AlarmController.class);
     @Autowired
     private AlarmService alarmService;
 
@@ -78,4 +81,26 @@ public class AlarmController {
         return JsonView.render(0, WebConst.SUCCESS_RESULT, info);
     }
 
+    @RequestMapping(value = "alarmImport", method = RequestMethod.GET)
+    public String toAlarmImport(Model model) {
+        model.addAttribute("curNav", "alarmImport");
+        return "importAlarm";
+    }
+
+    @RequestMapping(value = "importAlarm", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String doImportAlarm(@RequestParam(value = "planeId") String planeId, HttpServletRequest request) {
+        try{
+            alarmService.insertAlarmById(planeId);
+        }catch (Exception e){
+          String msg = "插入告警点失败";
+          if(e instanceof TipException){
+              msg = e.getMessage();
+          }else{
+              logger.error(msg,e);
+          }
+          return JsonView.render(1,msg);
+        }
+         return JsonView.render(0,WebConst.SUCCESS_RESULT);
+    }
 }

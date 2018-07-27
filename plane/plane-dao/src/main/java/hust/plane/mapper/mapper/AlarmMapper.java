@@ -1,10 +1,10 @@
 package hust.plane.mapper.mapper;
 
-import java.util.List;
-
 import hust.plane.mapper.pojo.Alarm;
 import hust.plane.utils.page.AlarmPojo;
 import hust.plane.utils.page.TailPage;
+
+import java.util.List;
 
 
 
@@ -16,4 +16,5 @@ public interface AlarmMapper {
 	List<Alarm> queryAlarmPage(Alarm alarm, TailPage<AlarmPojo> page);
     Alarm selectInfoById(String id);
 	void updateByAlarmId(String alarmid);
+    int insertAlarmSelective(Alarm alarm);
 }

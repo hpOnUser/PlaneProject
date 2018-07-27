@@ -1,10 +1,10 @@
 package hust.plane.service.interFace;
 
-import java.util.List;
-
 import hust.plane.mapper.pojo.Alarm;
 import hust.plane.utils.page.AlarmPojo;
 import hust.plane.utils.page.TailPage;
+
+import java.util.List;
 
 
 public interface AlarmService {
@@ -16,4 +16,6 @@ public interface AlarmService {
     Alarm selectAlarmById(String id);
 
     void updateAlarmStatus(String alarmid);
+
+    int insertAlarmById(String planeId);
 }
