@@ -34,25 +34,7 @@
                     //just some colors
                     var colors = ['#1ef22a', '#260cff', '#eb0aff'];
                     var routeStatusCode = ['一干路由', '二干路由', '混合路由'];
-                    routeList = ${routeList};
-                    //创建一个地图
-                    var map = new AMap.Map('container', {
-                        resizeEnable: true,
-                        center: routeList[0].routePath[0],
-                        zoom: 13
-                    });
-                    /* AMapUI.loadUI(['control/BasicControl'], function (BasicControl) {
-                        //缩放控件，显示Zoom值
-                        map.addControl(new BasicControl.Zoom({
-                            position: 'lt',
-                            showZoomNum: true,
-                        }));
-                    }); */
-                    var infoWindow = new AMap.InfoWindow({
-                        isCustom: true,
-                        offset: new AMap.Pixel(20, -35)
-                    });
-
+                    
                     function showrouteList(RouteList) {
                         for (var i = 0; i < routeList.length; i++) {
                             var polyline = new AMap.Polyline({
@@ -66,54 +48,84 @@
                             });
                         }
                     }
+                    
+                    
+                    routeList = ${routeList};
+                    
+                    
+                    if(routeList==null || routeList.length==0){
+                    	 var map = new AMap.Map('container', {
+                             resizeEnable: true,
+                             center: [107.79962, 23.06691],
+                             zoom: 13
+                         });
+                    }else{
+                    	//创建一个地图
+                        var map = new AMap.Map('container', {
+                            resizeEnable: true,
+                            center: routeList[0].routePath[0],
+                            zoom: 13
+                        }); 
+                    	
+                        showrouteList(routeList);
+                        AMapUI.loadUI(['overlay/SimpleMarker'], function (SimpleMarker) {
 
-                    showrouteList(routeList);
+                            for (var i = 0; i < routeList.length; i++) {
+                                //启动页面
+                                var lineColor = null;
+                                var pointFont = null;
+                                if (routeList[i].type == '0') {
+                                    pointFont = '<i>一干</i>';
+                                    lineColor = 'green';
+                                } else if (routeList[i].type == '1') {
+                                    pointFont = '<i>二干</i>';
+                                    lineColor = 'darkblue';
+                                } else {
+                                    pointFont = '<i>混合</i>';
+                                    lineColor = 'purple';
+                                }
+                                var Onestart = new SimpleMarker({
+                                    //前景文字
+                                    map: map,
+                                    iconLabel: {
+                                        innerHTML: pointFont, //设置文字内容
+                                        style: {
+                                            color: 'white' //设置文字颜色
+                                        }
+                                    },
+                                    iconTheme: 'fresh',
+                                    //背景图标样式
+                                    iconStyle: lineColor,
+                                    position: routeList[i].routePath[0],
+                                });
 
-                    AMapUI.loadUI(['overlay/SimpleMarker'], function (SimpleMarker) {
+                                //实例化信息窗体
 
+                                var title = '路由编号：<span>' + routeList[i].routeId + '</span>';
+                                var content = [];
+                                content.push("类型：" + routeStatusCode[Number(routeList[i].type)]);
+                                content.push("描述：" + routeList[i].descripte);
+                                content.push("创建时间：" + routeList[i].createTime);
 
-                        for (var i = 0; i < routeList.length; i++) {
-                            //启动页面
-                            var lineColor = null;
-                            var pointFont = null;
-                            if (routeList[i].type == '0') {
-                                pointFont = '<i>一干</i>';
-                                lineColor = 'green';
-                            } else if (routeList[i].type == '1') {
-                                pointFont = '<i>二干</i>';
-                                lineColor = 'darkblue';
-                            } else {
-                                pointFont = '<i>混合</i>';
-                                lineColor = 'purple';
+                                Onestart.content = createInfoWindow(title, content.join("<br/>"));
+                                Onestart.on('click', markerClick);
                             }
-                            var Onestart = new SimpleMarker({
-                                //前景文字
-                                map: map,
-                                iconLabel: {
-                                    innerHTML: pointFont, //设置文字内容
-                                    style: {
-                                        color: 'white' //设置文字颜色
-                                    }
-                                },
-                                iconTheme: 'fresh',
-                                //背景图标样式
-                                iconStyle: lineColor,
-                                position: routeList[i].routePath[0],
-                            });
-
-                            //实例化信息窗体
-
-                            var title = '路由编号：<span>' + routeList[i].routeId + '</span>';
-                            var content = [];
-                            content.push("类型：" + routeStatusCode[Number(routeList[i].type)]);
-                            content.push("描述：" + routeList[i].descripte);
-                            content.push("创建时间：" + routeList[i].createTime);
-
-                            Onestart.content = createInfoWindow(title, content.join("<br/>"));
-                            Onestart.on('click', markerClick);
-                        }
+                        });
+                  	
+                    }
+                    
+                    /* AMapUI.loadUI(['control/BasicControl'], function (BasicControl) {
+                        //缩放控件，显示Zoom值
+                        map.addControl(new BasicControl.Zoom({
+                            position: 'lt',
+                            showZoomNum: true,
+                        }));
+                    }); */
+                    var infoWindow = new AMap.InfoWindow({
+                        isCustom: true,
+                        offset: new AMap.Pixel(20, -35)
                     });
-
+                                     
                     //构建自定义信息窗体
                     function createInfoWindow(title, content) {
                         var info = document.createElement("div");
