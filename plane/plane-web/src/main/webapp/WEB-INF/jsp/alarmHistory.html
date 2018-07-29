@@ -101,13 +101,13 @@
                                     已处理告警
                                 </span>
                                 <#else>
-                                <button type="button" class="label label-danger" onclick="dealsAlarm(${alarm.alarmid})">
+                                <button type="button" class="label label-danger" onclick="dealsAlarm('${alarm.alarmid}')">
                                     未处理告警
                                 </button>
 
                             </#if>
                             </td>
-                            <td><a class="pointer" onclick="showDetail(${alarm.alarmid})">详细信息</a></td>
+                            <td><a class="pointer" onclick="showDetail('${alarm.alarmid}')">详细信息</a></td>
                             <td>
                                 操作
                             </td>
