@@ -24,6 +24,7 @@ import hust.plane.service.interFace.UserService;
 import hust.plane.utils.PlaneUtils;
 import hust.plane.utils.page.TailPage;
 import hust.plane.utils.page.TaskPojo;
+import hust.plane.utils.pojo.JsonView;
 
 @Controller
 public class taskController {
@@ -134,13 +135,30 @@ public class taskController {
 		return "taskList";
 	}
 	
-	@RequestMapping(value = "onsureFly", method = RequestMethod.POST)
+	@RequestMapping(value = "onsureFly", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String onsureFly(Task task) {
 		
+		
 		taskServiceImpl.setStatusTaskByTask(task,"7");
 		
-		return "success";
+		return JsonView.render(1,"已确认，可以放飞");
+	}
+	
+	@RequestMapping(value = "taskReport", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String taskReport(Task task) {
+		
+		String status = taskServiceImpl.getStatusByTask(task);
+		if(status.equals("9")) {
+			taskServiceImpl.setStatusTaskByTask(task,"10");       //设置任务完成
+			taskServiceImpl.setFinishStatusTaskByTask(task,"1");
+			return JsonView.render(1,"任务完成，打印飞行报告!");
+		}
+		else {
+			
+			return JsonView.render(1,"任务未完成，不可打印报告!");
+		}			
 	}
 	
  

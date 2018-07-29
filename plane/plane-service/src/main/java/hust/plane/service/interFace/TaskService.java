@@ -17,4 +17,8 @@ public interface TaskService {
 
 	void setStatusTaskByTask(Task task, String string);
 
+	String getStatusByTask(Task task);
+
+	void setFinishStatusTaskByTask(Task task, String string);
+
 }

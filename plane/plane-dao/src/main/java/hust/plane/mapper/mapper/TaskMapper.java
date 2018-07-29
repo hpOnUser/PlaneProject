@@ -32,4 +32,6 @@ public interface TaskMapper {
     int updateByPrimaryKey(Task record);
     
     List<Task> queryPage(Task task, TailPage<TaskPojo> page);
+
+	String getStatusByTask(Task task);
 }

@@ -87,11 +87,12 @@
                                	    <#elseif taskpojo.task.status =='7'><span class="label label-primary">待放飞</span>
                                	    <#elseif taskpojo.task.status =='8'><span class="label label-info">飞行中</span>
                                	    <#elseif taskpojo.task.status =='9'><span class="label label-success">飞行完成</span>
+                               	    <#elseif taskpojo.task.status =='10'><span class="label label-success">巡检完成</span>
                                	    </#if>
                                	    </#if>
                                 	</td>
                                 	<td>
-                                		 <a href="javascript:void(0)" onclick="toEdit();">生成飞行报告</a>
+                                		 <a href="javascript:void(0)" onclick="toEdit('${taskpojo.task.taskid!}');">生成飞行报告</a>
                                 	</td>
                                 	</tr>
                                 </#list>
@@ -105,6 +106,20 @@
 	        </form>
 	    </div>
     </div>
+    	<div class="modal" id="_ocDialogModal" tabindex="-1" aria-hidden="true">
+	    <div class="modal_wapper small">
+	        <div class="modal-dialog w-4" >
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <div class="modal-title f-16" >提示信息</div>
+	                </div>
+	                <div class="modal-body">
+	                    <div><span class="color-oc f-16 oc-content" id="resText">任务完成，打印报告</span></div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 <script type="text/javascript">
     //允许放飞
 	function onsureFly(taskid){
@@ -115,12 +130,37 @@
                 'taskid': taskid,
             },
             success: function (result) {
-            	alert(result);
-            	location.reload();
+            	 if (result.errcode == 1 ){
+            		 $("#resText").text(result.message);
+                  	Modal.show('_ocDialogModal');
+                  	setTimeout("document.location.reload();",1000);
+                  	
+            	 }
+            	
             }
         });
 		
 	}
+    function toEdit(taskid){
+    	//在此打印报告
+    	$.ajax({
+            type: "post",
+            url: "${s.base}/taskReport.action",          
+            data: {
+                'taskid': taskid,
+            },
+            success: function (result) {
+            	
+            	 if (result.errcode == 1 ) {
+            		$("#resText").text(result.message);
+                 	Modal.show('_ocDialogModal');
+                 	setTimeout("document.location.reload();",1000);
+                 	
+            	 }         	     	
+            }
+        });
+   	   	
+    }
 </script>
 </body>
 </html>

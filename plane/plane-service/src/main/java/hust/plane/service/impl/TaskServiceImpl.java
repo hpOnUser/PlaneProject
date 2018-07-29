@@ -116,6 +116,21 @@ public class TaskServiceImpl implements TaskService {
 		taskMapper.updateByPrimaryKey(task2);
 		
 	}
+
+	@Override
+	public String getStatusByTask(Task task) {
+		
+		return taskMapper.getStatusByTask(task);
+	}
+
+	@Override
+	public void setFinishStatusTaskByTask(Task task, String finishstatus) {
+		// TODO Auto-generated method stub
+		Task task2 = taskMapper.selectByPrimaryKey(task.getTaskid());
+		task2.setFinishstatus(finishstatus);
+		
+		taskMapper.updateByPrimaryKey(task2);
+	}
 	
 	
 

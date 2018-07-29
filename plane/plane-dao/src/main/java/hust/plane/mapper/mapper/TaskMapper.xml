@@ -334,4 +334,10 @@
 		</if>
 		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER} 
 	</select>
+	<select id="getStatusByTask" parameterType="hust.plane.mapper.pojo.Task" resultType="java.lang.String">
+		SELECT status		
+		FROM task
+		WHERE 
+		taskid = #{taskid,jdbcType=VARCHAR}
+	</select>
 </mapper>
