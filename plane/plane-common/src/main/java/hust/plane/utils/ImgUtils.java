@@ -35,6 +35,7 @@ public class ImgUtils {
         alarm.setUpdateTime(new Date());
         alarm.setStatus("1");//未处理告警
         alarm.setPlaneid(planeId);//后续考虑
+        alarm.setImage("/"+"100MEDIA"+"/" +file.getName());
         //alarm.setImage();
         ImgPicToAlarm imgPicToAlarm = new ImgPicToAlarm();
         Metadata metadata = ImageMetadataReader.readMetadata(file);
