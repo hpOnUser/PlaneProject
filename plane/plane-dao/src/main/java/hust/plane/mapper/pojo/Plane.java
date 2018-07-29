@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Plane {
-	private String planeId;
+	private String planeid;
 	private String planename;
 	private String userid;
 	private String status;
@@ -13,9 +13,9 @@ public class Plane {
 	private String dec;
 	private String height;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date createTime;
+	private Date createtime;
     @DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date updateTime;
+	private Date updatetime;
 	
     public String getHeight() {
     	return height;
@@ -24,10 +24,10 @@ public class Plane {
     	this.height = height;
     }
 	public String getPlaneId() {
-		return planeId;
+		return planeid;
 	}
 	public void setPlaneId(String planeId) {
-		this.planeId = planeId;
+		this.planeid = planeId;
 	}
 
 	public String getPlanename() {
@@ -61,16 +61,16 @@ public class Plane {
 		this.dec = dec;
 	}
 	public Date getCreateTime() {
-		return createTime;
+		return createtime;
 	}
 	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+		this.createtime = createTime;
 	}
 	public Date getUpdateTime() {
-		return updateTime;
+		return updatetime;
 	}
 	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
+		this.updatetime = updateTime;
 	}
 
 }

@@ -112,7 +112,7 @@ public class AlarmController {
     
     
     //导入告警图片
-    @RequestMapping(value = "importAlarmImg", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+/*    @RequestMapping(value = "importAlarmImg", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String importAlarmImg(@RequestParam(value = "planeId") String planeId,@RequestParam("AlarmImgs") MultipartFile[] AlarmImgs,HttpServletRequest request) {
     	
@@ -125,7 +125,7 @@ public class AlarmController {
             }
         }       	
     	return  "告警图片导入成功！";
-    }
+    }*/
     
     //保存图片
     private List<String> saveFile(HttpServletRequest request,MultipartFile file, List<String> list) {

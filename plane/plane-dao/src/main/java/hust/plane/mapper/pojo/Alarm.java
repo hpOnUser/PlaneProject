@@ -14,9 +14,9 @@ public class Alarm {
 	private String status;
 
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date createTime;
+	private Date createtime;
     @DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date updateTime;
+	private Date updatetime;
     
 	public String getStatus() {
 		return status;
@@ -55,16 +55,16 @@ public class Alarm {
 		this.descripte = descripte;
 	}
 	public Date getCreateTime() {
-		return createTime;
+		return createtime;
 	}
 	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+		this.createtime = createTime;
 	}
 	public Date getUpdateTime() {
-		return updateTime;
+		return updatetime;
 	}
 	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
+		this.updatetime = updateTime;
 	}
 	
 }

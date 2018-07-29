@@ -8,8 +8,8 @@
     <result column="descripte" property="descripte" jdbcType="VARCHAR" />
     <result column="alongda" property="alongda" jdbcType="VARCHAR" />
      <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="createtime" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="updatetime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
     <sql id="Base_Column_List" >
     alarmid,image,planeid,AsText(alongda) as alongda,descripte,status,createtime,updatetime

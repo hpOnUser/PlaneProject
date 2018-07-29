@@ -2,22 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="hust.plane.mapper.mapper.PlaneMapper" >
  <resultMap id="BaseResultMap" type="hust.plane.mapper.pojo.Plane" >
-    <id column="planeid" property="planeId" jdbcType="VARCHAR" />
+    <id column="planeid" property="planeid" jdbcType="VARCHAR" />
     <result column="planename" property="planename" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="VARCHAR" />
     <result column="height" property="height" jdbcType="VARCHAR" />
     <result column="flongda" property="flongda" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="descripte" property="dec" jdbcType="VARCHAR" />
-    <result column="createtime" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="updatetime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
 	<select id="selectALLPlane" resultMap="BaseResultMap">
-		select planeId,planename,userid,AsText(flongda) as flongda,status,updateTime
+		select planeid,planename,userid,AsText(flongda) as flongda,status,updatetime
 		from plane 
 	</select>
 	<select id="selectPlaneByOption" resultMap="BaseResultMap">
-		select distinct planeId,planename,userid,AsText(flongda) as flongda,status,updateTime
+		select distinct planeid,planename,userid,AsText(flongda) as flongda,status,updatetime
 		from plane
 		where
 		<if test="#{0}!=null and #{0}!=''">
@@ -31,7 +31,7 @@
         </if>
 	</select>
 	<select id="selectByPlaneStatus" resultMap="BaseResultMap">
-		select planeId,planename,userid,AsText(flongda) as flongda,status,updateTime
+		select planeid,planename,userid,AsText(flongda) as flongda,status,updatetime
 		from plane
 		where status=#{0}
 	</select>

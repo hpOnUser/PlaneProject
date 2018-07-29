@@ -22,19 +22,13 @@
 							</div>
 
 							<div class="modal-body">
-								<form role="form" id="importAlarmForm" method="post" action="${s.base}/importAlarmImg.action" enctype="multipart/form-data">
+								<form role="form" id="importCourseSectionForm" method="post"  enctype="multipart/form-data">
 									 <div class="form-group clearfix">
                                			 <label class="control-label"  style="white-space:nowrap" >无人机编号：</label>
                                 			<div class="col-sm-8">
-                                    		<input type="text" class="form-control" name="planeId" id="plane_Id" placeholder="请输入无人机编号">
+                                    		<input type="text" class="form-control" name="planeId" id="planeId" placeholder="请输入无人机编号">
                                 			</div>
-                            		</div>
-                            		<div class="form-group clearfix">
-                               			 <label class="control-label"  style="white-space:nowrap" >选择告警图片：</label>
-                                			<div class="col-sm-8">
-                                    		<input  type="file" name="AlarmImgs" multiple="multiple"  accept="image/jpeg, image/png, image/jpg" />
-                                			</div>
-                            		</div>
+                            			</div>
 								</form>
 
 								<div id="ocAlertTip" class="alert alert-success f-16" style="display:none;"><span id="al_info"></span>
@@ -65,22 +59,28 @@
       		$('#ocAlertTip').css('display','none');
       	}
 		function doSave(){
-			//${s.base}/importAlarm
-			var planeId = $('#plane_Id').val();
+
+			var planeId = $('#planeId').val();
+			console.log(planeId);
 			if(planeId==''){
 				$('#al_info').html("请输入无人机编号！");
 				$('#ocAlertTip').css('display','block');
 			}else{
-				    $('#importAlarmForm').ajaxSubmit({				
-						type: 'POST',						
+					$.ajax({
+						url:"${s.base}/importAlarm",
+						type: 'POST',
+						data:{
+							planeId:planeId
+						},
 						datatype : 'json',
 						success : function(result) {
-						//result = JSON.parse(result);
-						var textstr =result.replace(/<[^>]*>|/g,"");	//提取文字				
-						//if(result.errcode == 0){
-                                $('#al_info').html(textstr);
+							if(result.errcode==0&&result.message=="SUCCESS"){
+                                $('#al_info').html("告警导入成功！");
                                 $('#ocAlertTip').css('display','block');
-						//}
+							}else{
+                                $('#al_info').html(result.message);
+                                $('#ocAlertTip').css('display','block');
+							}
 						},
 						error: function(){
 							Modal.tipFailure('导入失败');
