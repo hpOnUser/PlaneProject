@@ -1,37 +1,35 @@
 package hust.plane.web.controller;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import org.slf4j.Logger;
-
 import hust.plane.constant.WebConst;
+import hust.plane.mapper.pojo.Alarm;
 import hust.plane.mapper.pojo.Route;
+import hust.plane.service.interFace.AlarmService;
+import hust.plane.service.interFace.PlaneService;
 import hust.plane.service.interFace.RouteService;
+import hust.plane.utils.JsonUtils;
 import hust.plane.utils.pojo.InfoTplData;
 import hust.plane.utils.pojo.JsonView;
 import hust.plane.utils.pojo.TipException;
+import hust.plane.web.controller.vo.AlarmVo;
 import hust.plane.web.controller.vo.RouteVo;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import hust.plane.mapper.pojo.Alarm;
-import hust.plane.mapper.pojo.Plane;
-import hust.plane.service.interFace.AlarmService;
-import hust.plane.service.interFace.PlaneService;
-import hust.plane.utils.JsonUtils;
-import hust.plane.web.controller.vo.AlarmVo;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Controller
 public class AlarmController {
@@ -147,5 +145,17 @@ public class AlarmController {
             }
         }
         return list;
+    }
+
+
+    @RequestMapping("/100MEDIA/{filename}")
+    public void testpic(@PathVariable(value = "filename")String picName, HttpServletResponse response) throws IOException {
+        FileInputStream fis = null;
+        File file = new File("D://100MEDIA//"+picName+".JPG");
+        //File file = new File("home/images/test.png"); 服务器目录和本地图片的区别是图片路径
+        fis = new FileInputStream(file);
+        response.setContentType("image/jpg"); //设置返回的文件类型
+        response.setHeader("Access-Control-Allow-Origin", "*");//设置该图片允许跨域访问
+        IOUtils.copy(fis, response.getOutputStream());
     }
 }

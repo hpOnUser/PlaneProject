@@ -1,9 +1,9 @@
 package hust.plane.service.interFace;
 
+import hust.plane.mapper.pojo.Plane;
+
 import java.util.Date;
 import java.util.List;
-
-import hust.plane.mapper.pojo.Plane;
 
 public interface PlaneService {
 
@@ -12,6 +12,7 @@ public interface PlaneService {
     List<Plane> getPlaneByOption(String userid, Date starttime, Date endtime);
 
 	List<Plane> findByPlaneStatus(Plane plane);
+
 
 
 }
