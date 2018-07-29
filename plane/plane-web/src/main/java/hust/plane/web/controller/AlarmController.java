@@ -148,10 +148,10 @@ public class AlarmController {
     }
 
 
-    @RequestMapping("/100MEDIA/{filename}")
-    public void testpic(@PathVariable(value = "filename")String picName, HttpServletResponse response) throws IOException {
+    @RequestMapping("/gxdxAlarmpic/{path}/{filename}")
+    public void testpic(@PathVariable(value = "filename")String picName,@PathVariable(value = "path")String docPath,HttpServletResponse response) throws IOException {
         FileInputStream fis = null;
-        File file = new File("D://100MEDIA//"+picName+".JPG");
+        File file = new File("D://"+docPath+"//"+picName);
         //File file = new File("home/images/test.png"); 服务器目录和本地图片的区别是图片路径
         fis = new FileInputStream(file);
         response.setContentType("image/jpg"); //设置返回的文件类型
