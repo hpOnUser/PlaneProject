@@ -21,4 +21,6 @@ public interface TaskService {
 
 	void setFinishStatusTaskByTask(Task task, String string);
 
+	Task getTaskByTask(Task task);
+
 }

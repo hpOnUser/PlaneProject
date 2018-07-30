@@ -147,12 +147,21 @@ public class taskController {
 	
 	@RequestMapping(value = "taskReport", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String taskReport(Task task) {
+	public String taskReport(Task task,HttpServletRequest request) {
 		
-		String status = taskServiceImpl.getStatusByTask(task);
+		Task task2 = taskServiceImpl.getTaskByTask(task);
+		String status = task2.getStatus();
+		
+		User bUser = userServiceImpl.getUserById(task2.getUserbid());
+		User cUser = userServiceImpl.getUserById(task2.getUsercid());
+		
 		if(status.equals("9")) {
 			taskServiceImpl.setStatusTaskByTask(task,"10");       //设置任务完成
 			taskServiceImpl.setFinishStatusTaskByTask(task,"1");
+			
+			userServiceImpl.reduceTasknumByUser(bUser);      //减少bc任务数目
+			userServiceImpl.reduceTasknumByUser(cUser);
+			
 			return JsonView.render(1,"任务完成，打印飞行报告!");
 		}
 		else {

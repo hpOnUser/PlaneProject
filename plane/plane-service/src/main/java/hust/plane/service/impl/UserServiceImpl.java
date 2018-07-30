@@ -223,4 +223,15 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		userDao.userAddTasknum(user);
 	}
+	
+	@Override
+	public void reduceTasknumByUser(User user) {
+		userDao.userReduceTasknum(user);
+	}
+
+	@Override
+	public User getUserById(String userbid) {
+		// TODO Auto-generated method stub
+		return userDao.selectByPrimaryKey(userbid);
+	}
 }

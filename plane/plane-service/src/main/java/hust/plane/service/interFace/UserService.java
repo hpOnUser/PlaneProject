@@ -30,4 +30,8 @@ public interface UserService {
     TailPage<User> getUserByRoleOrIdWithPage(String searchUserStatus, String searchUserId, TailPage<User> page);
 
 	void updataTasknumByUser(User user);
+
+	void reduceTasknumByUser(User user);
+
+	User getUserById(String userbid);
 }
