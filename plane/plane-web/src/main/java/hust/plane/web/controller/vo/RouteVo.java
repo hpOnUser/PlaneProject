@@ -1,10 +1,11 @@
 package hust.plane.web.controller.vo;
 
+import hust.plane.mapper.pojo.Route;
+import hust.plane.utils.DateKit;
+import hust.plane.utils.LineUtil;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import hust.plane.mapper.pojo.Route;
-import hust.plane.utils.LineUtil;
 
 
 public class RouteVo {
@@ -35,7 +36,7 @@ public class RouteVo {
             this.updateTime = route.getUpdateTime().toString();
         }
         if (route.getCreateTime() != null) {
-            this.createTime = route.getCreateTime().toString();
+            this.createTime = DateKit.dateFormat(route.getCreateTime(),"yyyy/MM/dd HH:mm:ss");
         }
         if (route.getType() != null) {
             this.type = route.getType();
