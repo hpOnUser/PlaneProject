@@ -6,7 +6,7 @@
   	<#include "common/res.html" />
   	<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
-    <script src="http://webapi.amap.com/maps?v=1.4.6&key=82f9e75505b649be9ab81a45ae34aa14"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.8&key=82f9e75505b649be9ab81a45ae34aa14&&plugin=AMap.Scale"></script>
     <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 </head>
 <body>
@@ -19,13 +19,22 @@
                    <div class="block span6">
 	                       <div id="container">
 	                       </div>
-	                        <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+	                       <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
 	                       <script>
 	                           var map = new AMap.Map('container', {
 	                               resizeEnable: true,
 	                               zoom: 11,
 	                               center:  [108.338507,22.680918]
 	                           });
+	                           map.plugin(["AMap.Scale"],function(){    //加载比例尺插件      
+	                    	       var scale = new AMap.Scale({
+	                    	        visible: true,
+	                    			position:'LB',
+	                    			
+	                    			}); 
+	                    	        map.addControl(scale);  
+	                    	        scale.show();
+	                    	 	});
 	                          /*  AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
 	                               //缩放控件，显示Zoom值
 	                               map.addControl(new BasicControl.Zoom({
