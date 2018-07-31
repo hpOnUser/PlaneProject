@@ -1,9 +1,10 @@
 package hust.plane.web.controller.vo;
 
-import java.util.List;
-
 import hust.plane.mapper.pojo.Alarm;
+import hust.plane.utils.DateKit;
 import hust.plane.utils.PointUtil;
+
+import java.util.List;
 
 
 public class AlarmVo {
@@ -31,7 +32,7 @@ public class AlarmVo {
 			this.descripte = alarm.getDescripte();
 		}
 		if (alarm.getCreateTime() != null) {
-			this.createTime = alarm.getCreateTime().toString();
+			this.createTime = DateKit.dateFormat(alarm.getCreateTime(),"yyyy/MM/dd HH:mm:ss");
 		}
 		if (alarm.getUpdateTime() != null) {
 			this.updateTime = alarm.getUpdateTime().toString();

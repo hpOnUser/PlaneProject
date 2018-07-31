@@ -34,9 +34,8 @@ public class ImgUtils {
         Alarm alarm = new Alarm();
         alarm.setUpdateTime(new Date());
         alarm.setStatus("1");//未处理告警
-        alarm.setPlaneid(planeId);//后续考虑
-        alarm.setImage("/"+"gxdxAlarmpic"+"/"+"100MEDIA"+"/" +file.getName()+".JPG");
-        //alarm.setImage();
+        alarm.setPlaneid(planeId);
+        alarm.setImage("http://74.82.205.98/images/originalPic/"+file.getName());
         ImgPicToAlarm imgPicToAlarm = new ImgPicToAlarm();
         Metadata metadata = ImageMetadataReader.readMetadata(file);
         for (Directory directory : metadata.getDirectories()) {

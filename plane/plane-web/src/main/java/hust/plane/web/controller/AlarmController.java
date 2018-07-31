@@ -148,14 +148,14 @@ public class AlarmController {
     }
 
 
-    @RequestMapping("/gxdxAlarmpic/{path}/{filename}")
-    public void testpic(@PathVariable(value = "filename")String picName,@PathVariable(value = "path")String docPath,HttpServletResponse response) throws IOException {
-        FileInputStream fis = null;
-        File file = new File("D://"+docPath+"//"+picName);
-        //File file = new File("home/images/test.png"); 服务器目录和本地图片的区别是图片路径
-        fis = new FileInputStream(file);
-        response.setContentType("image/jpg"); //设置返回的文件类型
-        response.setHeader("Access-Control-Allow-Origin", "*");//设置该图片允许跨域访问
-        IOUtils.copy(fis, response.getOutputStream());
-    }
+//    @RequestMapping("/gxdxAlarmpic/{path}/{filename}")
+//    public void testpic(@PathVariable(value = "filename")String picName,@PathVariable(value = "path")String docPath,HttpServletResponse response) throws IOException {
+//        FileInputStream fis = null;
+//        File file = new File("D://"+docPath+"//"+picName);
+//        //File file = new File("home/images/test.png"); 服务器目录和本地图片的区别是图片路径
+//        fis = new FileInputStream(file);
+//        response.setContentType("image/jpg"); //设置返回的文件类型
+//        response.setHeader("Access-Control-Allow-Origin", "*");//设置该图片允许跨域访问
+//        IOUtils.copy(fis, response.getOutputStream());
+//    }
 }
