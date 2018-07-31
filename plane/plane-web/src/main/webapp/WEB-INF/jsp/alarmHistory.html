@@ -18,8 +18,50 @@
 <body>
 <#include "common/header.html" />
 <#include "./nav.html" />
+<!-- 告警描述弹出层 -start -->
+        <div class="modal" id="alarmDescriptModal" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal_wapper">
+                <div class="modal-dialog w-8" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <h4 class="modal-title" >告警描述修改</h4>
+                        </div>
 
+                        <div class="modal-body">
+                            <form role="form" id="alarmDescriptForm" method="post"  enctype="multipart/form-data">
+                                <div class="form-group clearfix">
+                                    <label class="control-label"  style="white-space:nowrap" >告警点编号：</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="alarmDesId" placeholder="" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="control-label"  style="white-space:nowrap" >告警描述：</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" name="alarmDes" id="alarmDes" placeholder="请输入该告警点的描述">
+                                    </div>
+                                </div>
+                            </form>
 
+                            <div id="ocAlertTip" class="alert alert-success f-16" style="display:none;"><span id="al_info"></span>
+                                <button type="button" class="close"  onclick="closeAlert()">
+                                    <span aria-hidden="true">×</span>
+                                </button></div>
+                            <!-- tip提示-end -->
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="modifyAlaDes">修改</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- 告警描述弹出层 -start -->
 <!-- 历史告警弹出层 -start -->
 <div class="modal" id="alarmHistoryModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal_wapper">
@@ -109,7 +151,7 @@
                             </td>
                             <td><a class="pointer" onclick="showDetail('${alarm.alarmid}')">详细信息</a></td>
                             <td>
-                                操作
+                                <a class="pointer" onclick="modifyDes('${alarm.alarmid}')">修改告警描述</a>
                             </td>
                              </tr>
                             </#list>
@@ -139,11 +181,44 @@
 	    </div>
 	</div>
 <script>
-	function showAlarmModel()
-	{
-		window.location.reload();
-	}
-	
+    function showAlarmModel() {
+        window.location.reload();
+    }
+
+    function modifyAlarmDes(alarmid) {
+        $("#alarmDesId").attr("placeholder",alarmid);
+        $("#modifyAlaDes").click(function () {
+            var descript = $("#alarmDes").val();
+            $.ajax({
+                url: "modifyAlarmDes",
+                type: "POST",
+                data: {
+                    alarmid: alarmid,
+                    description: descript
+                },
+                success: function (result) {
+                    if (result.errcode == 0 && result.message == "SUCCESS") {
+                        $('#al_info').html("描述信息修改成功！");
+                        $('#ocAlertTip').css('display', 'block');
+                        setTimeout(showAlarmModel,1000);
+                    } else {
+                        $('#al_info').html(result.message);
+                        $('#ocAlertTip').css('display', 'block');
+                        setTimeout(showAlarmModel,1000);
+                    }
+                }
+            });
+        })
+    }
+
+    function modifyDes(alarmId) {
+        Modal.show("alarmDescriptModal");
+        modifyAlarmDes(alarmId);
+    }
+
+
+
+
 	function dealsAlarm(alarmid)
 		{
 		 	$.ajax(
@@ -154,7 +229,7 @@
 						success: function(e)
 						{
 							Modal.show('_ocDialogModal');
-							setTimeout(showAlarmModel,1000)
+							setTimeout(showAlarmModel,1000);
 							
 							//window.location.reload();
 						}

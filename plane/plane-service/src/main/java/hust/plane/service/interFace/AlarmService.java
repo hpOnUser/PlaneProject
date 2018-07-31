@@ -18,4 +18,6 @@ public interface AlarmService {
     void updateAlarmStatus(String alarmid);
 
     int insertAlarmById(String planeId);
+
+    int updateAlarmDesc(String alarmid, String description);
 }

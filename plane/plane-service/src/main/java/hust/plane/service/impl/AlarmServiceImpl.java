@@ -70,12 +70,12 @@ public class AlarmServiceImpl implements AlarmService {
             }
             List<Alarm> alarmList = new ArrayList<>();
             alarmList = ImgUtils.alarmList(WebConst.ALARM_PIC_PATH, planeId);
-            if(alarmList.size()==0){
+            if (alarmList.size() == 0) {
                 throw new TipException("文件夹内无告警图片");
             }
-            for(Alarm alarm:alarmList){
+            for (Alarm alarm : alarmList) {
                 int count = alarmMapper.insertAlarmSelective(alarm);
-                if(count<1){
+                if (count < 1) {
                     logger.error("告警点插入错误");
                     throw new TipException("告警点插入错误");
                 }
@@ -84,6 +84,19 @@ public class AlarmServiceImpl implements AlarmService {
             e.printStackTrace();
         }
 
+        return 1;
+    }
+
+    @Override
+    public int updateAlarmDesc(String alarmid, String description) {
+        if(StringUtils.isBlank(alarmid)||StringUtils.isBlank(description)){
+            throw new TipException("描述信息为空");
+        }
+        try {
+            alarmMapper.updateDesByAlarmId(alarmid, description);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
         return 1;
     }
 }

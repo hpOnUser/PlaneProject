@@ -148,14 +148,34 @@ public class AlarmController {
     }
 
 
-//    @RequestMapping("/gxdxAlarmpic/{path}/{filename}")
-//    public void testpic(@PathVariable(value = "filename")String picName,@PathVariable(value = "path")String docPath,HttpServletResponse response) throws IOException {
-//        FileInputStream fis = null;
-//        File file = new File("D://"+docPath+"//"+picName);
-//        //File file = new File("home/images/test.png"); 服务器目录和本地图片的区别是图片路径
-//        fis = new FileInputStream(file);
-//        response.setContentType("image/jpg"); //设置返回的文件类型
-//        response.setHeader("Access-Control-Allow-Origin", "*");//设置该图片允许跨域访问
-//        IOUtils.copy(fis, response.getOutputStream());
-//    }
+    @RequestMapping("/gxdxAlarmpic/{path}/{filename}")
+    public void testpic(@PathVariable(value = "filename")String picName,@PathVariable(value = "path")String docPath,HttpServletResponse response) throws IOException {
+        FileInputStream fis = null;
+        File file = new File("D://"+docPath+"//"+picName+".JPG");
+        //File file = new File("home/images/test.png"); 服务器目录和本地图片的区别是图片路径
+        fis = new FileInputStream(file);
+        response.setContentType("image/jpg"); //设置返回的文件类型
+        response.setHeader("Access-Control-Allow-Origin", "*");//设置该图片允许跨域访问
+        IOUtils.copy(fis, response.getOutputStream());
+    }
+
+    @RequestMapping(value = "modifyAlarmDes",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
+    @ResponseBody
+    public String doModify(@RequestParam(value="alarmid")String alarmid,@RequestParam(value="description")String description){
+        try {
+            int count = alarmService.updateAlarmDesc(alarmid, description);
+            if (count != 1) {
+                throw new TipException("告警点描述信息插入失败");
+            }
+        }catch (Exception e){
+            String msg = "插入告警点失败";
+            if(e instanceof TipException){
+                msg = e.getMessage();
+            }else{
+                logger.error(msg,e);
+            }
+            return JsonView.render(1,msg);
+        }
+        return JsonView.render(0,WebConst.SUCCESS_RESULT);
+    }
 }
