@@ -7,13 +7,7 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="js/jquery.form.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/oc.min.js"></script>
-    <link rel="icon" type="image/png" href="i/ico.png" sizes="16x16">
+    <#include "common/res.html" />
     <script type="text/javascript">
         CONETXT_PATH = '${s.base}';
     </script>
@@ -264,22 +258,24 @@
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-primary" onclick="addUser()">新增</button>
-                                    <button type="button" class="btn btn-primary" style="background-color:#5cb85c" onclick="modUser(${user.userid},'${user.username}')">修改</button>
-                                    <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser(${user.userid})">删除</button>
+                                    <button type="button" class="btn btn-primary" style="background-color:#5cb85c" onclick="modUser('${user.userid}','${user.username}')">修改</button>
+                                    <button type="button" class="btn btn-danger"  style="background-color:#d9534f" onclick="delUser('${user.userid}')">删除</button>
                                 </td>
                                 </tr>
                             </#list>
                         </#if>
                         </tbody>
                         </table>
-                        <p><#include "common/tailPage.html"/></p>
-                    </div>
+                            <p><#include "common/tailPage.html"/></p>
+                        </div>
+                   </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
+<#include "common/footer.html"/>
 <script type="text/javascript">
     function showAlert(message) {
         var alertitem = document.getElementById("alertDiv");

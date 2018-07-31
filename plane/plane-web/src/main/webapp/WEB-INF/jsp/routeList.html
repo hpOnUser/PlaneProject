@@ -64,17 +64,12 @@
                         center: mapcenter,
                         zoom: 13
                     });
-                    /* var scale = new AMap.Scale({
-                        visible: true,
-                       
-                        position:'LB',
-                    });
-                    map.addControl(scale); */
-                    
+                   
                 	map.plugin(["AMap.Scale"],function(){    //加载比例尺插件      
                 	       var scale = new AMap.Scale({
                 	        visible: true,
                 			position:'LB',
+                			
                 			}); 
                 	        map.addControl(scale);  
                 	        scale.show();
@@ -202,4 +197,5 @@
     </div>
 </div>
 </body>
+	<#include "common/footer.html"/>
 </html>

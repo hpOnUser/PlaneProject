@@ -8,20 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <!-- 引入资源文件 -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="js/jquery.form.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/oc.min.js"></script>
+     <#include "common/res.html" />
     <link rel="icon" type="image/png" href="i/ico.png" sizes="16x16">
 </head>
 
 <body>
    <#include "common/header.html" />
-    <#include "./nav.html" />
-    
-    <div class="content">
+   <#include "./nav.html" />  
+   <div class="content">
         <div class="container-fluid">
 	          <form id="queryPageForm" class="mt-15">
 	            <div class="block span6">
@@ -36,8 +30,8 @@
 	                    <p><input name="taskid" type="text" value="" class="search-text" value="" placeholder="请输入飞行路径编号">
 	                    </p>
 	                    <p><input type="submit" class="search-btn" value="搜索"></p>
-	            </div>
-	
+	                </div>
+				</div>
 	            <div class="row-fluid">
 	                <div class="block span6">
 	                    <div id="tablewidget" class="block-body collapse in">
@@ -90,6 +84,7 @@
 	    </div>
 	</div>
     </div>
+ <#include "common/footer.html"/>
  <script>
  	function importPlanePath(id,heigth){
  		if(heigth==null || height==""){
@@ -97,9 +92,9 @@
 			setTimeout(showAlarmModel,1000)				
  		}else{
  			//导出飞行路径
- 			
  		}	
  	}
 </script>
+
 </body>
 </html>

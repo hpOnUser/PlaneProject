@@ -65,14 +65,15 @@
                 zoom: 9,
                 center: [107.79876,23.06781], //中心点坐标
             });
-/* 
-            AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
-                //缩放控件，显示Zoom值
-                map.addControl(new BasicControl.Zoom({
-                    position: 'lt',
-                    showZoomNum: true,
-                }));
-            }); */
+            map.plugin(["AMap.Scale"],function(){    //加载比例尺插件      
+     	       var scale = new AMap.Scale({
+     	        visible: true,
+     			position:'LB',
+     			}); 
+     	        map.addControl(scale);  
+     	        scale.show();
+     	 	});
+            
             var infoWindow = new AMap.InfoWindow({
                 isCustom: true,
                 offset: new AMap.Pixel(20, -25)
@@ -87,6 +88,7 @@
                 markerlist[statuscode[m]] = new Array();
             }
 
+            
             for (var i = 0; i < markersize; i++) {
                 var statusDec = Statusdec[Number(data[i].status)];
                 var imgsrc = 'i/' + Imgsrc[Number(data[i].status)];
@@ -112,8 +114,6 @@
 
                 markeritem.content = createInfoWindow(title, content.join("<br/>"));
                 markeritem.on('click', markerClick);
-                //markeritem.emit('click', {target: markeritem});
-
 
                 markerlist[data[i].status].push(markeritem);
             }
@@ -210,6 +210,6 @@
           
         </script>
  		</div>
- 
+ 	<#include "common/footer.html"/>
 	</body>
 </html>

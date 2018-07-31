@@ -51,7 +51,14 @@
                             center: planePath.plongda[0],
                             zoom: 15
                         });
-
+                        map.plugin(["AMap.Scale"],function(){    //加载比例尺插件      
+                 	       var scale = new AMap.Scale({
+                 	        visible: true,
+                 			position:'LB',
+                 			}); 
+                 	        map.addControl(scale);  
+                 	        scale.show();
+                 	 	});
                         var infoWindow = new AMap.InfoWindow({
                             isCustom: true,
                             offset: new AMap.Pixel(20, -35)
@@ -168,5 +175,6 @@
             </div>
         </div>
     </div>
+    <#include "common/footer.html"/>
 </body>
 </html>

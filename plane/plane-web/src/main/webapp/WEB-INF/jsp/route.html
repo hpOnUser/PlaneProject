@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" href="i/ico.png" sizes="16x16">
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
-    <script src="http://webapi.amap.com/maps?v=1.4.6&key=82f9e75505b649be9ab81a45ae34aa14"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.8&key=82f9e75505b649be9ab81a45ae34aa14&&plugin=AMap.Scale"></script>
    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script> 
 
 </head>
@@ -36,6 +36,15 @@
                         center: [116.397428, 39.90923],
                         zoom: 13
                     });
+                    map.plugin(["AMap.Scale"],function(){    //加载比例尺插件      
+             	       var scale = new AMap.Scale({
+             	        visible: true,
+             			position:'LB',
+             			
+             			}); 
+             	        map.addControl(scale);  
+             	        scale.show();
+             	 });
                     var position = ${position};
                    //自定义marker图示
                     AMapUI.loadUI(['overlay/SimpleMarker'], function (SimpleMarker) {
