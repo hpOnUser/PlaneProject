@@ -69,4 +69,20 @@ public class WordUtils {
         }
         return f;
     }
+    
+    public static String getRootPath() {
+    	String classPath = WordUtils.class.getClassLoader().getResource("/").getPath();
+    	String rootPath = "";
+    	//windows下
+    	if("\\".equals(File.separator)){
+    	rootPath = classPath.substring(1,classPath.indexOf("/WEB-INF/classes"));
+    	rootPath = rootPath.replace("/", "\\");
+    	}
+    	//linux下
+    	if("/".equals(File.separator)){
+    	rootPath = classPath.substring(0,classPath.indexOf("/WEB-INF/classes"));
+    	rootPath = rootPath.replace("\\", "/");
+    	}
+    	return rootPath;
+    }
 }

@@ -193,8 +193,7 @@ public class taskController {
 		List<Alarm> alarms = alarmserviceImpl.getAlarmsByTaskId(task2.getTaskid());
 		List<AlarmVo> alarmVos = new ArrayList<AlarmVo>();
 		
-		String classpath = this.getClass().getResource("/").getPath().replaceFirst("/", "");
-		String webappRoot = classpath.replaceAll("WEB-INF/classes/", "");
+		String webappRoot = WordUtils.getRootPath();
 		if (alarms.size() > 0) {
 			for (int i = 0; i < alarms.size(); ++i) {
 				AlarmVo alarmVo = new AlarmVo(alarms.get(i));
