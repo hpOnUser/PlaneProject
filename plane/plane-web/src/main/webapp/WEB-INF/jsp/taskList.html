@@ -25,8 +25,8 @@
 	                	<p>
 								<select  name="status" class="search-select">
 									<option value="-1">全部</option>
-									<option value="0" <#if (selectStatus)?? && selectStatus =="0">selected="selected"</#if> >受理</option>
-									<option value="1" <#if (selectStatus)?? && selectStatus =="1">selected="selected"</#if> >待收</option>
+									<option value="0" <#if (selectStatus)?? && selectStatus =="0">selected="selected"</#if> >已完成</option>
+									<option value="1" <#if (selectStatus)?? && selectStatus =="1">selected="selected"</#if> >未完成</option>
 								</select>
 							</p>
 	                    <p>
@@ -78,12 +78,11 @@
                                	    <#if  taskpojo.task.status == '-1'><span class="label label-danger">故障</span>
                                	    <#elseif taskpojo.task.status =='0'><span class="label label-warning">任务退回</span>
                                	    <#elseif taskpojo.task.status =='1'><span class="label label-primary">已派发</span>
-                               	    <#elseif taskpojo.task.status =='2'><span class="label label-primary">放飞者确认</span>
-                               	    <#elseif taskpojo.task.status =='3'><span class="label label-primary">接收者确认</span>
+                               	    <#elseif taskpojo.task.status =='2'><span class="label label-primary">放飞者已确认</span>
+                               	    <#elseif taskpojo.task.status =='3'><span class="label label-primary">接收者已确认</span>
                                	    <#elseif taskpojo.task.status =='4'><span class="label label-info">开始执行</span>
-                               	    <#elseif taskpojo.task.status =='5'><span class="label label-info">自检完成</span>
+                               	    <#elseif taskpojo.task.status =='5'><span class="label label-info">自检中</span>
                                	    <#elseif taskpojo.task.status =='6'><span class="label label-success">自检完成</span>
-                               	    	<button type="button" class="btn btn-info btn-xs" onclick="onsureFly('${taskpojo.task.taskid!}')">允许放飞</button>
                                	    <#elseif taskpojo.task.status =='7'><span class="label label-primary">待放飞</span>
                                	    <#elseif taskpojo.task.status =='8'><span class="label label-info">飞行中</span>
                                	    <#elseif taskpojo.task.status =='9'><span class="label label-success">飞行完成</span>
@@ -92,7 +91,13 @@
                                	    </#if>
                                 	</td>
                                 	<td>
-                                		 <a href="javascript:void(0)" onclick="toEdit('${taskpojo.task.taskid!}');">生成飞行报告</a>
+                                		<#if taskpojo.task.status=='6'> 
+                                		<button type="button" class="btn btn-info btn-xs" onclick="onsureFly('${taskpojo.task.taskid!}')">允许放飞</button>
+                                		<#elseif taskpojo.task.status=='9'>  
+                                		<button type="button" class="btn btn-info btn-xs" onclick="onsureTaskOver('${taskpojo.task.taskid!}')">巡视完成确认</button>
+                                		<#elseif taskpojo.task.status=='10'>
+                                		 <a href="${s.base}/taskReport.action?taskid=${taskpojo.task.taskid!}" style="cursor:pointer; ">生成飞行报告</a>
+                                		</#if>
                                 	</td>
                                 	</tr>
                                 </#list>
@@ -130,6 +135,7 @@
                 'taskid': taskid,
             },
             success: function (result) {
+            	
             	 if (result.errcode == 1 ){
             		 $("#resText").text(result.message);
                   	Modal.show('_ocDialogModal');
@@ -141,26 +147,27 @@
         });
 		
 	}
-    function toEdit(taskid){
-    	//在此打印报告
+    function onsureTaskOver(taskid){
     	$.ajax({
             type: "post",
-            url: "${s.base}/taskReport.action",          
+            url: "${s.base}/onsureTaskOver.action",
             data: {
                 'taskid': taskid,
             },
             success: function (result) {
+            	 if (result.errcode == 1 ){
+            		 $("#resText").text(result.message);
+                  	Modal.show('_ocDialogModal');
+                  	setTimeout("document.location.reload();",1000);
+                  	
+            	 }
             	
-            	 if (result.errcode == 1 ) {
-            		$("#resText").text(result.message);
-                 	Modal.show('_ocDialogModal');
-                 	setTimeout("document.location.reload();",1000);
-                 	
-            	 }         	     	
             }
         });
-   	   	
+    	
+    	
     }
+  
 </script>
 <#include "common/footer.html"/>
 </body>

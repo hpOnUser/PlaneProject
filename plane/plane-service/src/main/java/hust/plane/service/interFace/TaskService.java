@@ -3,6 +3,7 @@ package hust.plane.service.interFace;
 import java.util.List;
 
 import hust.plane.mapper.pojo.Task;
+import hust.plane.mapper.pojo.User;
 import hust.plane.utils.page.TailPage;
 import hust.plane.utils.page.TaskPojo;
 
@@ -22,5 +23,7 @@ public interface TaskService {
 	void setFinishStatusTaskByTask(Task task, String string);
 
 	Task getTaskByTask(Task task);
+
+	List<Task> getTasklistByAuser(User aUser);
 
 }

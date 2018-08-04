@@ -13,6 +13,8 @@ public interface PlaneService {
 
 	List<Plane> findByPlaneStatus(Plane plane);
 
+	Plane getPlaneByPlane(Plane plane);
+
 
 
 }

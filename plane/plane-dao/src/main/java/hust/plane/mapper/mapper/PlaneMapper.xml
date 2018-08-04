@@ -35,4 +35,9 @@
 		from plane
 		where status=#{0}
 	</select>
+	<select id="getPlaneByPlane" parameterType="hust.plane.mapper.pojo.Plane" resultMap="BaseResultMap">
+		select planeid,planename,userid,AsText(flongda) as flongda,status,updatetime
+		from plane
+		where planeid=#{planeid}
+	</select>
 </mapper>

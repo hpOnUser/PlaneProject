@@ -2,11 +2,17 @@ package hust.plane.web.controller;
 
 import hust.plane.constant.WebConst;
 import hust.plane.mapper.pojo.Alarm;
+import hust.plane.mapper.pojo.Plane;
 import hust.plane.mapper.pojo.Route;
+import hust.plane.mapper.pojo.Task;
+import hust.plane.mapper.pojo.User;
 import hust.plane.service.interFace.AlarmService;
 import hust.plane.service.interFace.PlaneService;
 import hust.plane.service.interFace.RouteService;
+import hust.plane.service.interFace.TaskService;
+import hust.plane.utils.ImgUtils;
 import hust.plane.utils.JsonUtils;
+import hust.plane.utils.PlaneUtils;
 import hust.plane.utils.pojo.InfoTplData;
 import hust.plane.utils.pojo.JsonView;
 import hust.plane.utils.pojo.TipException;
@@ -40,7 +46,10 @@ public class AlarmController {
     @Autowired
     private PlaneService planeServiceImpl;
 
-    @Resource
+    @Autowired
+    private TaskService taskServiceImpl;
+    
+    @Autowired
     private RouteService routeServiceImpl;
 
     //返回所有的告警点
@@ -85,12 +94,29 @@ public class AlarmController {
         return JsonView.render(0, WebConst.SUCCESS_RESULT, info);
     }
 
-    @RequestMapping(value = "alarmImport", method = RequestMethod.GET)
+   /* @RequestMapping(value = "alarmImport", method = RequestMethod.GET)
     public String toAlarmImport(Model model) {
+    	
         model.addAttribute("curNav", "alarmImport");
         return "importAlarm";
     }
+*/
+    
+    @RequestMapping(value = "alarmImport", method = RequestMethod.GET)
+    public String toAlarmImport(Model model,HttpServletRequest request) {
+    	
+    	User aUser = PlaneUtils.getLoginUser(request);
+    	List<Task> tasklist = taskServiceImpl.getTasklistByAuser(aUser);
+    	List<Plane> planelist = planeServiceImpl.getAllPlane();
+    	
+    	
+    	model.addAttribute("planelist",planelist);
+    	model.addAttribute("tasklist",tasklist);
+        model.addAttribute("curNav", "alarmImport");
+        return "importAlarmImg";
+    }
 
+   
     @RequestMapping(value = "importAlarm", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String doImportAlarm(@RequestParam(value = "planeId") String planeId, HttpServletRequest request) {
@@ -110,9 +136,9 @@ public class AlarmController {
     
     
     //导入告警图片
-/*    @RequestMapping(value = "importAlarmImg", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "importAlarmImg", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String importAlarmImg(@RequestParam(value = "planeId") String planeId,@RequestParam("AlarmImgs") MultipartFile[] AlarmImgs,HttpServletRequest request) {
+    public String importAlarmImg(@RequestParam(value = "taskid") String taskid,@RequestParam(value = "planeid") String planeid,@RequestParam("AlarmImgs") MultipartFile[] AlarmImgs,HttpServletRequest request) {
     	
     	List<String> list = new ArrayList<String>();
         if (AlarmImgs != null && AlarmImgs.length > 0) {
@@ -121,9 +147,20 @@ public class AlarmController {
                 // 保存文件
                 list = saveFile(request, file, list);
             }
-        }       	
+        }
+       
+        for(int i=0;i<list.size();i++) {
+        	File newfile = new File(list.get(i));
+        	try {
+				Alarm alarm = ImgUtils.printImageTags(newfile,planeid,taskid);
+				alarmService.insertAlarmByAlarms(alarm);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+        }
+        
     	return  "告警图片导入成功！";
-    }*/
+    }
     
     //保存图片
     private List<String> saveFile(HttpServletRequest request,MultipartFile file, List<String> list) {
@@ -131,14 +168,14 @@ public class AlarmController {
         if (!file.isEmpty()) {
            try {
                 // 保存的文件路径(如果用的是Tomcat服务器，文件会上传到\\%TOMCAT_HOME%\\webapps\\YourWebProject\\upload\\文件夹中     
-        	    String filePath = request.getSession().getServletContext().getRealPath("/")+ "upload/" + file.getOriginalFilename();
+        	    String filePath = request.getSession().getServletContext().getRealPath("/")+ "upload"+File.separator+ file.getOriginalFilename();
         	    //System.out.println(filePath);  这个保存路径是个问题啊
-                list.add(file.getOriginalFilename());
-                File saveDir = new File(filePath);
-                if (!saveDir.getParentFile().exists())
-                    saveDir.getParentFile().mkdirs();
+                list.add(filePath);
+                File savefile = new File(filePath);
+                if (!savefile.getParentFile().exists())
+                	savefile.getParentFile().mkdirs();
                 // 转存文件
-                file.transferTo(saveDir);
+                file.transferTo(savefile);
                 return list;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -148,6 +185,7 @@ public class AlarmController {
     }
 
 
+    
     @RequestMapping("/gxdxAlarmpic/{path}/{filename}")
     public void testpic(@PathVariable(value = "filename")String picName,@PathVariable(value = "path")String docPath,HttpServletResponse response) throws IOException {
         FileInputStream fis = null;
@@ -159,6 +197,7 @@ public class AlarmController {
         IOUtils.copy(fis, response.getOutputStream());
     }
 
+    //修改告警信息
     @RequestMapping(value = "modifyAlarmDes",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
     @ResponseBody
     public String doModify(@RequestParam(value="alarmid")String alarmid,@RequestParam(value="description")String description){

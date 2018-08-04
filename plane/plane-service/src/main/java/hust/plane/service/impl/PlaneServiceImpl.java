@@ -37,5 +37,11 @@ public class PlaneServiceImpl implements PlaneService{
 		return planeList;
 	}
 
+	@Override
+	public Plane getPlaneByPlane(Plane plane) {
+		
+		return planeMapper.getPlaneByPlane(plane);
+	}
+
 
 }

@@ -63,13 +63,17 @@ public class AlarmServiceImpl implements AlarmService {
 
     @Override
     public int insertAlarmById(String planeId) {
-        try {
+        /*try {
             if (StringUtils.isBlank(planeId)) {
                 logger.error("输入的无人机编号为空");
                 throw new TipException("输入的无人机编号为空");
             }
+            if (StringUtils.isBlank(taskid)) {
+                logger.error("输入的任务编号为空");
+                throw new TipException("输入的任务编号为空");
+            }
             List<Alarm> alarmList = new ArrayList<>();
-            alarmList = ImgUtils.alarmList(WebConst.ALARM_PIC_PATH, planeId);
+            alarmList = ImgUtils.alarmList(WebConst.ALARM_PIC_PATH, planeId,taskid);
             if (alarmList.size() == 0) {
                 throw new TipException("文件夹内无告警图片");
             }
@@ -83,7 +87,7 @@ public class AlarmServiceImpl implements AlarmService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+*/
         return 1;
     }
 
@@ -99,4 +103,22 @@ public class AlarmServiceImpl implements AlarmService {
         }
         return 1;
     }
+
+	@Override
+	public List<Alarm> getAlarmsByTaskId(String taskid) {
+		return alarmMapper.getAlarmsByTaskId(taskid);
+	}
+
+	@Override
+	public int insertAlarmByAlarms(Alarm alarm) {
+		
+		if(!StringUtils.isBlank(alarm.getAlarmid())) {
+			
+			alarmMapper.insertAlarmSelective(alarm);
+			
+			return 1;
+		}		
+		return 0;
+	}
+	
 }

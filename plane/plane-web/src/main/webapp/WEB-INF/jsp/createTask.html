@@ -78,6 +78,7 @@
                         <label class="control-label">无人机编号：</label>
                         <div class="col-sm-5">
                             <select  name="planeid" class="form-control" type="select">
+                            		<option value="待定">待定</option>
 									<#if planes??>
 									<#list planes as plane>
 										<option value="${plane.planeId!}">${plane.planeId!}</option>

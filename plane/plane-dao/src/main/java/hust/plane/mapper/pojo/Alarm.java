@@ -18,6 +18,14 @@ public class Alarm {
     @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatetime;
     
+    private String taskid;
+    
+	public String getTaskid() {
+		return taskid;
+	}
+	public void setTaskid(String taskid) {
+		this.taskid = taskid;
+	}
 	public String getStatus() {
 		return status;
 	}
@@ -66,5 +74,12 @@ public class Alarm {
 	public void setUpdateTime(Date updateTime) {
 		this.updatetime = updateTime;
 	}
+	@Override
+	public String toString() {
+		return "Alarm [alarmid=" + alarmid + ", image=" + image + ", planeid=" + planeid + ", alongda=" + alongda
+				+ ", descripte=" + descripte + ", status=" + status + ", createtime=" + createtime + ", updatetime="
+				+ updatetime + ", taskid=" + taskid + "]";
+	}
+	
 	
 }

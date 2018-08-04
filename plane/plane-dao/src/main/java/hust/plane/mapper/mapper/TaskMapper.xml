@@ -325,12 +325,15 @@
 		SELECT 
 		<include refid="Base_Column_List" />
 		FROM task
-		WHERE 1=1 
+		WHERE 1=1
+		<if test="param1.useraid != null" >
+        AND userAid = #{param1.useraid}
+        </if> 
 		<if test="param1.taskid != null">
 		AND taskid = #{param1.taskid}
 		</if>
 		<if test="param1.status != null">
-		AND status = #{param1.status }
+		AND status = #{param1.status}
 		</if>
 		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER} 
 	</select>
@@ -339,5 +342,11 @@
 		FROM task
 		WHERE 
 		taskid = #{taskid,jdbcType=VARCHAR}
+	</select>
+	<select id="getTasklistByuserAid" parameterType="hust.plane.mapper.pojo.Task" resultMap="BaseResultMap">
+		SELECT taskid		
+		FROM task
+		WHERE 
+		userAid = #{userAid,jdbcType=VARCHAR}
 	</select>
 </mapper>

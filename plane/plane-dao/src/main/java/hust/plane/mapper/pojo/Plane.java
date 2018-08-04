@@ -17,7 +17,19 @@ public class Plane {
     @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatetime;
 	
-    public String getHeight() {
+    public String getPlaneid() {
+		return planeid;
+	}
+	public void setPlaneid(String planeid) {
+		this.planeid = planeid;
+	}
+	public String getPlanename() {
+		return planename;
+	}
+	public void setPlanename(String planename) {
+		this.planename = planename;
+	}
+	public String getHeight() {
     	return height;
     }
     public void setHeight(String height) {
@@ -30,12 +42,7 @@ public class Plane {
 		this.planeid = planeId;
 	}
 
-	public String getPlanename() {
-		return planename;
-	}
-	public void setPlanename(String planename) {
-		this.planename = planename;
-	}
+	
 	public String getUserid() {
 		return userid;
 	}

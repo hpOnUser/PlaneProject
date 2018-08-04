@@ -20,4 +20,8 @@ public interface AlarmService {
     int insertAlarmById(String planeId);
 
     int updateAlarmDesc(String alarmid, String description);
+
+	List<Alarm> getAlarmsByTaskId(String taskid);
+	
+	int insertAlarmByAlarms(Alarm alarm);
 }

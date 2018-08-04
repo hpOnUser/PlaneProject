@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ImgUtils {
-    public static List<Alarm> alarmList(String path,String planeId) throws Exception {
+ /*   public static List<Alarm> alarmList(String path,String planeId) throws Exception {
         File file = new File(path);
         List<Alarm> alarmList = new ArrayList<>(file.listFiles().length + 2);
         if (file.exists()) {
@@ -25,19 +25,23 @@ public class ImgUtils {
             }
         }
         return alarmList;
-    }
+    }*/
 
     /**
      * 读取照片里面的信息
      */
-    private static Alarm printImageTags(File file,String planeId) throws ImageProcessingException, Exception {
+    public static Alarm printImageTags(File file,String planeId,String taskid) throws ImageProcessingException, Exception {
         Alarm alarm = new Alarm();
         alarm.setUpdateTime(new Date());
         alarm.setStatus("1");//未处理告警
         alarm.setPlaneid(planeId);
-        alarm.setImage("/gxdxAlarmpic/100MEDIA/"+file.getName());
+        
+        alarm.setImage("upload"+File.separator+file.getName());
+        
+        alarm.setTaskid(taskid);
         ImgPicToAlarm imgPicToAlarm = new ImgPicToAlarm();
         Metadata metadata = ImageMetadataReader.readMetadata(file);
+        if(file.exists()) {
         for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
                 String tagName = tag.getTagName();  //标签名
@@ -58,8 +62,11 @@ public class ImgUtils {
                     imgPicToAlarm.setLongitude(pointToLatlong(desc));
                 }
             }
+        }}else {
+        	System.out.println("文件不存在！！");
         }
         alarm.setAlongda(imgPicToAlarm.setLongLatitude(imgPicToAlarm.getLongitude(), imgPicToAlarm.getLatitude()));
+        System.out.println(alarm.toString());
         return alarm;
     }
 

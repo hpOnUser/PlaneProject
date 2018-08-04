@@ -34,4 +34,6 @@ public interface TaskMapper {
     List<Task> queryPage(Task task, TailPage<TaskPojo> page);
 
 	String getStatusByTask(Task task);
+
+	List<Task> getTasklistByuserAid(String userAid);
 }

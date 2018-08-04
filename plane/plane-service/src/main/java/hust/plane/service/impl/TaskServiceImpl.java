@@ -137,6 +137,12 @@ public class TaskServiceImpl implements TaskService {
 		// TODO Auto-generated method stub
 		return taskMapper.selectByPrimaryKey(task.getTaskid());
 	}
+
+	@Override
+	public List<Task> getTasklistByAuser(User aUser) {
+		
+		return taskMapper.getTasklistByuserAid(aUser.getUserid());
+	}
 	
 	
 

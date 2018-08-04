@@ -18,4 +18,5 @@ public interface AlarmMapper {
 	void updateByAlarmId(String alarmid);
     int insertAlarmSelective(Alarm alarm);
 	void updateDesByAlarmId(String alarmid, String description);
+	List<Alarm> getAlarmsByTaskId(String taskid);
 }

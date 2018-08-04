@@ -5,9 +5,10 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Task {
+	
     private String taskid;
 
-    private String useraid;
+	private String useraid;
 
     private String userbid;
 
@@ -30,12 +31,12 @@ public class Task {
     private String finishstatus;
 
     public String getTaskid() {
-        return taskid;
-    }
+		return taskid;
+	}
 
-    public void setTaskid(String taskid) {
-        this.taskid = taskid == null ? null : taskid.trim();
-    }
+	public void setTaskid(String taskid) {
+		this.taskid = taskid;
+	}
 
     public String getUseraid() {
         return useraid;
