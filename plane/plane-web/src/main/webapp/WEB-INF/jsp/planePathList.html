@@ -23,8 +23,8 @@
 
 	                <div class="block-body collapse in">
 	                	<p><select  name="status" class="search-select">
-								<option value="1">可用</option>
-								<option value="0" <#if (selectStatus)?? && selectStatus =="0">selected="selected"</#if>>过期</option>		
+								<option value="1">可导出</option>
+								<option value="0" <#if (selectStatus)?? && selectStatus =="0">selected="selected"</#if>>不可导出</option>		
 							</select>
 						</p>
 	                    <p><input name="taskid" type="text" value="" class="search-text" value="" placeholder="请输入飞行路径编号">
@@ -68,8 +68,9 @@
 	                </div>
 	            </div>
 	        </form>
-	    </div>
-	    <div class="modal" id="_ocDialogModal" tabindex="-1" aria-hidden="true">
+	    </div> 
+    </div>
+     <div class="modal" id="_ocDialogModal" tabindex="-1" aria-hidden="true">
 	    <div class="modal_wapper small">
 	        <div class="modal-dialog w-4" >
 	            <div class="modal-content">
@@ -83,8 +84,6 @@
 	        </div>
 	    </div>
 	</div>
-    </div>
- <#include "common/footer.html"/>
  <script>
  	function importPlanePath(id,heigth){
  		if(heigth==null || height==""){

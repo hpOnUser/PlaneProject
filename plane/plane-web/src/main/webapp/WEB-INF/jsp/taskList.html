@@ -23,10 +23,10 @@
 	                <a class="block-heading f-14" data-toggle="collapse">任务管理</a>
 	                <div class="block-body collapse in">
 	                	<p>
-								<select  name="status" class="search-select">
+								<select  name="finishstatus" class="search-select">
 									<option value="-1">全部</option>
-									<option value="0" <#if (selectStatus)?? && selectStatus =="0">selected="selected"</#if> >已完成</option>
-									<option value="1" <#if (selectStatus)?? && selectStatus =="1">selected="selected"</#if> >未完成</option>
+									<option value="1" <#if (selectStatus)?? && selectStatus =="1">selected="selected"</#if> >已完成</option>
+									<option value="0" <#if (selectStatus)?? && selectStatus =="0">selected="selected"</#if> >未完成</option>
 								</select>
 							</p>
 	                    <p>
@@ -71,7 +71,7 @@
                                 	<td>${taskpojo.userCName!}</td>
                                 	<td>${taskpojo.task.usercid!}</td>
                                 	<td>${taskpojo.task.planeid!}</td>
-                                	<td>${taskpojo.task.routeid!}</td>
+                                	<td>${taskpojo.task.planepathid!}</td>
                                 	<td>${(taskpojo.task.plantime?datetime)!}</td>
                                 	<td>
                                 	<#if taskpojo.task.status?? && taskpojo.task.status!="">                               	

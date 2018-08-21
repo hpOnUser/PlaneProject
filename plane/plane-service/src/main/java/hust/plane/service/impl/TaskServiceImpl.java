@@ -57,12 +57,12 @@ public class TaskServiceImpl implements TaskService {
 	public TailPage<TaskPojo> queryPage(Task task, TailPage<TaskPojo> page) {
 		TaskExample example =new TaskExample();
 		Criteria createCriteria = example.createCriteria();
-		if("-1".equals(task.getStatus()))
+		if("-1".equals(task.getFinishstatus()))
 		{
-			task.setStatus(null);
+			task.setFinishstatus(null);
 		}
-		else if(task.getStatus()!=null){
-			createCriteria.andStatusEqualTo(task.getStatus());
+		else if(task.getFinishstatus()!=null){
+			createCriteria.andStatusEqualTo(task.getFinishstatus());
 		}
 		if(task.getTaskid()!=null)
 		{

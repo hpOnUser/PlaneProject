@@ -332,8 +332,8 @@
 		<if test="param1.taskid != null">
 		AND taskid = #{param1.taskid}
 		</if>
-		<if test="param1.status != null">
-		AND status = #{param1.status}
+		<if test="param1.finishstatus != null">
+		AND finishstatus = #{param1.finishstatus}
 		</if>
 		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER} 
 	</select>

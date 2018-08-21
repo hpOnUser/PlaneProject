@@ -47,7 +47,7 @@
                             <!-- <select name="useraid" class="form-control" type="select" disabled>
 									<option value="${aUser.userid!}">${aUser.userid!}</option>								
 				            </select> -->
-				            <input type="text" class="form-control" name="useraid" value="${aUser.userid!}" disabled>
+				      <input type="text" class="form-control" name="useraid" value="${aUser.userid!}:${aUser.username!}" disabled>
                         </div>
                     </div>
                     <div class="form-group">
@@ -78,7 +78,7 @@
                         <label class="control-label">无人机编号：</label>
                         <div class="col-sm-5">
                             <select  name="planeid" class="form-control" type="select">
-                            		<option value="待定">待定</option>
+                            		<!-- <option value="待定">待定</option> -->
 									<#if planes??>
 									<#list planes as plane>
 										<option value="${plane.planeId!}">${plane.planeId!}</option>
@@ -121,7 +121,6 @@
             </div>
         </div>
     </div>
-	<#include "common/footer.html"/>
 </body>
 <!--<script type="text/javascript">-->
     <!--$("#creakTask").click(function(){-->

@@ -162,7 +162,8 @@ hr {
 .content {
 	min-width: 400px;
 	position: relative;
-	min-height: 800px;
+	height:93%;
+	min-height:870px;
 	background: #fff;
 	margin-left: 240px;
 	border-left: 1px solid #cccccc;

@@ -112,7 +112,7 @@ public class AlarmVo {
 	public void setImgBaseCode(String webappRoot) {
 
 		String imgFile = webappRoot+File.separator+image;    //获取数据库的数据
-		System.out.println(imgFile);
+		//System.out.println(imgFile);
 		InputStream in = null;
 		byte[] data = null;
 		try {

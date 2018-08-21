@@ -132,12 +132,12 @@ public class taskController {
 			task.setTaskid(null);
 		}
 
-		if ("-1".equals(task.getStatus())) {
+		if ("-1".equals(task.getFinishstatus())) {
 			// 查询全部
-			task.setStatus(null);
+			task.setFinishstatus(null);
 		}
 		page = taskServiceImpl.queryPage(task, page);
-		model.addAttribute("selectStatus", task.getStatus());
+		model.addAttribute("selectStatus", task.getFinishstatus());
 		model.addAttribute("page", page);
 		model.addAttribute("curNav", "taskAllList");
 		return "taskList";

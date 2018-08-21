@@ -1,23 +1,23 @@
   <div class="navbar">
         <div class="navbar-inner">
-            <a  class="cms-logo" title="无人机通信巡检系统"></a>
+            <a  class="cms-logo" title="无人机通信巡视系统"></a>
             <span class="brand">无人机通信巡视系统</span>
-
-            <ul class = "nav navbar-nav navbar-right pull-right">
+            <ul class = "nav navbar-nav navbar-right pull-right" >
                 <li class="dropdown">
-                <a class="dropdown-toggle profile" style="height:60px;width:90px;" data-toggle="dropdown" aria-expanded="true" href="${s.base}/home.html">
-                  <img alt="user-img" class="img-circle" src="https://avatars1.githubusercontent.com/u/30889038?s=40&v=4">
+                <a class="dropdown-toggle profile" style="height:60px;width:80px;padding-top:10px;" data-toggle="dropdown" aria-expanded="true" href="${s.base}/home.html">
+                  <img alt="user-img" class="img-circle"  src="https://avatars1.githubusercontent.com/u/30889038?s=40&v=4">
                 </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" target="_self"><i class="fa fa-eye" aria-hidden="true"></i>登陆名:<#if Session["login_user"]?exists>
+                        <li><a href="#" target="_self"><i class="fa fa-eye" aria-hidden="true"></i>用户名：<#if Session["login_user"]?exists>
                             ${Session["login_user"].username}
                         </#if></a></li>
-                        <li><a href="${s.base}/home.html" target="_self"><i class="fa fa-eye" aria-hidden="true"></i>回到首页</a></li>
+                      
                         <li><a href="${s.base}/admin/profile"><i class="fa fa-sun-o"></i> 个人设置</a></li>
                         <li><a href="${s.base}/admin/logout"><i class="fa fa-sign-out"></i> 注销</a></li>
                     </ul>
                 </li>
             </ul>
+            <span class="brand" style="float:right;margin-right:5px;"><#if Session["login_user"]?exists>${Session["login_user"].username}</#if></span>
         </div>
     </div>
 
