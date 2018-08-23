@@ -3,6 +3,7 @@ package hust.plane.web.controller.vo;
 import java.util.List;
 
 import hust.plane.mapper.pojo.Plane;
+import hust.plane.utils.DateKit;
 import hust.plane.utils.PointUtil;
 
 public class PlaneVo {
@@ -28,7 +29,7 @@ public class PlaneVo {
 			this.dec = plane.getDec();
 		}
 		if (plane.getUpdateTime() != null) {
-			this.updateTime = plane.getUpdateTime().toString();
+			this.updateTime = DateKit.dateFormat(plane.getUpdateTime(), "yyyy/MM/dd HH:mm:ss");
 		}
 	}
 

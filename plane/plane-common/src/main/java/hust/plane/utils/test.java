@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.lang.model.element.Element;
+
 import hust.plane.mapper.pojo.Plane;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -107,7 +109,8 @@ public class test {
 
 
 	public static void main(String[] args) {
-		System.out.println(PlaneUtils.MD5encode("黄攀123"));
+		
+		
 	}
 
 }

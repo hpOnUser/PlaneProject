@@ -6,14 +6,8 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <!-- 引入资源文件 -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="js/jquery.form.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/oc.min.js"></script>
-    <link rel="icon" type="image/png" href="i/ico.png" sizes="16x16">
+     
+	<#include "common/res.html" />
 
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
@@ -35,14 +29,13 @@
                 </div>
 
                 <div id="planeSelect">
-                    <label class="checkbox-inline opt"><input type="checkbox" name="optionsRadiosinline" id="optionsRadios0" value="0"  onclick="showplane(0)"><span style="color: #2114F4">飞行中</span></label><br>
+                    <label class="checkbox-inline opt"><input type="checkbox" name="optionsRadiosinline" id="optionsRadios0" value="0"  onclick="showplane(0)"><span style="color: #2114F4">飞行中</span></label>
                     <label class="checkbox-inline opt"><input type="checkbox" name="optionsRadiosinline" id="optionsRadios1" value="1"  onclick="showplane(1)" ><span style="color: #8e44ad">已入库</span></label><br>
-                    <label class="checkbox-inline opt"><input type="checkbox" name="optionsRadiosinline" id="optionsRadios2" value="2"  onclick="showplane(2)"><span style="color: #27ae60">待放飞</span></label><br>
+                    <label class="checkbox-inline opt"><input type="checkbox" name="optionsRadiosinline" id="optionsRadios2" value="2"  onclick="showplane(2)"><span style="color: #27ae60">待放飞</span></label>
                     <label class="checkbox-inline opt"><input type="checkbox" name="optionsRadiosinline" id="optionsRadios3" value="3"  onclick="showplane(3)"><span style="color: #e74c3c">故障中</span></label>
-                </div>
-                <ul id="my-list"></ul>
+                </div>   
                 <div id="pageIndex">
-                    <ul class="pagination">
+                    <ul class="pagination" style="margin-bottom: 5px;margin-top: 10px;">
                         <li><a href="#">&laquo;</a></li>
                         <li><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
@@ -52,6 +45,7 @@
                         <li><a href="#">&raquo;</a></li>
                     </ul>
                 </div>
+                 <ul id="my-list"></ul>
             </div>
         </div>
   
@@ -110,7 +104,7 @@
                 var content = [];
                 content.push("状态：" + statusDec);
                 content.push("描述：" + data[i].dec);
-                content.push("创建时间：" + data[i].createTime);
+                content.push("创建时间：" + data[i].updateTime);
 
                 markeritem.content = createInfoWindow(title, content.join("<br/>"));
                 markeritem.on('click', markerClick);
@@ -147,7 +141,9 @@
                 for (var j = 0; j < data.length; j++) {
 
                     if (flaglist.indexOf(data[j].status) >= 0) {
-                        var str = '<li class="poibox" onclick="showPlan(' + 'this,' + data[j].flongda + ')">无人机编号：' + data[j].planeId + '&nbsp;&nbsp;状态：' + Statusdec[data[j].status] + '<br>更新时间：' + data[j].updateTime + '<br>描述：' + data[j].dec +
+                        var str = '<li class="poibox" onclick="showPlan(' + 'this,' + data[j].flongda + ')">无人机编号：'
+                        + data[j].planeId + '&nbsp;&nbsp;状态：' + Statusdec[data[j].status] 
+                        + '<br>更新时间：' + data[j].updateTime + '<br>描述：' + data[j].dec +
                             '</li>';
                         innHTML = innHTML + str;
                     }
@@ -166,7 +162,6 @@
                 for(var i=0;i<eles.length;i++){
                 	
                 	eles[i].className = 'poibox';
-                	console.log(eles[i]);
                 }
                 e.className ='poibox selected';
                        

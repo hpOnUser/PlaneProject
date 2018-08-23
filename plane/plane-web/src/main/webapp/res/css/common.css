@@ -41,22 +41,22 @@
     position: absolute;
     margin-left: 80px;
     margin-top: 10px;
-    margin-bottom:15px;
+  
 
 }
-
 #intro {
-    padding-left: 20px;
+    padding-left: 15px;
 }
 
 #pageIndex {
     margin-left: 15px;
-    margin-top:30px;
 }
 
 #planeSelect {
     padding-left: 20px;
+    padding-bottom: 10px;
 }
+
 
 #my-list li {
     background: #eee;

@@ -56,8 +56,10 @@
 		                            <td>${planepath.createtime?date}</td> 
 		                            <td>${planepath.updatetime?date}</td>                           
 		                            <td><a href="${s.base}/showPlanePath.action?planepathid=${planepath.planepathid}" target="_blank">详细信息</a></td>
-		                            <td><a href="${s.base}/toTaskCreate?planepathid=${planepath.planepathid}">创建任务</a>
-		                            <a onclick='importPlanePath("${planepath.planepathid!}",${planepath.height!})' style="cursor: pointer;">导出路径</a></td>
+		                            <td>
+		                            <a href="${s.base}/toTaskCreate?planepathid=${planepath.planepathid}" class="btn btn-primary btn-sm">创建任务</a>
+		                            <a class="btn btn-primary btn-sm" onclick='deletePlanePath("${planepath.planepathid!}")'>删除路径</a>
+		                            <a class="btn btn-primary btn-sm" onclick='importPlanePath("${planepath.planepathid!}",${planepath.height!})' style="cursor: pointer;">导出路径</a></td>
 		                            </tr> 	                      
                                 </#list>
                         		</#if>                                                         

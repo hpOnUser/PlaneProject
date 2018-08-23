@@ -123,6 +123,7 @@
 						type: 'POST',
 						datatype : 'json',
 						success : function(resp) {
+							
 							window.location.href="${s.base}/routeList.action";
 							/* var resp = $.parseJSON(resp);
 							if (resp.errcode == 0) {
@@ -133,7 +134,7 @@
 							} */
 						},
 						error: function(){
-							Modal.tipFailure('保存失败');
+							Modal.tipFailure('导入失败');
 		                    //alert(arguments[0].responseText);
 		                }
 					});

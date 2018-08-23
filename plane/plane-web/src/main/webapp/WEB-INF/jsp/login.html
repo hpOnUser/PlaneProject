@@ -97,17 +97,17 @@
             color: #00b4ef;
         }
 
-        .form-horizontal .fa-question-circle {
+        .form-horizontal .fa-eye,.fa-eye-slash{
             display: inline-block;
             position: absolute;
-            top: 12px;
+            top: 10px;
             right: 60px;
             font-size: 20px;
             color: #808080;
             transition: all 0.5s ease 0s;
         }
 
-        .form-horizontal .fa-question-circle:hover {
+        .form-horizontal .fa-eye:hover {
             color: #000;
         }
 
@@ -210,13 +210,13 @@
             <form class="form-horizontal" method="post" id="loginForm">
                 <span class="heading">无人机智能巡视系统</span>
                 <div class="form-group">
-                    <input type="text" name="username" class="form-control" id="inputEmail3" placeholder="请输入账号">
+                    <input type="text" name="username" class="form-control" id="inputusername" placeholder="请输入账号">
                     <i class="fa fa-user"></i>
                 </div>
                 <div class="form-group help">
-                    <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="请输入密码">
+                    <input type="password" name="password" class="form-control" id="inputpassword" placeholder="请输入密码">
                     <i class="fa fa-lock"></i>
-                    <a href="#" class="fa fa-question-circle"></a>
+                    <a class="fa fa-eye" id="changePwdView"></a>
                 </div>
                 <div class="form-group">
                     <div class="main-checkbox">
@@ -235,33 +235,105 @@
     </div>
 </div>
 <script type="text/javascript">
-    $("#login").click(function () {
-        $.ajax({
-            type: "post",
-            url: "${s.base}/admin/login.action",
-            data: $("#loginForm").serialize(),
-            success: function (result) {
-                //alert(JSON.stringify(result));
-                if (result.errcode == 0 && result.message == "success") {
-                    window.location = '${s.base}/home.action';
-                } else {
-                    showAlert(result.message);
-                }
-            }
-        });
-    })
 
-    $("#register").click(function () {
-        window.location.href = '${s.base}/admin/register.action';
-    })
+	$(document).ready(function(){
+		
+		var oForm = document.getElementById('loginForm');
+	    var oUser = document.getElementById('inputusername');
+	    var oPswd = document.getElementById('inputpassword');
+	    var oRemember = document.getElementById('checkbox1');
+	    //页面初始化时，如果帐号密码cookie存在则填充
+	 
+	    if(getCookie('flightuser') && getCookie('flightpswd')){
+	     
+	      oUser.value = getCookie('flightuser');
+	      oPswd.value = getCookie('flightpswd');
+	      oRemember.checked = true;
+	         
+	    }		
+			    
+		$("#login").click(function () {
+			
+			if(oRemember.checked){ 
+		        setCookie('flightuser',oUser.value,7); //保存帐号到cookie，有效期7天
+		        setCookie('flightpswd',oPswd.value,7); //保存密码到cookie，有效期7天
+		      }else{
+		    	deleteCookie('flightuser');
+		    	deleteCookie('flightpswd');
+		    }
+	        $.ajax({
+	            type: "post",
+	            url: "${s.base}/admin/login.action",
+	            data: $("#loginForm").serialize(),
+	            success: function (result) {
+	                //alert(JSON.stringify(result));
+	                if (result.errcode == 0 && result.message == "success") {
+	                    window.location = '${s.base}/home.action';
+	                } else {
+	                    showAlert(result.message);
+	                }
+	            }
+	        });
+	    });
 
+	    $("#register").click(function () {
+	        window.location.href = '${s.base}/admin/register.action';
+	    });
+
+	    $("#changePwdView").click(function(){
+	    	//更改密码可见 和不可见
+	    	var pwd = document.getElementById("inputpassword");
+	    	var changebtn = document.getElementById("changePwdView");
+	    	var btnclass = changebtn.className;
+	    	if(btnclass=="fa fa-eye"){
+	    		changebtn.setAttribute("class","fa fa-eye-slash");
+	    		pwd.setAttribute('type','text');  		
+	    	}else{
+	    		changebtn.setAttribute("class","fa fa-eye");
+	    		pwd.setAttribute('type','password');    		
+	    	}
+	    	
+	    });
+			
+	});
+    
     function showAlert(message) {
         var alertitem = document.getElementById("alertDiv");
         var innHTMl = '<div class="alert alert-danger alert-dismissable" id="alerth"><button type="button" class="close" data-dismiss="alert" >&times;</button>' + message + '</div>';
         alertitem.innerHTML = innHTMl;
         alertitem.style.display = "block";
     }
-
+   
+    /*添加cookie*/
+    function setCookie(name,value,outTime){  
+    	
+        var expdate=new Date();
+        var outms=outTime*24*60*60*1000;//过期时间，以天为单位‘1’表示一天
+        expdate.setTime(expdate.getTime()+outms);
+        var cookieStr=name+"="+escape(value)+";expires="+expdate.toGMTString();
+        //escape方法的作用是进行编码，主要防止value中有特殊字符
+        document.cookie=cookieStr;
+    }
+    /*删除cookie  cookie的删除并不是物理意义上的直接删除， 而是将cookie的有效期设置为失效，然后由浏览器删除失效的cookie删除 */
+    function deleteCookie(cookiename){
+        var date = new Date();
+        var outTime=date.getTime()-1000;//将cookie的有效期设置为失效
+        date.setTime(outTime);
+        document.cookie=cookiename+"='';expires="+date.toGMTString();
+    }
+    /*读取cookie*/
+    function getCookie(cookieName){
+    	
+    	var reg = RegExp(cookieName+'=([^;]+)');   	
+        var arr = document.cookie.match(reg);       
+      
+        if(arr){
+          return unescape(arr[1]);
+        }else{
+          return '';
+        }     
+    }
+   
 </script>
 </body>
 </html>
