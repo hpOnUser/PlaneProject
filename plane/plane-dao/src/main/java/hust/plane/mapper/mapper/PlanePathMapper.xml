@@ -10,7 +10,6 @@
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_list">
-
   		planepathid,AsText(plongda) as plongda,height,descripte,createtime,updatetime
  </sql>
 	<select id="selectByPlanePathVo"  parameterType="hust.plane.mapper.pojo.PlanePath" resultMap="BaseResultMap">
@@ -48,8 +47,7 @@
 		AND planepathid = #{planepathid}
 		</if>	
     </select>
-	
-	
+		
 	<select id="queryPlanePathPage" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_list" />
@@ -66,4 +64,8 @@
 		<include refid="Base_Column_list"/>
 		from planepath
 	</select>
+	<delete id="deletePlanePath" parameterType="hust.plane.mapper.pojo.PlanePath" >
+     delete from planepath
+     where planepathid = #{planepathid,jdbcType=VARCHAR}
+    </delete>
 </mapper>

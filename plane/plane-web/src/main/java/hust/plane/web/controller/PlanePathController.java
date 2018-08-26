@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.thoughtworks.xstream.mapper.Mapper.Null;
+
 import hust.plane.mapper.pojo.PlanePath;
 import hust.plane.mapper.pojo.Route;
 import hust.plane.service.interFace.PlanePathService;
@@ -67,7 +69,7 @@ public class PlanePathController {
 	}
 	
 	//获取前台传输的路径字符串
-	@RequestMapping("doSetFlyPath")
+	@RequestMapping("/doSetFlyPath")
 	@ResponseBody
 	public String doSetFlyPath(PlanePath planePath) {
 		//System.out.println(route.getRoutePath());
@@ -79,7 +81,7 @@ public class PlanePathController {
 	}
 	
 	 //查询所有的飞行路径列表  分页查询
-	@RequestMapping("doGetFlyPathList")
+	@RequestMapping("/doGetFlyPathList")
 	public String doGetFlyPathListQueryPage(PlanePath planePath, String status,TailPage<PlanePath> page, Model model) {
 		
     	if("".equals(planePath.getPlanepathid()))
@@ -96,7 +98,7 @@ public class PlanePathController {
 	}
 	
 	//返回一条飞行路径，包括所有信息，在这里使用包装类，用于画图
-	@RequestMapping(value="showPlanePath",method=RequestMethod.GET)
+	@RequestMapping(value="/showPlanePath",method=RequestMethod.GET)
 	public String showPlanePath(@RequestParam("planepathid") String planepathid,Model model) {
 			
 		PlanePath planePath = new PlanePath();
@@ -106,6 +108,21 @@ public class PlanePathController {
 		
 		model.addAttribute("PlanePath",JsonUtils.objectToJson(planePathVo));
 		return "showPlanePath";
+	}
+	
+	//删除飞行路径
+	@RequestMapping(value = "/deletePlanePath", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	@ResponseBody
+	public String deletePlanePath(PlanePath planePath) {
+		
+	if(planePath.getPlanepathid()!=null && planePath.getPlanepathid()!="") {
+		if(planePathServiceImpl.deletePlanePath(planePath)) {
+			return new JsonView(0,"SUCCESS","删除成功").toString();
+		}
+		return new JsonView(0,"SUCCESS","删除失败").toString();
+	}
+		
+	  return new JsonView(0,"SUCCESS","未传入飞行路径编号,删除失败").toString();
 	}
 	
 }

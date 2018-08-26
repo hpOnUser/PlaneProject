@@ -68,4 +68,11 @@ public class PlanePathServiceImpl implements PlanePathService {
 		return planePaths;
 	}
 
+	@Override
+	public boolean deletePlanePath(PlanePath planePath) {
+		
+		planePathMapper.deletePlanePath(planePath);
+		return true;
+	}
+
 }

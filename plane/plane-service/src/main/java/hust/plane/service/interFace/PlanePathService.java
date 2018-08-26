@@ -16,4 +16,6 @@ public interface PlanePathService {
     TailPage<PlanePath> queryPlanePathWithPage(PlanePath planePath, TailPage<PlanePath> page);
 
 	List<PlanePath> findAllplanePath();
+
+	boolean deletePlanePath(PlanePath planePath);
 }

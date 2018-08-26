@@ -20,5 +20,7 @@ public interface PlanePathMapper {
 
 	List<PlanePath> queryPlanePathPage(PlanePath planePath, TailPage<PlanePath> page);
 
-	List<PlanePath> findAllplanePath(); 
+	List<PlanePath> findAllplanePath();
+
+	void deletePlanePath(PlanePath planePath); 
 }

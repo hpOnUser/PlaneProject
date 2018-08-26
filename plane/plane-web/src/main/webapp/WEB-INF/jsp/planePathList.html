@@ -80,20 +80,74 @@
 	                    <div class="modal-title f-16" >提示信息</div>
 	                </div>
 	                <div class="modal-body">
-	                    <div><span class="color-oc f-16 oc-content">缺少高度数据，无法导出！</span></div>
+	                    <div>
+	                    	<span class="color-oc f-16 oc-content" id="msg" ></span>	                      
+	                    </div>
 	                </div>
 	            </div>
 	        </div>
 	    </div>
 	</div>
+	<!-- 信息删除确认 -->  
+		<div class="modal" id="deleltconfirmModel" tabindex="-1" aria-hidden="true" style="left: 50%;top:50%;transform:translate(-50%,-50%);">  
+		  <div class="modal_wapper">
+		  <div class="modal-dialog w-6">  
+		    <div class="modal-content message_align">  
+		      <div class="modal-header">  
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>  
+		        <h4 class="modal-title">提示信息</h4>  
+		      </div>  
+		      <div class="modal-body">  
+		        <p>您确认要删除该飞行路径吗？</p>  
+		      </div>  
+		      <div class="modal-footer">  
+		         <input type="hidden" id="url"/>  
+		         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+		         <a  onclick="urlSubmit()" class="btn btn-success" data-dismiss="modal">确定</a>  
+		      </div>  
+		    </div>
+		  </div>
+		  </div>
+		</div>
+		<input type="text" id="planepathid" style="display:none" />
+	<!-- 信息删除确认 -->  
  <script>
  	function importPlanePath(id,heigth){
  		if(heigth==null || height==""){
  			Modal.show('_ocDialogModal');
-			setTimeout(showAlarmModel,1000)				
+ 			document.getElementById("msg").innerHTML="缺少高度数据，无法导出";
+			
  		}else{
  			//导出飞行路径
  		}	
+ 	}
+ 	
+ 	
+ 	function urlSubmit(){ 
+ 		
+ 		$.ajax({
+            type: "post",
+            url: "${s.base}/deletePlanePath.action",
+            data: {
+            	'planepathid':$('#planepathid').val(),
+            },
+            success: function (result) {
+            	console.log(result);
+                if (result.errcode == 0 && result.message == "SUCCESS") {
+                	Modal.show('_ocDialogModal');
+                	document.getElementById("msg").innerHTML=result.data;
+                	setTimeout("window.location.reload()",2000);
+        			
+                } 
+            }
+        });				
+ 	}  
+ 	
+ 	function deletePlanePath(planepathid){
+ 		 
+ 		$('#planepathid').val(planepathid);
+ 		$('#deleltconfirmModel').modal();
+ 				
  	}
 </script>
 
