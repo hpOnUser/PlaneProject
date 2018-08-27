@@ -34,4 +34,6 @@ public interface UserService {
 	void reduceTasknumByUser(User user);
 
 	User getUserById(String userbid);
+
+    List<User> fuzzySearchWithUser(String queryString);
 }

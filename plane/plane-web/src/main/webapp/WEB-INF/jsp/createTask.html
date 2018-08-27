@@ -15,6 +15,28 @@
             text-align: right;
             width: 100px;
         }
+
+        .suggest{
+            border-top: 0;
+            width: 384px;
+            background-color: #fff;
+            display: none;
+        }
+        .suggest ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .suggest ul li{
+            padding: 3px;
+            font-size: 14px;
+            height: 20px;
+            line-height: 20px;
+            cursor: pointer;
+        }
+        .suggest ul li:hover{
+            background-color: #E0E0E0;
+
     </style>
     <script type="text/javascript">
     	$(function () {
@@ -53,25 +75,34 @@
                     <div class="form-group">
                         <label class="control-label">放飞员：</label>
                         <div class="col-sm-5">
-                            <select  name="userbid" class="form-control" type="select">								
-									<#if bUsers??>
-									<#list bUsers as bUser>
-										<option value="${bUser.userid!}">${bUser.userid!}:${bUser.username!}</option>
-									</#list>								
-									</#if>						
-				            </select>
+                            <input type="text" class="form-control" name="Flyer" id="Flyer" placeholder="输入此次任务的放飞员">
+                            <ul id="search_result" style="z-index:100;">
+                            </ul>
+                           <!--这儿问题，样式问题 -->
+                            <!--<select  name="userbid" class="form-control" type="select">								-->
+									<!--<#if bUsers??>-->
+									<!--<#list bUsers as bUser>-->
+										<!--<option value="${bUser.userid!}">${bUser.userid!}:${bUser.username!}</option>-->
+									<!--</#list>								-->
+									<!--</#if>						-->
+				            <!--</select>-->
                         </div>
+
+
+
+
                     </div>
                     <div class="form-group">
                         <label class="control-label">接收员：</label>
                         <div class="col-sm-5">
-                            <select  name="usercid" class="form-control" type="select">
-									<#if cUsers??>
-									<#list cUsers as cUser>
-										<option value="${cUser.userid!}">${cUser.userid!}:${cUser.username}</option>
-									</#list>								
-									</#if>	
-				            </select>
+                            <input type="search" class="form-control" name="Recipient" placeholder="输入此次任务的接受员">
+                            <!--<select  name="usercid" class="form-control" type="select">-->
+									<!--<#if cUsers??>-->
+									<!--<#list cUsers as cUser>-->
+										<!--<option value="${cUser.userid!}">${cUser.userid!}:${cUser.username}</option>-->
+									<!--</#list>								-->
+									<!--</#if>	-->
+				            <!--</select>-->
                         </div>
                     </div>
                     <div class="form-group">
@@ -135,4 +166,42 @@
     <!--})-->
 
 <!--</script>-->
+<script type="application/javascript">
+    $(function() {
+        $("#Flyer").bind('keyup', function () {
+            //$.ajax()远程获取json数据
+            $.ajax({
+                type: "POST",
+                url: "${s.base}/searchFlyer",
+                dataType: 'json',
+                data: {
+                    queryString: $("#Flyer").val()
+                },
+                success: function (result) {
+                    //处理返回的数据
+                    // var text = json_encode(response);
+                    if (result.errcode == 0 && result.message == "SUCCESS") {
+                        console.log(result.data);
+                        var userStr = JSON.stringify(result.data);
+                        var arr = userStr.substring(1,userStr.length-1).split(',');
+                        for (var j = 0; j < arr.length; j++){
+                            arr[j] = arr[j].substring(1,arr[j].length-1);
+                        }
+                        console.log(arr);
+                        var html = "";
+                        for (var i = 0; i < arr.length; i++) {
+                            html += '<li class="form-control">' + arr[i] + '</li>';
+                        }
+                        $('#search_result').html(html);
+                    } else {
+
+                    }
+                },
+                error: function () {
+                    Modal.tipFailure('导入失败');
+                }
+            });
+        });
+    })
+</script>
 </html>

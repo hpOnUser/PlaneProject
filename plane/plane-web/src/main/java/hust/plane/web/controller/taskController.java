@@ -11,13 +11,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hust.plane.constant.WebConst;
 import hust.plane.utils.DateKit;
+import hust.plane.utils.pojo.TipException;
+import hust.plane.web.controller.admin.UserController;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import hust.plane.mapper.pojo.Alarm;
@@ -39,188 +45,212 @@ import hust.plane.web.controller.webUtils.WordUtils;
 
 @Controller
 public class taskController {
-
-	@Autowired
-	private TaskService taskServiceImpl;
-	@Autowired
-	private PlanePathService planePathServiceImpl;
-	@Autowired
-	private UserService userServiceImpl;
-	@Autowired
-	private PlaneService planeServiceImpl;
-	@Autowired
-	private AlarmService alarmserviceImpl;
-
-
-	@RequestMapping("/task")
-	public String gettestTask() {
-		return "taskList";
-	}
+    private static final Logger LOGGER = LoggerFactory.getLogger(taskController.class);
+    @Autowired
+    private TaskService taskServiceImpl;
+    @Autowired
+    private PlanePathService planePathServiceImpl;
+    @Autowired
+    private UserService userServiceImpl;
+    @Autowired
+    private PlaneService planeServiceImpl;
+    @Autowired
+    private AlarmService alarmserviceImpl;
 
 
-	// 得到所有的任务
-	@RequestMapping("/taskList")
-	public String getALLTask(Model model) {
-		List<TaskPojo> allTask = taskServiceImpl.getALLTask();
-		model.addAttribute("taskList", allTask);
-		model.addAttribute("curNav", "taskAllList");
-		return "taskList";
-	}
+    @RequestMapping("/task")
+    public String gettestTask() {
+        return "taskList";
+    }
 
-	// 跳转新建任务
-	@RequestMapping("/toTaskCreate")
-	public String toTaskCrate(Model model, Task task, HttpServletRequest request) {
-		// 操作者
-		// 放飞者
-		// 回收者
-		// 无人机编号
-		// 飞行路线
-		User aUser = PlaneUtils.getLoginUser(request);
-		User userExmple = new User();
-		userExmple.setRole("1");
-		List<User> bUsers = userServiceImpl.findByUserRole(userExmple);
-		userExmple.setRole("2");
-		List<User> cUsers = userServiceImpl.findByUserRole(userExmple);
-		Plane plane = new Plane();
-		plane.setStatus("1");
-		List<Plane> planes = planeServiceImpl.findByPlaneStatus(plane);
 
-		List<PlanePath> planePaths = planePathServiceImpl.findAllplanePath();
+    // 得到所有的任务
+    @RequestMapping("/taskList")
+    public String getALLTask(Model model) {
+        List<TaskPojo> allTask = taskServiceImpl.getALLTask();
+        model.addAttribute("taskList", allTask);
+        model.addAttribute("curNav", "taskAllList");
+        return "taskList";
+    }
 
-		model.addAttribute("aUser", aUser);
-		model.addAttribute("bUsers", bUsers);
-		model.addAttribute("cUsers", cUsers);
-		model.addAttribute("planes", planes);
-		model.addAttribute("planePaths", planePaths);
+    // 跳转新建任务
+    @RequestMapping("/toTaskCreate")
+    public String toTaskCrate(Model model, Task task, HttpServletRequest request) {
+        // 操作者
+        // 放飞者
+        // 回收者
+        // 无人机编号
+        // 飞行路线
+        User aUser = PlaneUtils.getLoginUser(request);
+        User userExmple = new User();
+        userExmple.setRole("1");
+        List<User> bUsers = userServiceImpl.findByUserRole(userExmple);
+        userExmple.setRole("2");
+        List<User> cUsers = userServiceImpl.findByUserRole(userExmple);
+        Plane plane = new Plane();
+        plane.setStatus("1");
+        List<Plane> planes = planeServiceImpl.findByPlaneStatus(plane);
 
-		task.setPlantime(DateKit.get2HoursLater());
-		// 在这传输数据
-		model.addAttribute("task", task);
-		model.addAttribute("curNav", "createTask");
-		return "createTask";
-	}
+        List<PlanePath> planePaths = planePathServiceImpl.findAllplanePath();
 
-	// 创建任务
-	@RequestMapping("/taskCreate")
-	public String createTask(Task task, HttpServletRequest request) {
-		// 初始状态为1归档
-		task.setStatus("1");
-		User aUser = PlaneUtils.getLoginUser(request);
+        model.addAttribute("aUser", aUser);
+        model.addAttribute("bUsers", bUsers);
+        model.addAttribute("cUsers", cUsers);
+        model.addAttribute("planes", planes);
+        model.addAttribute("planePaths", planePaths);
 
-		task.setUseraid(aUser.getUserid());
-		taskServiceImpl.saveTask(task); // 保存新建的任务
+        task.setPlantime(DateKit.get2HoursLater());
+        // 在这传输数据
+        model.addAttribute("task", task);
+        model.addAttribute("curNav", "createTask");
+        return "createTask";
+    }
 
-		User userb = new User();
-		User userc = new User();
-		userb.setUserid(task.getUserbid());
-		userc.setUserid(task.getUsercid());
-		userServiceImpl.updataTasknumByUser(userb);
-		userServiceImpl.updataTasknumByUser(userc); // 并且把操作员的任务数量+1
+    // 创建任务
+    @RequestMapping("/taskCreate")
+    public String createTask(Task task, HttpServletRequest request) {
+        // 初始状态为1归档
+        task.setStatus("1");
+        User aUser = PlaneUtils.getLoginUser(request);
 
-		return "redirect:/taskPageList";
-	}
+        task.setUseraid(aUser.getUserid());
+        taskServiceImpl.saveTask(task); // 保存新建的任务
 
-	// 分页查询
-	@RequestMapping("/taskPageList")
-	public String queryPage(Task task, TailPage<TaskPojo> page, Model model,HttpServletRequest request) {
-		
-		User aUser = PlaneUtils.getLoginUser(request);
-		task.setUseraid(aUser.getUserid());
-		if (StringUtils.isNotEmpty(task.getTaskid())) {
-			task.setTaskid(task.getTaskid());
-		} else {
-			task.setTaskid(null);
-		}
+        User userb = new User();
+        User userc = new User();
+        userb.setUserid(task.getUserbid());
+        userc.setUserid(task.getUsercid());
+        userServiceImpl.updataTasknumByUser(userb);
+        userServiceImpl.updataTasknumByUser(userc); // 并且把操作员的任务数量+1
 
-		if ("-1".equals(task.getFinishstatus())) {
-			// 查询全部
-			task.setFinishstatus(null);
-		}
-		page = taskServiceImpl.queryPage(task, page);
-		model.addAttribute("selectStatus", task.getFinishstatus());
-		model.addAttribute("page", page);
-		model.addAttribute("curNav", "taskAllList");
-		return "taskList";
-	}
+        return "redirect:/taskPageList";
+    }
 
-	@RequestMapping(value = "onsureFly", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String onsureFly(Task task) {
+    // 分页查询
+    @RequestMapping("/taskPageList")
+    public String queryPage(Task task, TailPage<TaskPojo> page, Model model, HttpServletRequest request) {
 
-		taskServiceImpl.setStatusTaskByTask(task, "7");
+        User aUser = PlaneUtils.getLoginUser(request);
+        task.setUseraid(aUser.getUserid());
+        if (StringUtils.isNotEmpty(task.getTaskid())) {
+            task.setTaskid(task.getTaskid());
+        } else {
+            task.setTaskid(null);
+        }
 
-		return JsonView.render(1, "已确认，可以放飞");
-	}
+        if ("-1".equals(task.getFinishstatus())) {
+            // 查询全部
+            task.setFinishstatus(null);
+        }
+        page = taskServiceImpl.queryPage(task, page);
+        model.addAttribute("selectStatus", task.getFinishstatus());
+        model.addAttribute("page", page);
+        model.addAttribute("curNav", "taskAllList");
+        return "taskList";
+    }
 
-	@RequestMapping(value = "onsureTaskOver", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String onsureTaskOver(Task task, HttpServletRequest request) {
+    @RequestMapping(value = "onsureFly", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String onsureFly(Task task) {
 
-		Task task2 = taskServiceImpl.getTaskByTask(task);
-		String status = task2.getStatus();
+        taskServiceImpl.setStatusTaskByTask(task, "7");
 
-		User bUser = userServiceImpl.getUserById(task2.getUserbid());
-		User cUser = userServiceImpl.getUserById(task2.getUsercid());
+        return JsonView.render(1, "已确认，可以放飞");
+    }
 
-		if (status.equals("9")) {
-			taskServiceImpl.setStatusTaskByTask(task, "10"); // 设置任务完成
-			taskServiceImpl.setFinishStatusTaskByTask(task, "1");
+    @RequestMapping(value = "onsureTaskOver", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String onsureTaskOver(Task task, HttpServletRequest request) {
 
-			userServiceImpl.reduceTasknumByUser(bUser); // 减少bc任务数目
-			userServiceImpl.reduceTasknumByUser(cUser);
+        Task task2 = taskServiceImpl.getTaskByTask(task);
+        String status = task2.getStatus();
 
-			return JsonView.render(1, "巡视任务确认完成!");
-		} else {
+        User bUser = userServiceImpl.getUserById(task2.getUserbid());
+        User cUser = userServiceImpl.getUserById(task2.getUsercid());
 
-			return JsonView.render(1, "巡视任务确认失败!");
-		}
-	}
+        if (status.equals("9")) {
+            taskServiceImpl.setStatusTaskByTask(task, "10"); // 设置任务完成
+            taskServiceImpl.setFinishStatusTaskByTask(task, "1");
 
-	// 打印任务报告
-	@RequestMapping("taskReport")
-	public void taskReport(Task task, HttpServletRequest request, HttpServletResponse response) {
+            userServiceImpl.reduceTasknumByUser(bUser); // 减少bc任务数目
+            userServiceImpl.reduceTasknumByUser(cUser);
 
-		Task task2 = taskServiceImpl.getTaskByTask(task);
+            return JsonView.render(1, "巡视任务确认完成!");
+        } else {
 
-		User aUser = PlaneUtils.getLoginUser(request);
-		User bUser = userServiceImpl.getUserById(task2.getUserbid());
-		User cUser = userServiceImpl.getUserById(task2.getUsercid());
+            return JsonView.render(1, "巡视任务确认失败!");
+        }
+    }
 
-		Plane plane = new Plane(); // 任务执行的无人机
-		plane.setPlaneId(task2.getPlaneid());
-		plane = planeServiceImpl.getPlaneByPlane(plane);
+    // 打印任务报告
+    @RequestMapping("taskReport")
+    public void taskReport(Task task, HttpServletRequest request, HttpServletResponse response) {
 
-		List<Alarm> alarms = alarmserviceImpl.getAlarmsByTaskId(task2.getTaskid());
-		List<AlarmVo> alarmVos = new ArrayList<AlarmVo>();
-		
-		String webappRoot = WordUtils.getRootPath();
-		if (alarms.size() > 0) {
-			for (int i = 0; i < alarms.size(); ++i) {
-				AlarmVo alarmVo = new AlarmVo(alarms.get(i));
-				alarmVo.setImgBaseCode(webappRoot);
-				//alarmVo.setImgBaseCode();
-				alarmVos.add(alarmVo);
-			}
-		}
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("alarms", alarmVos);
-		dataMap.put("plane", plane);
-		dataMap.put("task",task2);
-		dataMap.put("userA",aUser);
-		dataMap.put("userB",bUser);
-		dataMap.put("userC",cUser);
-			
-		Date date = new Date();
-		SimpleDateFormat  sdf = new SimpleDateFormat("yyyy年MM月dd日");
-		String filename = task2.getTaskid()+"-"+sdf.format(date)+ ".doc";
-		
-		try {
-			WordUtils.exportMillCertificateWord(request,response,dataMap,filename);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-	}
+        Task task2 = taskServiceImpl.getTaskByTask(task);
+
+        User aUser = PlaneUtils.getLoginUser(request);
+        User bUser = userServiceImpl.getUserById(task2.getUserbid());
+        User cUser = userServiceImpl.getUserById(task2.getUsercid());
+
+        Plane plane = new Plane(); // 任务执行的无人机
+        plane.setPlaneId(task2.getPlaneid());
+        plane = planeServiceImpl.getPlaneByPlane(plane);
+
+        List<Alarm> alarms = alarmserviceImpl.getAlarmsByTaskId(task2.getTaskid());
+        List<AlarmVo> alarmVos = new ArrayList<AlarmVo>();
+
+        String webappRoot = WordUtils.getRootPath();
+        if (alarms.size() > 0) {
+            for (int i = 0; i < alarms.size(); ++i) {
+                AlarmVo alarmVo = new AlarmVo(alarms.get(i));
+                alarmVo.setImgBaseCode(webappRoot);
+                //alarmVo.setImgBaseCode();
+                alarmVos.add(alarmVo);
+            }
+        }
+        Map<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("alarms", alarmVos);
+        dataMap.put("plane", plane);
+        dataMap.put("task", task2);
+        dataMap.put("userA", aUser);
+        dataMap.put("userB", bUser);
+        dataMap.put("userC", cUser);
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+        String filename = task2.getTaskid() + "-" + sdf.format(date) + ".doc";
+
+        try {
+            WordUtils.exportMillCertificateWord(request, response, dataMap, filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    /**
+     * 人员动态搜索提示
+     */
+    @RequestMapping(value = "searchFlyer", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String searchFlyerTips(@RequestParam(value = "queryString") String queryString) {
+        List<String> userNameList = new ArrayList<>();
+        try {
+            List<User> bUserList = userServiceImpl.fuzzySearchWithUser(queryString);
+            for(User user:bUserList){
+                userNameList.add(user.getUsername());
+            }
+        } catch (Exception e) {
+            String msg = "用户模糊搜素失败";
+            if (e instanceof TipException) {
+                msg = e.getMessage();
+            } else {
+                LOGGER.error(msg, e);
+            }
+            return JsonView.render(1, msg);
+        }
+        return JsonView.render(0, WebConst.SUCCESS_RESULT, userNameList);
+    }
 
 }

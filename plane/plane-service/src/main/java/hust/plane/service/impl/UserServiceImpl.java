@@ -218,20 +218,32 @@ public class UserServiceImpl implements UserService {
         return page;
     }
 
-	@Override
-	public void updataTasknumByUser(User user) {
-		// TODO Auto-generated method stub
-		userDao.userAddTasknum(user);
-	}
-	
-	@Override
-	public void reduceTasknumByUser(User user) {
-		userDao.userReduceTasknum(user);
-	}
+    @Override
+    public void updataTasknumByUser(User user) {
+        // TODO Auto-generated method stub
+        userDao.userAddTasknum(user);
+    }
 
-	@Override
-	public User getUserById(String userbid) {
-		// TODO Auto-generated method stub
-		return userDao.selectByPrimaryKey(userbid);
-	}
+    @Override
+    public void reduceTasknumByUser(User user) {
+        userDao.userReduceTasknum(user);
+    }
+
+    @Override
+    public User getUserById(String userbid) {
+        // TODO Auto-generated method stub
+        return userDao.selectByPrimaryKey(userbid);
+    }
+
+    @Override
+    public List<User> fuzzySearchWithUser(String queryString) {
+        if (StringUtils.isBlank(queryString)) {
+            throw new TipException("用户输入的放飞员为空");
+        }
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andUsernameLike("%" + queryString + "%");
+        List<User> bUserList = userDao.selectByExample(example);
+        return bUserList;
+    }
 }
