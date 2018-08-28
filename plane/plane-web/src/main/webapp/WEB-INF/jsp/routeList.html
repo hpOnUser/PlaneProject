@@ -4,18 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>路由分布</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="js/jquery.form.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/oc.min.js"></script>
-    <link rel="icon" type="image/png" href="i/ico.png" sizes="16x16">
+    <#include "common/res.html" />
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="https://webapi.amap.com/maps?v=1.4.8&key=82f9e75505b649be9ab81a45ae34aa14&&plugin=AMap.Scale"></script>
     <link href="css/common.css" rel="stylesheet" type="text/css"> 
 	<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+	 <style>
+        #selectbtns {
+            z-index: 20;
+            position: absolute;
+            margin-top: 15px;
+            margin-left: 310px;
+            margin-bottom: 5px;
+            display: inline;
+        }
+        .inp{
+           height:50px;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,6 +30,35 @@
 <!-- top 导航 -->
 <#include "common/header.html" />
 <#include "./nav.html" />
+<div id="selectbtns">
+	<form class="form-inline" role="form">	
+			<div class="col-lg-2">
+				<div class="input-group">
+					<div class="input-group-btn">					
+						<div class="form-group">							
+							<select class="form-control" style="width:110px;height:40px;">
+								<option>地理位置</option>
+								<option>路由</option>
+								<option>无人机</option>
+								<option>飞行路径</option>
+								<option>标桩号</option>
+							</select>
+							<span class="caret"></span>
+	                   </div>						
+					</div>
+					<div class="input-icon-group">
+				        <div class="input-group" style="width:100%">
+				               <input type="text" class="form-control" style="width: 520px;height:40px;" id="search" data-clearbtn="true">					                
+				        </div>
+				    </div>
+				    <span class="input-group-btn">
+				         <button class="btn btn-primary" style="width:40px;height:40px;"><i class="fa fa-search"></i></button>
+				    </span>
+				</div>																
+			</div>	
+	</form>
+	</div>
+
 <div class="content">
     <div class="container-fluid">
 
