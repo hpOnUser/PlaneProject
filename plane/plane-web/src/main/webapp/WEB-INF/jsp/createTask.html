@@ -119,15 +119,7 @@
                             <div class="search-div" id="search-div1">  
                                <ul id="search-result" ></ul>                              
                             </div>
-                            
-                           <!--这儿问题，样式问题 -->
-                            <!--<select  name="userbid" class="form-control" type="select">								-->
-									<!--<#if bUsers??>-->
-									<!--<#list bUsers as bUser>-->
-										<!--<option value="${bUser.userid!}">${bUser.userid!}:${bUser.username!}</option>-->
-									<!--</#list>								-->
-									<!--</#if>						-->
-				            <!--</select>-->
+                                                     
                         </div>
                         
                     </div>
@@ -135,7 +127,10 @@
                     <div class="form-group">
                         <label class="control-label">接收员：</label>
                         <div class="col-sm-5">
-                            <input type="search" class="form-control" name="Recipient" placeholder="输入此次任务的接受员">
+                            <input type="text" class="form-control" name="Recipient" id="Recipient" placeholder="输入此次任务的接受员">
+                            <div class="search-div" id="search-div2">
+                                <ul id="search-result2" ></ul>
+                            </div>
                             <!--<select  name="usercid" class="form-control" type="select">-->
 									<!--<#if cUsers??>-->
 									<!--<#list cUsers as cUser>-->
@@ -207,6 +202,7 @@
 
 <!--</script>-->
 <script type="application/javascript">
+    //放飞者
     $(function() {
         $("#Flyer").bind('keyup', function () {
             //$.ajax()远程获取json数据
@@ -234,7 +230,44 @@
                         $('#search-result').html(html);
                         $('#search-div1').css('display','block');
                        
-                    } else {
+                    }
+                },
+                error: function () {
+                    Modal.tipFailure('导入失败');
+                }
+            });
+        });
+    })
+
+    //接收者
+    $(function() {
+        $("#Recipient").bind('keyup', function () {
+            //$.ajax()远程获取json数据
+            $.ajax({
+                type: "POST",
+                url: "${s.base}/searchFlyer",
+                dataType: 'json',
+                data: {
+                    queryString: $("#Recipient").val()
+                },
+                success: function (result) {
+                    //处理返回的数据
+                    // var text = json_encode(response);
+                    if (result.errcode == 0 && result.message == "SUCCESS") {
+                        console.log(result.data);
+                        var userStr = JSON.stringify(result.data);
+                        var arr = userStr.substring(1,userStr.length-1).split(',');
+                        for (var j = 0; j < arr.length; j++){
+                            arr[j] = arr[j].substring(1,arr[j].length-1);
+                        }
+                        console.log(arr);
+                        var html = "";
+                        for (var i = 0; i < arr.length; i++) {
+                            html += "<li>" + arr[i] + "</li>"
+                        }
+
+                        $('#search-result2').html(html);
+                        $('#search-div2').css('display','block');
 
                     }
                 },
