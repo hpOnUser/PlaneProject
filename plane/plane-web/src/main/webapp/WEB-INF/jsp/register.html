@@ -97,17 +97,17 @@
             color: #00b4ef;
         }
 
-        .form-horizontal .fa-question-circle {
+        .form-horizontal .fa-eye,.fa-eye-slash{
             display: inline-block;
             position: absolute;
-            top: 12px;
+            top: 10px;
             right: 60px;
             font-size: 20px;
             color: #808080;
             transition: all 0.5s ease 0s;
         }
 
-        .form-horizontal .fa-question-circle:hover {
+        .form-horizontal .fa-eye:hover {
             color: #000;
         }
 
@@ -212,12 +212,14 @@
                     <div class="form-group help">
                         <input type="password" name="password" class="form-control" id="password" placeholder="输入密码">
                         <i class="fa fa-lock"></i>
-                        <a href="#" class="fa fa-question-circle"></a>
+                        <a class="fa fa-eye" id="pwdicon"></a>
+                       
                     </div>
                     <div class="form-group help">
-                        <input type="password" name="passwordensure" class="form-control" id="passwordensure" placeholder="确认密码">
                         <i class="fa fa-lock"></i>
-                        <a href="#" class="fa fa-question-circle"></a>
+                        <input type="password" name="passwordensure" class="form-control" id="passwordensure" placeholder="确认密码">
+                        <a class="fa fa-eye" id="pwdsureicon"></a>
+                        
                     </div>
                     <div class="form-group">
                         <button type="button" class="btn btn-default" id="restart" style="margin-left:10px;">重置</button>
@@ -266,13 +268,44 @@
                $("#username").val('');
                $("#password").val('');
                $("#passwordensure").val('');
-           })
-            function showAlert(message) {
-                var alertitem = document.getElementById("alertDiv");
-                var innHTMl = '<div class="alert alert-danger alert-dismissable" id="alerth"><button type="button" class="close" data-dismiss="alert" >&times;</button>' + message + '</div>';
-                alertitem.innerHTML = innHTMl;
-                alertitem.style.display = "block";
-            }
+           });
+           
+         /*   $("#changePwdView").click(function(){
+   	    	//更改密码可见 和不可见
+   	    	var pwd = document.getElementById("inputpassword");
+   	    	var changebtn = document.getElementById("changePwdView");
+   	    	var btnclass = changebtn.className;
+   	    	if(btnclass=="fa fa-eye"){
+   	    		changebtn.setAttribute("class","fa fa-eye-slash");
+   	    		pwd.setAttribute('type','text');  		
+   	    	}else{
+   	    		changebtn.setAttribute("class","fa fa-eye");
+   	    		pwd.setAttribute('type','password');    		
+   	    	}
+   	    	
+   	    }); */
+           
+   	    /*   $("#changePwdView").click(function(){
+	    	//更改密码可见 和不可见
+	    	var pwd = document.getElementById("inputpassword");
+	    	var changebtn = document.getElementById("changePwdView");
+	    	var btnclass = changebtn.className;
+	    	if(btnclass=="fa fa-eye"){
+	    		changebtn.setAttribute("class","fa fa-eye-slash");
+	    		pwd.setAttribute('type','text');  		
+	    	}else{
+	    		changebtn.setAttribute("class","fa fa-eye");
+	    		pwd.setAttribute('type','password');    		
+	    	}
+	    	
+	    }); */
+           
+        function showAlert(message) {
+            var alertitem = document.getElementById("alertDiv");
+            var innHTMl = '<div class="alert alert-danger alert-dismissable" id="alerth"><button type="button" class="close" data-dismiss="alert" >&times;</button>' + message + '</div>';
+            alertitem.innerHTML = innHTMl;
+            alertitem.style.display = "block";
+        }
     </script>
 </body>
 

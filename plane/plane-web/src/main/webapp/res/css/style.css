@@ -1,3 +1,8 @@
+*{
+	margin:0;
+    padding:0;
+    border:0;
+}
 body {
   background: #eee;
   background-position: initial initial;
@@ -123,6 +128,7 @@ hr {
 	border: 0px;
 	border-bottom: none;
 	border-radius: 0px;
+	padding-right:15px;
 }
 
 .navbar .nav {
@@ -146,7 +152,7 @@ hr {
 }
 
 .navbar .nav>li>a:hover {
-	color: #fff;
+	/*color: #fff;*/
 }
 
 .navbar .dropdown-menu a:hover {
@@ -155,14 +161,13 @@ hr {
 }
 
 .navbar .nav li.dropdown.open>.dropdown-toggle {
-	background-color: #778899;
-	color: #fff;
+	background-color: #778899;	
 }
 
 .content {
 	min-width: 400px;
 	position: relative;
-	height:93%;
+	height:93.6%;
 	min-height:870px;
 	background: #fff;
 	margin-left: 240px;
