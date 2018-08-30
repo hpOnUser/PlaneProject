@@ -283,6 +283,12 @@
             $('#search-div1').css('display','none');
             //$('#search-div1').empty()                        
         })
+
+        $('#search-result2').on('click','li',function(){
+            //$(this).text();
+            $("#Recipient").val($(this).text());
+            $('#search-div2').css('display','none');
+        })
        
     });
 </script>
