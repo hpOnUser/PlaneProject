@@ -116,7 +116,7 @@
                         <label class="control-label">放飞员：</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" name="Flyer" id="Flyer" placeholder="输入此次任务的放飞员">                          
-                            <div class="search-div" id="search-div1">  
+                            <div class="search-div" id="search-div1">
                                <ul id="search-result" ></ul>                              
                             </div>
                                                      
@@ -202,6 +202,11 @@
 
 <!--</script>-->
 <script type="application/javascript">
+
+
+
+
+
     //放飞者
     $(function() {
         $("#Flyer").bind('keyup', function () {
@@ -238,6 +243,23 @@
             });
         });
     })
+
+    var flyer = document.getElementById('Flyer');
+    flyer.onblur = function () {
+        var noContent = $("#Flyer").html();
+        if (noContent == null || noContent.length == 0) {
+            $("#search-div1").css('display', 'none');
+        }
+    }
+
+    var recipient = document.getElementById('Recipient');
+    recipient.onblur = function () {
+        var noContent = $("#Recipient").html();
+        if (noContent == null || noContent.length == 0) {
+            $("#search-div2").css('display', 'none');
+        }
+    }
+
 
     //接收者
     $(function() {
@@ -289,7 +311,9 @@
             $("#Recipient").val($(this).text());
             $('#search-div2').css('display','none');
         })
-       
+
+
+
     });
 </script>
 </html>
